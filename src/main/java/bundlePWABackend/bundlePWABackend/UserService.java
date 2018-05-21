@@ -2,16 +2,16 @@ package bundlePWABackend.bundlePWABackend;
 
 import java.util.List;
 
-import persistence.UserDAO;
+import DAOS.UserDAO;
 
 public class UserService {
 	    private UserDAO userDAO = new UserDAO();
 
 	    public UserService() {}
 
-	    public List<User> getAllAccounts() { return userDAO.findAll(); }
+	    public List<User> getAllUsers() { return userDAO.findAll(); }
 
-	    public User getAccountByID(int id) { return userDAO.findByID(id); }
+	    public User getUserByID(int id) { return userDAO.findByID(id); }
 	    
 	    public int getIdByEmail(String name) { return userDAO.findIdByName(name); }
 
@@ -19,5 +19,5 @@ public class UserService {
 
 	    public boolean delete (User user) { return userDAO.delete(user); }
 
-	    public User addAccount (User user) { return userDAO.save(user); }
+	    public User addUser (User user) { return userDAO.save(user); }
 }

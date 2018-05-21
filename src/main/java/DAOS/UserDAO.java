@@ -1,4 +1,4 @@
-package persistence;
+package DAOS;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,10 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import bundlePWABackend.bundlePWABackend.BaseDAO;
 import bundlePWABackend.bundlePWABackend.User;
 
-public class UserDAO extends BaseDAO {
+public class UserDAO extends baseDAO {
+	
+	private String tablename = "public.\"User\"";
 
     private List<User> selectUsers (String query) {
         List<User> results = new ArrayList<User>();
@@ -22,15 +23,15 @@ public class UserDAO extends BaseDAO {
             ResultSet dbResultSet = stmt.executeQuery(query);
 
             while (dbResultSet.next()) {
-                int id = dbResultSet.getInt("UserID");
-                String userType = dbResultSet.getString("UserType");
-                String name = dbResultSet.getString("Name");            	
-            	int phonenumber = dbResultSet.getInt("Phonenumber");
-            	String password = dbResultSet.getString("Password");
-            	String salt = dbResultSet.getString("Salt");
-            	String status = dbResultSet.getString("Status");
-            	int adresIDFK = dbResultSet.getInt("AdresIDFK");
-            	int airtimeIDFK = dbResultSet.getInt("AirtimeIDFK");
+                int id = dbResultSet.getInt("userid");
+                String userType = dbResultSet.getString("usertype");
+                String name = dbResultSet.getString("name");            	
+            	int phonenumber = dbResultSet.getInt("phonenumber");
+            	String password = dbResultSet.getString("password");
+            	String salt = dbResultSet.getString("salt");
+            	String status = dbResultSet.getString("status");
+            	int adresIDFK = dbResultSet.getInt("adresidfk");
+            	int airtimeIDFK = dbResultSet.getInt("airtimeidfk");
            
                 User newUser = new User(id, userType, name, phonenumber, password, salt, status, adresIDFK, airtimeIDFK);
 
@@ -43,10 +44,10 @@ public class UserDAO extends BaseDAO {
         return results;
     }
 
-    public List<User> findAll() { return selectUsers("SELECT * FROM User"); }
+    public List<User> findAll() { return selectUsers("SELECT * From "+tablename); }
 
     public User findByID(int id) {
-        List<User> results = selectUsers("SELECT * FROM User WHERE UserID = " + id + "");
+        List<User> results = selectUsers("SELECT * FROM "+tablename+" WHERE userid = " + id + "");
 
         if (results.size() == 0) {
             return null;
@@ -56,7 +57,7 @@ public class UserDAO extends BaseDAO {
     }
     
     public int findIdByName(String name){
-    	List<User> results = selectUsers("SELECT * FROM User WHERE Name = '" + name + "'");
+    	List<User> results = selectUsers("SELECT * FROM "+tablename+" WHERE name = '" + name + "'");
 
         if (results.size() == 0) {
             return (Integer) null;
@@ -66,9 +67,9 @@ public class UserDAO extends BaseDAO {
     }
 
     public User update(User User) {
-        String query = "UPDATE User SET UserID=?, UserType=?, Name=?, Phonenumber=?,"
-        		+ " Password=?, Salt=?, Status=?"
-        		+ " WHERE UserID=?";
+        String query = "UPDATE "+tablename+" SET userid=?, usertype=?, name=?, phonenumber=?,"
+        		+ " password=?, salt=?, status=?"
+        		+ " WHERE userid=?";
 
         try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -94,7 +95,7 @@ public class UserDAO extends BaseDAO {
         boolean UserExists = findByID(User.getUserID()) != null;
 
         if (UserExists) {
-            String query = "DELETE FROM User WHERE UserID=?";
+            String query = "DELETE FROM "+tablename+" WHERE userid=?";
 
             try (Connection con = getConnection()) {
                 PreparedStatement pstmt = con.prepareStatement(query);
@@ -112,7 +113,7 @@ public class UserDAO extends BaseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO User(UserType, Name, Phonenumber, Password, Salt, Status) VALUES (?,?,?,?,?,?) RETURNING UserID";
+        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING UserID";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -137,7 +138,7 @@ public class UserDAO extends BaseDAO {
     
     public String findRoleForNameAndPassword(String name, String password){
     	String role = null;
-    	String query = "SELECT rol FROM User WHERE Name = ? AND Password = ?";
+    	String query = "SELECT rol FROM "+tablename+" WHERE name = ? AND password = ?";
     	
     	try(Connection con = super.getConnection()){
     		PreparedStatement pstmt = con.prepareStatement(query);
