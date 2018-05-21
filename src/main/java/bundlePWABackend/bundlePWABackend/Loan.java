@@ -6,14 +6,14 @@ public class Loan {
 private int loanId;
 private int amount;
 private String status;
-private Date startdate;
+private String startdate;
 private int duration;
-private Date closingdate;
+private String closingdate;
 private String loantype;
 private int contractId;
 
 
-public Loan(int loanId, int amount, String status, Date startdate, int duration, Date closingdate, String loantype,int contractId) {
+public Loan(int loanId, int amount, String status, String startdate, int duration, String closingdate, String loantype,int contractId) {
 	super();
 	this.loanId = loanId;
 	this.amount = amount;
@@ -42,10 +42,10 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
-public Date getStartdate() {
+public String getStartdate() {
 	return startdate;
 }
-public void setStartdate(Date startdate) {
+public void setStartdate(String startdate) {
 	this.startdate = startdate;
 }
 public int getDuration() {
@@ -54,10 +54,10 @@ public int getDuration() {
 public void setDuration(int duration) {
 	this.duration = duration;
 }
-public Date getClosingdate() {
+public String getClosingdate() {
 	return closingdate;
 }
-public void setClosingdate(Date closingdate) {
+public void setClosingdate(String closingdate) {
 	this.closingdate = closingdate;
 }
 public String getLoantype() {

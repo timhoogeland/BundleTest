@@ -26,9 +26,9 @@ public class LoanResource {
 			job.add("loanId", l.getLoanId())
 			.add("amount", l.getAmount())
 			.add("status", l.getStatus())
-			.add("startdate", (JsonValue) l.getStartdate())
+			.add("startdate",  l.getStartdate())
 			.add("duration", l.getDuration())
-			.add("closingdate", (JsonValue) l.getClosingdate())
+			.add("closingdate",  l.getClosingdate())
 			.add("loantype",l.getLoantype())
 		    .add("contractidfk", l.getcontractId());
 			jab.add(job);
