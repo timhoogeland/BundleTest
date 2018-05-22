@@ -66,7 +66,7 @@ var logRequest;
               var username = document.getElementById('username').value;
 
           	  logRequest = new XMLHttpRequest();
-          	  logRequest.open('GET', "http://localhost:4711/bundlePWABackend/restservices/login", true);
+          	  logRequest.open('GET', "/bundlePWABackend/restservices/login", true);
               logRequest.setRequestHeader("username",username);
               logRequest.setRequestHeader("password",pass);
           	  logRequest.send(null);
@@ -103,7 +103,7 @@ function checkCookie(){
 
  function getLoans() {
 var hr = new XMLHttpRequest();
-hr.open("GET", "http://localhost:4711/bundlePWABackend/restservices/loan", true);
+hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 
 hr.onreadystatechange = function() {
     if (hr.readyState == 4 && hr.status == 200) {
@@ -128,7 +128,7 @@ hr.send(null);
 }
  function getContracts() {
 	 var hr = new XMLHttpRequest();
-	 hr.open("GET", "http://localhost:4711/bundlePWABackend/restservices/loan", true);
+	 hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 
 	 hr.onreadystatechange = function() {
 	     if (hr.readyState == 4 && hr.status == 200) {
