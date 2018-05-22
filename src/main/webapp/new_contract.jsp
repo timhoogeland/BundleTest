@@ -303,6 +303,10 @@
                         <input id="amount" placeholder="Enter the loan-amount here"></input>
                     </li>
                     <li>
+                        <label for="start-date">Start date</label>
+                        <input type="date" id="start-date">
+                    </li>
+                    <li>
                         <label for="duration">Duration</label>
                         <input type="number" duration" min="1" max="36" placeholder="Enter the loan-duration here"></input>
                     </li>
