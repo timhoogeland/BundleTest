@@ -52,6 +52,7 @@ function eraseCookie(name) {
 		eraseCookie("username");
 		eraseCookie("password");
     eraseCookie("loanofficerid");
+    eraseCookie("loanid");
 
 	}
 
@@ -154,12 +155,18 @@ hr.send(null);
  
 function toEditLoan(){
 	var loanid = document.getElementById('loanid');
+	setCookie("loanid",loanid,1);
 	window.location.replace("edit_loan.jsp");
+
+	
 	
 }
+
 function toViewLoan(){
 	var loanid = document.getElementById('loanid');
+	
 	window.location.replace("loan.jsp");
+	
 	
 }
 function toEditContract(){
