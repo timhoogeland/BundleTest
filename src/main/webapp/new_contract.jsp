@@ -336,13 +336,29 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("form").submit(function () {
-            	var form = $("#adress");
+            	/* var form = $("#adress");
                 var data = JSON.stringify(form.serialize());
 
-                alert(data);
+                alert(data); */
 
-                $.post(
-                		)
+                $.ajax({
+					url : "/bundlePWABackend/restservices/adress",
+					type : "post",
+					data : $("#adress").serialize(),
+					
+					success : function(data) {
+						
+						alert("Adress added.");
+					},
+					error : function(response, textStatus, errorThrown) {
+						alert("Adress not added.");
+
+						console.log("textStatus: " + textStatus);
+						console.log("errorThrown: " + errorThrown);
+						console.log("status: " + response.status);
+					}
+				});
+
             });
         });
     </script>
