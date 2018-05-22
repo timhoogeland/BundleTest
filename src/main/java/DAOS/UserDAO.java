@@ -37,6 +37,7 @@ public class UserDAO extends baseDAO {
 
                 results.add(newUser);
             }
+            stmt.getConnection().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -10,8 +10,9 @@ import java.util.List;
 import bundlePWABackend.bundlePWABackend.Loan;
 
 public class loanDAO extends baseDAO {
-	List<Loan> resultslist = new ArrayList<Loan>();
+	
 	public List<Loan> selectLoan(){
+		List<Loan> resultslist = new ArrayList<Loan>();
 		try(Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
 			ResultSet dbResultSet = stmt.executeQuery("select * from public." + '"' + "loan" + '"');
