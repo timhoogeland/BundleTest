@@ -36,6 +36,7 @@ public class UserResource {
                 .add("password", user.getPassword())
                 .add("salt", user.getSalt())
                 .add("status", user.getStatus())
+                .add("dateofbirth", user.getDateOfBirth().toString())
                 .add("adresIDFK", user.getAdresIDFK())
         		.add("airtimeIDFK", user.getAirtimeIDFK());
 
@@ -100,10 +101,11 @@ public class UserResource {
                                @FormParam("password") String password,
                                @FormParam("salt") String salt,
                                @FormParam("status") String status,
+                               @FormParam("dateofbirth") Date birth,
     						   @FormParam("adresidfk") int adresidfk,
     						   @FormParam("airtimeidfk") int airtimeidfk)
     {
-        User newUser = new User(id, userType, name, phonenumber, password, salt, status, adresidfk, airtimeidfk);
+        User newUser = new User(id, userType, name, phonenumber, password, salt, status, birth, adresidfk, airtimeidfk);
         User returnUser = service.addUser(newUser);
         if (returnUser != null) {
             String a = buildJSON(returnUser).build().toString();
