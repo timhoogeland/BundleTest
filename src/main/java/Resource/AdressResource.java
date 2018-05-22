@@ -47,14 +47,14 @@ public class AdressResource {
 	    
 	    @POST
 	    @Produces("application/json")
-	    public Response addUser(@FormParam("adressid") int id,
+	    public Response addUser(
 	                               @FormParam("street") String street,
 	                               @FormParam("number") int number,
 	                               @FormParam("country") String country,
 	                               @FormParam("postalcode") String postalcode)
 
 	    {
-	        Adress newAdress = new Adress(id, street, number, country, postalcode);
+	        Adress newAdress = new Adress(0, street, number, country, postalcode);
 	        Adress returnAdress = service.addContract(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
