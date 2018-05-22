@@ -11,11 +11,14 @@ if (navigator.serviceWorker.controller) {
 
 
 //Login
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -27,8 +30,8 @@ function getCookie(name) {
     }
     return null;
 }
-function eraseCookie(name) {
-    document.cookie = name+'=; Max-Age=-99999999;';
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;path=/;';  
 }
 
 // function checkLogin(){
@@ -37,7 +40,7 @@ function eraseCookie(name) {
 //       var username = getCookie("username");
 //       console.log(username);
 //       console.log(password);
-//       namelabel.innerhtml = username;
+//     
 //     }
 
 //     else{
@@ -50,9 +53,12 @@ function eraseCookie(name) {
 		eraseCookie("username");
 		eraseCookie("password");
     eraseCookie("loanofficerid");
+    console.log(getCookie("username"));
+    window.location.replace("index.jsp");
 
 	}
 
+	
 
 function validateLogin(){
 var logRequest;
@@ -105,28 +111,75 @@ hr.onreadystatechange = function() {
     if (hr.readyState == 4 && hr.status == 200) {
         var data = JSON.parse(hr.responseText);
         console.log(data);
-        var table = document.getElementById('contractstable');
+        var table = document.getElementById('loanstable');
         data.forEach(function(object) {
           var tr = document.createElement('tr');
-          tr.innerHTML = '<td>' + object.loanId + '</td>' +
-          '<td>' + object.amount + '</td>' +
-          '<td>' + object.duration +" months" + '</td>' +
-          '<td>' + object.closingdate + '</td>' +
-          '<td>' + object.status + '</td>' +
-          '<td>' + object.loantype + '</td>' +
-          "<td>  <button onclick='toLoan();'>View</button> </td>" +
-              "<td>  <button onclick='toEdit();'>Edit</button> </td>";
+          tr.innerHTML = '<td id="loanid">' + object.loanId + '</td>' +
+          '<td id ="amount">' + object.amount + '</td>' +
+          '<td id = "duration">' + object.duration +" months" + '</td>' +
+          '<td id = "closingdate">' + object.closingdate + '</td>' +
+          '<td id="status">' + object.status + '</td>' +
+          '<td id = "loantype">' + object.loantype + '</td>' +
+          "<td>  <button onclick='toViewLoan();'>View</button> </td>" +
+              "<td>  <button onclick='toEditLoan();'>Edit</button> </td>";
           table.appendChild(tr);
 });
     }
 }
 hr.send(null);
 }
-function toLoan(){
-  window.location.replace("/loan.jsp");
+ function getContracts() {
+	 var hr = new XMLHttpRequest();
+	 hr.open("GET", "http://localhost:4711/bundlePWABackend/restservices/loan", true);
+
+	 hr.onreadystatechange = function() {
+	     if (hr.readyState == 4 && hr.status == 200) {
+	         var data = JSON.parse(hr.responseText);
+	         console.log(data);
+	         var table = document.getElementById('contractstable');
+	         data.forEach(function(object) {
+	           var tr = document.createElement('tr');
+	           tr.innerHTML = '<td id="loanid">' + object.loanId + '</td>' +
+	           '<td id ="amount">' + object.amount + '</td>' +
+	           '<td id = "duration">' + object.duration +" months" + '</td>' +
+	           '<td id = "closingdate">' + object.closingdate + '</td>' +
+	           '<td id="status">' + object.status + '</td>' +
+	           '<td id = "loantype">' + object.loantype + '</td>' +
+	           "<td>  <button onclick='toViewContract();'>View</button> </td>" +
+	               "<td>  <button onclick='toEditContract();'>Edit</button> </td>";
+	           table.appendChild(tr);
+	 });
+	     }
+	 }
+	 hr.send(null);
+	 }
+	  
+ 
+function toEditLoan(){
+	var loanid = document.getElementById('loanid');
+	window.location.replace("edit_loan.jsp");
+	
 }
+function toViewLoan(){
+	var loanid = document.getElementById('loanid');
+	window.location.replace("loan.jsp");
+	
+}
+function toEditContract(){
+	var loanid = document.getElementById('loanid');
+	window.location.replace("edit_contract.jsp");
+	
+}
+
+function toViewContract(){
+	var loanid = document.getElementById('loanid');
+	window.location.replace("contract.jsp");
+	
+}
+
+
 function toEdit(){
-  window.location.replace("/edit_contract.jsp");
+  window.location.replace("edit_contract.jsp");
 }
   function newContract(){
     var firstname = document.getElementById('firstname').value;

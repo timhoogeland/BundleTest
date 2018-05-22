@@ -3,7 +3,7 @@
 
 <jsp:include page="/parts/head.jsp" />
 
-<body >
+<body  >
     
     <jsp:include page="/parts/navigation.jsp" />
 

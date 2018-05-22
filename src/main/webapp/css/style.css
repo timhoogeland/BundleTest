@@ -13,23 +13,30 @@ h2 {
 font-size: 1.5em;
 font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 font-weight: normal;
-color: #ffa600;
+color: #333333;
 margin-bottom: 0%;
+text-transform: uppercase;
 }
 
 h3 {
+  clear: both;
   font-size: 1em;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
   color: #ffa600;
+  display: block;
+  text-align: left;
+  
 }
 
 label {
-  font-size: 1.25em;
+  font-size: 1em;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: lighter;
   color: #333333;
-  
+  float: left;
+  display: block;
+  text-transform: uppercase;
 }
 
 p {

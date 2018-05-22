@@ -8,8 +8,8 @@
     <jsp:include page="parts/navigation.jsp" />
 
     <main>
-    <h1>View Loan - Person A</h1>
-    <div class="applicantinfo-loan">
+    <h1>View Contract - Person A</h1>
+    <div class="applicantinfo-contract">
       <h2> Applicant information </h2>
 
       <div>
@@ -62,28 +62,6 @@
         <h3 id="country">Zimbabwe</h3>
       </div>
       <div>
-        <hr>
-
-        <div class="loan_progress">
-          <h2>Loan progress</h2>
-
-          <div id='statusDiv'>
-            <label for="status">
-              <b>Status</b>
-            </label>
-            <h3 id="status">Active</h3>
-          </div>
-
-          <div>
-            <label for="remaining">
-              <b>Remaining amount</b>
-            </label>
-            <h3 id="remaining">$950.00</h3>
-            <progress id="remaining" value="55" max="100">
-            </progress>
-          </div>
-        </div>
-
         <hr>
 
         <div class="loaninfo_loan">
