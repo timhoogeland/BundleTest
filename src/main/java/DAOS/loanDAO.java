@@ -44,9 +44,10 @@ public class loanDAO extends baseDAO {
 
 	public boolean newLoan(Loan newLoan) {
 		boolean result = false;
-		String query = 	"INSERT INTO public.loan(" + 
+		String query = 	"INSERT INTO public.loan(loanid" + 
 						"amount, status, startdate, duration, closingdate, loantype, contractidfk) " + 
-						"VALUES (" + 
+						"VALUES (" +
+						newLoan.getLoanId() + ", " +
 						newLoan.getAmount() + ", " + 
 						newLoan.getStatus() + ", " +
 						newLoan.getStartDate() + ", " +
