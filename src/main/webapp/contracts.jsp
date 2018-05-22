@@ -13,7 +13,7 @@
             <label id="namelabel"></label>
         </div>
 
-        <button class="addContract" onclick="window.location.href='/new_contract.jsp'">New Contract</button>
+        <button class="addContract" onclick="window.location.href='new_contract.jsp'">New Contract</button>
 
         <center>
         <div id="contracts" style="overflow-x:auto;overflow-y: auto;">
@@ -38,10 +38,10 @@
                         <td data-label='End Date'>17-05-2020</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tr>
@@ -51,10 +51,10 @@
                         <td data-label='End Date'>17-05-2021</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tr>
@@ -64,10 +64,10 @@
                         <td data-label='End Date'>17-05-2020</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tr>
@@ -77,10 +77,10 @@
                         <td data-label='End Date'>17-05-2021</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tr>
@@ -90,10 +90,10 @@
                         <td data-label='End Date'>17-05-2020</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tr>
@@ -103,10 +103,10 @@
                         <td data-label='End Date'>17-05-2021</td>
                         <td data-label='Status'>Submited</td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/index.jsp'">View</button>
+                            <button onclick="window.location.href='bundlePWABackend/index.jsp'">View</button>
                         </td>
                         <td data-label=''>
-                            <button onclick="window.location.href='/edit_contract.jsp'">Edit</button>
+                            <button onclick="window.location.href='edit_contract.jsp'">Edit</button>
                         </td>
                     </tr>
                     <tbody>
