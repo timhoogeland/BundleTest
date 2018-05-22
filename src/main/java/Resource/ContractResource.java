@@ -4,7 +4,9 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -70,5 +72,24 @@ public class ContractResource {
 
 	        JsonArray array = jab.build();
 	        return array.toString();
+	    }
+	    
+	    @POST
+	    @Produces("application/json")
+	    public Response addContract(@FormParam("contractid") int id,
+	                             @FormParam("status") String status,
+	                             @FormParam("description") String desc,
+	                             @FormParam("contractpdf") String pdf,
+	                             @FormParam("useridfk") int userIDFK)
+	    {
+
+	        Contract newContract = new Contract(id, status, desc, pdf, userIDFK);
+	        Contract returnContract = service.addContract(newContract);
+	        if (returnContract != null) {
+	            String a = buildJSON(returnContract).build().toString();
+	            return Response.ok(a).build();
+	        } else {
+	            return Response.status(Response.Status.BAD_REQUEST).build();
+	        }
 	    }
 }

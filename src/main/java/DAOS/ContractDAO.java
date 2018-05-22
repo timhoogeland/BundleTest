@@ -116,30 +116,29 @@ public class ContractDAO extends baseDAO {
 //        return result;
 //    }
 //
-//    public User save(User User) {
-//        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING UserID";
-//
-//        try (Connection con = super.getConnection()){
-//            PreparedStatement pstmt = con.prepareStatement(query);
-//            
-//            pstmt.setString(1, User.getUserType());
-//            pstmt.setString(2, User.getName());
-//            pstmt.setInt(3, User.getPhonenumber());
-//            pstmt.setString(4, User.getPassword());
-//            pstmt.setString(5, User.getSalt());
-//            pstmt.setString(6, User.getStatus());
-//
-//            ResultSet dbResultSet = pstmt.executeQuery();
-//            if(dbResultSet.next()) {
-//                return findByID(dbResultSet.getInt(1));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return findByID(User.getUserID());
-//    }
-//    
+    public Contract save(Contract contract) {
+        String query = "INSERT INTO "+tablename+" VALUES (?,?,?,?,?) RETURNING UserID";
+
+        try (Connection con = super.getConnection()){
+            PreparedStatement pstmt = con.prepareStatement(query);
+            
+            pstmt.setInt(1, contract.getContractID());
+            pstmt.setString(2, contract.getStatus());
+            pstmt.setString(3, contract.getDescription());
+            pstmt.setString(4, contract.getContractPDF());
+            pstmt.setInt(5, contract.getUserIDFK());
+
+            ResultSet dbResultSet = pstmt.executeQuery();
+            if(dbResultSet.next()) {
+                return findByID(dbResultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return findByID(contract.getContractID());
+    }
+
 //    public String findRoleForNameAndPassword(String name, String password){
 //    	String role = null;
 //    	String query = "SELECT rol FROM "+tablename+" WHERE name = ? AND password = ?";
