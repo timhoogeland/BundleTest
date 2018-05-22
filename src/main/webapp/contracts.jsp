@@ -3,7 +3,7 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<body onload = "getLoans()">
+<body onload = "getContracts()">
     
     <jsp:include page="parts/navigation.jsp" />
 

@@ -3,7 +3,7 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<body >
+<body onload = "getLoans();" >
     
     <jsp:include page="parts/navigation.jsp" />
 
@@ -16,7 +16,7 @@
         <center>
         <div id="contracts" style="overflow-x:auto;overflow-y: auto;">
 
-            <table class='contracts_table'>
+            <table id = "loanstable" class='contracts_table'>
                 <thead>
                     <tr>
                         <th>ID</th>
