@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import Objects.Group;
+import Objects.LoanGroup;
 import Services.GroupService;
 import Services.GroupServiceProvider;
 
@@ -18,15 +19,14 @@ import Services.GroupServiceProvider;
 @Path("/group")
 public class GroupResource {
 @GET
-@Path("/{loanofficerid}")
+@Path("/{loanofficerId}")
 @Produces("application/json")
-public String getGroup(@PathParam("loanofficerid") int loanofficerid){
+public String getGroup(@PathParam("loanofficerId") int loanofficerId){
 	GroupService service = GroupServiceProvider.getGroupService();
 	JsonArrayBuilder jab = Json.createArrayBuilder();
-	for(Group g :service.getAllGroups(loanofficerid)){
+	for(LoanGroup g :service.getAllGroups(loanofficerId)){
 		JsonObjectBuilder job =Json.createObjectBuilder();
-		job.add("id", g.getId())
-		.add("loanofficerfk", g.getloanofficerfk());
+		job.add("id", g.getId());
 		
 		jab.add(job);
 	}
@@ -34,15 +34,15 @@ public String getGroup(@PathParam("loanofficerid") int loanofficerid){
 	return array.toString();
 }
 @GET
-@Path("/{loanofficerid}/{groupid}")
+@Path("/{loanofficerId}/{groupId}")
 @Produces("application/json")
-public String getGroupById(@PathParam("loanofficerid") int loanofficerid, @PathParam("groupid") int groupid){
+public String getGroupById(@PathParam("loanofficerId") int loanofficerId, @PathParam("groupId") int groupId){
 	GroupService service = GroupServiceProvider.getGroupService();
 	JsonArrayBuilder jab = Json.createArrayBuilder();
-	for(Group g :service.getAllGroups(loanofficerid)){
+	for(Group g :service.getGroupById(groupId)){
 		JsonObjectBuilder job =Json.createObjectBuilder();
-		job.add("id", g.getId())
-		.add("loanofficerfk", g.getloanofficerfk());
+		job.add("userId", g.getUserId());
+		job.add("Loanid", g.getLoanId());
 		
 		jab.add(job);
 	}
