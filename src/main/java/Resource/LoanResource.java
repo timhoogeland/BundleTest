@@ -24,6 +24,28 @@ import Services.LoanServiceProvider;
 
 @Path("/loan")
 public class LoanResource {
+	
+	@GET
+	@Produces("application/json")
+	public String getAllLoans(){
+		LoanService service = LoanServiceProvider.getLoanService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		for(Loan l : service.getAllLoans()){
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("loanId", l.getLoanId())
+			.add("amount", l.getAmount())
+			.add("status", l.getStatus())
+			.add("startdate",  l.getStartDate().toString())
+			.add("duration", l.getDuration())
+			.add("closingdate",  l.getClosingDate().toString())
+			.add("loantype",l.getLoanType())
+		    .add("contractid", l.getContractId());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
 	@GET
 	@Path("/{loanId}")
 	@Produces("application/json")

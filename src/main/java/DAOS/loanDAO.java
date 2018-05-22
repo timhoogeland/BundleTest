@@ -68,4 +68,7 @@ public class loanDAO extends baseDAO {
 		}
 		return result;
 	}
+	public List<Loan> getAllLoans() {
+		return selectLoan("select * from public." + '"' + "loan" + '"' );
+	}
 }
