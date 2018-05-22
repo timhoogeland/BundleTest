@@ -1,4 +1,4 @@
-package bundlePWABackend.bundlePWABackend;
+package Objects;
 
 public class Login {
 private String username;

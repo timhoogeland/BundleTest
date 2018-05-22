@@ -1,4 +1,4 @@
-package bundlePWABackend.bundlePWABackend;
+package Services;
 
 public class ServiceProvider {
     private static UserService userService = new UserService();
