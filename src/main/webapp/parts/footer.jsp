@@ -1,3 +1,4 @@
+</div>
 <footer>
-    <p class="copyright">© 2018-today Bundle</p>
+    <p class="copyright">&#169; Bundle 2017-2018</p>
 </footer>
