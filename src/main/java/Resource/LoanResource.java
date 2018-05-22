@@ -10,9 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import Objects.Loan;
 import Services.LoanService;
 import Services.LoanServiceProvider;
-import bundlePWABackend.bundlePWABackend.Loan;
 
 @Path("/loan")
 public class LoanResource {
@@ -26,9 +26,9 @@ public class LoanResource {
 			job.add("loanId", l.getLoanId())
 			.add("amount", l.getAmount())
 			.add("status", l.getStatus())
-			.add("startdate",  l.getStartdate())
+			.add("startdate",  l.getStartdate().toString())
 			.add("duration", l.getDuration())
-			.add("closingdate",  l.getClosingdate())
+			.add("closingdate",  l.getClosingdate().toString())
 			.add("loantype",l.getLoantype())
 		    .add("contractidfk", l.getcontractId());
 			jab.add(job);

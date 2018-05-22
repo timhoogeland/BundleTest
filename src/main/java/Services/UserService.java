@@ -1,8 +1,9 @@
-package bundlePWABackend.bundlePWABackend;
+package Services;
 
 import java.util.List;
 
 import DAOS.UserDAO;
+import Objects.User;
 
 public class UserService {
 	    private UserDAO userDAO = new UserDAO();
