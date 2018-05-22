@@ -35,6 +35,7 @@
                         <input name="phone" type="tel" id="phone" placeholder="Enter your phone here">
                     </li>
                     </ul>
+                    <br>
                     </form>
                     <form id="adress" onsubmit="return false">
                     <ul class="flex-outer">
@@ -45,7 +46,7 @@
                     </li>
                     <li>
                         <label for="postal-code">Postal Code</label>
-                        <input name="postal-code" id="postal-code" placeholder="Enter your postal code here"></input>
+                        <input name="postalcode" id="postal-code" placeholder="Enter your postal code here"></input>
                     </li>
                     <li>
                         <label for="country">Country</label>
@@ -301,6 +302,7 @@
                         </select>
                     </li>
                     </ul>
+                    <br>
                     </form>
                     <form id="loan" onsubmit="return false">
                     <ul class="flex-outer">
