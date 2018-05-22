@@ -7,9 +7,9 @@
     
     <jsp:include page="parts/navigation.jsp" />
 
-    <main class="main">
-        <div id="welcome_text">
-            <h1>New Contract</h1>
+	<main>
+	<div id="welcome_text">
+            <h1>Edit Contract</h1>
             <form>
                 <ul class="flex-outer">
 
@@ -313,7 +313,7 @@
             </form>
         </div>
     </main>
-
+	
     <jsp:include page="parts/footer.jsp" />
 
 </body>

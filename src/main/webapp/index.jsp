@@ -9,7 +9,7 @@
 
     <main class="main">
         <div id="welcome_text">
-            <h1>Welcomes</h1>
+            <h1>Welcome</h1>
             <p>Phasellus vitae condimentum tortor. Curabitur mattis ante justo. Morbi rutrum libero venenatis semper sollicitudin.
                 Morbi viverra velit tortor, ac luctus lacus mattis id. In erat justo, luctus in eleifend vitae, viverra iaculis
                 ipsum. Maecenas dapibus mi in dolor scelerisque vehicula. Nunc vitae turpis nec urna rhoncus mattis non a

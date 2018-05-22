@@ -7,9 +7,9 @@
     
     <jsp:include page="parts/navigation.jsp" />
 
-    <main class="main">
+	<main class="main">
         <div id="welcome_text">
-            <h1>New Contract</h1>
+            <h1>Edit Loan</h1>
             <form>
                 <ul class="flex-outer">
 
@@ -299,6 +299,14 @@
                         </select>
                     </li>
                     <li>
+                        <label for="loan-status">Loan status</label>
+                        <select name="loan-status" id="loan-status">
+                            <option value="ACTIVE">Active</option>
+                            <option value="DEFAULTED">Defaulted</option>
+                            <option value="TERMINATED">Terminated</option>
+                        </select>
+                    </li>
+                    <li>
                         <label for="amount">Amount</label>
                         <input id="amount" placeholder="Enter the loan-amount here"></input>
                     </li>
@@ -313,7 +321,7 @@
             </form>
         </div>
     </main>
-
+	
     <jsp:include page="parts/footer.jsp" />
 
 </body>
