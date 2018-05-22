@@ -123,10 +123,10 @@ hr.onreadystatechange = function() {
 hr.send(null);
 }
 function toLoan(){
-  window.location.replace("/loan.jsp");
+  window.location.replace("loan.jsp");
 }
 function toEdit(){
-  window.location.replace("/edit_contract.jsp");
+  window.location.replace("edit_contract.jsp");
 }
   function newContract(){
     var firstname = document.getElementById('firstname').value;
