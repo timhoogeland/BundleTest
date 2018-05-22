@@ -41,7 +41,7 @@ function eraseCookie(name) {
 //     }
 
 //     else{
-//         window.location.replace("login.html");
+//         window.location.replace("login.jsp");
 //     }}
 
 
@@ -78,7 +78,7 @@ var logRequest;
             setCookie('username',username,1);
             setCookie('password',pass,1);
             setCookie('loanofficerid',response[0]['userid'])
-         window.location.replace("index.html");
+         window.location.replace("index.jsp");
         }
     }
 }
@@ -123,10 +123,10 @@ hr.onreadystatechange = function() {
 hr.send(null);
 }
 function toLoan(){
-  window.location.replace("/loan.html");
+  window.location.replace("/loan.jsp");
 }
 function toEdit(){
-  window.location.replace("/edit_contract.html");
+  window.location.replace("/edit_contract.jsp");
 }
   function newContract(){
     var firstname = document.getElementById('firstname').value;
