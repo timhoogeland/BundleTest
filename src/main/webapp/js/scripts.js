@@ -34,18 +34,7 @@ function eraseCookie(name) {
     document.cookie = name+'=; Max-Age=-99999999;path=/;';  
 }
 
-// function checkLogin(){
-// 		if( getCookie("username")!=null &&  getCookie("password")!=null){
-//       var password = getCookie("password");
-//       var username = getCookie("username");
-//       console.log(username);
-//       console.log(password);
-//     
-//     }
 
-//     else{
-//         window.location.replace("login.jsp");
-//     }}
 
 
 	function logOut(){
@@ -118,8 +107,8 @@ hr.onreadystatechange = function() {
           '<td id = "closingdate" data-label="End Date">' + object.closingdate + '</td>' +
           '<td id="status" data-label="Status">' + object.status + '</td>' +
           '<td id = "loantype" data-label="Loan Type">' + object.loantype + '</td>' +
-          "<td>  <button onclick='toViewLoan();'>View</button> </td>" +
-              "<td>  <button onclick='toEditLoan();'>Edit</button> </td>";
+          "<td>  <button onclick='toViewLoan("+object.loanId+");'>View</button> </td>" +
+              "<td>  <button onclick='toEditLoan("+object.loanId+");'>Edit</button> </td>";
           table.appendChild(tr);
 });
     }
@@ -143,8 +132,8 @@ hr.send(null);
 	           '<td id = "closingdate" data-label="End Date">' + object.closingdate + '</td>' +
 	           '<td id="status" data-label="Status">' + object.status + '</td>' +
 	           '<td id = "loantype" data-label="Loan Type">' + object.loantype + '</td>' +
-	           "<td>  <button onclick='toViewContract();'>View</button> </td>" +
-	               "<td>  <button onclick='toEditContract();'>Edit</button> </td>";
+	           "<td>  <button onclick='toViewContract("+object.loanId+");'>View</button> </td>" +
+	               "<td>  <button onclick='toEditContract("+object.loanId+");'>Edit</button> </td>";
 	           table.appendChild(tr);
 	 });
 	     }
@@ -153,10 +142,10 @@ hr.send(null);
 	 }
 	  
  
-function toEditLoan(){
-	var loanid = document.getElementById('loanid');
-	setCookie("loanid",loanid,1);
-	window.location.replace("edit_loan.jsp");
+function toEditLoan(loanid){
+
+	window.location.replace("edit_loan.jsp?id="+loanid);
+
 
 	
 	
@@ -169,9 +158,11 @@ function toViewLoan(){
 	
 	
 }
-function toEditContract(){
-	var loanid = document.getElementById('loanid');
-	window.location.replace("edit_contract.jsp");
+function toEditContract(loanid){
+
+	
+	window.location.replace("edit_contract.jsp?id="+loanid);
+	
 	
 }
 
