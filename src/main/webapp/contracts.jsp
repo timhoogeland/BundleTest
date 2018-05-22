@@ -26,6 +26,7 @@
 	                        <th>Duration</th>
 	                        <th>End Date</th>
 	                        <th>Status</th>
+	                        <th>Loan Type</th>
 	                        <th>View</th>
 	                        <th>Edit</th>
 	                    </tr>
