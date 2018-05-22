@@ -431,6 +431,26 @@ button:hover {
 	text-align: -webkit-center;
 	text-align: -moz-center;
 }
+.hide {
+	display: none;
+}
+.error {
+	width: calc(100% - 150px);
+	position: relative;
+	float: left;
+	padding: 25px;
+	z-index: -10;
+	margin: 10px 50px;
+	background-color: #fa5858;
+	
+}
+.error p{
+	font-size: 1em;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	margin: 0px;
+}
 footer{
 	position: relative;
 	float: left;
@@ -438,6 +458,9 @@ footer{
 	padding: 5px 30px 30px 30px;
 }
 @media (max-width: 48em) {
+	.welcomeBlock h1 {
+		text-align: center;
+	}
 	.welcomeBlock, .buttonBlock, .blockHalf {
 		width: 100%;
 	}
