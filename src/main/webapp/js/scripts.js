@@ -49,12 +49,9 @@ function eraseCookie(name) {
 
 
 	function logOut(){
-    console.log("werkt");
 		eraseCookie("username");
 		eraseCookie("password");
     eraseCookie("loanofficerid");
-    console.log(getCookie("username"));
-    window.location.replace("index.jsp");
 
 	}
 
