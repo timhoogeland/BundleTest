@@ -42,7 +42,7 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
-public Date getStartdate() {
+public Date getStartDate() {
 	return startdate;
 }
 public void setStartdate(Date startdate) {
@@ -54,22 +54,22 @@ public int getDuration() {
 public void setDuration(int duration) {
 	this.duration = duration;
 }
-public Date getClosingdate() {
+public Date getClosingDate() {
 	return closingdate;
 }
 public void setClosingdate(Date closingdate) {
 	this.closingdate = closingdate;
 }
-public String getLoantype() {
+public String getLoanType() {
 	return loantype;
 }
-public void setLoantype(String loantype) {
+public void setLoanType(String loantype) {
 	this.loantype = loantype;
 }
-public int getcontractId() {
+public int getContractId() {
 	return contractId;
 }
-public void setcontractId(int contractId) {
+public void setContractId(int contractId) {
 	this.contractId = contractId;
 }
 

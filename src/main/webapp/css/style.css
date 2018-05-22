@@ -1,3 +1,5 @@
+
+
 h1 {
   font-size: 2.5em;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -5,29 +7,36 @@ h1 {
   color: #ffa600;
   margin-bottom: 0%;
   
-}
+  }
 
 h2 {
 font-size: 1.5em;
 font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 font-weight: normal;
-color: #ffa600;
+color: #333333;
 margin-bottom: 0%;
+text-transform: uppercase;
 }
 
 h3 {
+  clear: both;
   font-size: 1em;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
   color: #ffa600;
+  display: block;
+  text-align: left;
+  
 }
 
 label {
-  font-size: 1.25em;
+  font-size: 1em;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: lighter;
   color: #333333;
-  
+  float: left;
+  display: block;
+  text-transform: uppercase;
 }
 
 p {
@@ -140,18 +149,23 @@ display: block;
 }
 
 table, th, td {
-border: 1px solid black;
 border-collapse: collapse;
 
 }
 th, td {
-font-size: 0.75em;
+font-size: 1em;
 font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-text-align: left;
 padding: 15px;
 }
 
-/* tr:nth-child(odd){background-color: #33333334} */
+th {
+    background-color: #333333;
+    color: white;
+}
+
+tr:nth-child(even){background-color: #e2e1de;}
+
+tr:hover {background-color: #cecdc9;}
 
 /*  */
 
@@ -373,4 +387,66 @@ button:hover {
     display: none;
   }
 
+}
+
+/* Basic */
+.welcomeBlock, .buttonBlock, .block, .textBlock, .blockHalf {
+	z-index: -10;
+}
+.welcomeBlock, .buttonBlock {
+	float: left;
+	position: relative;
+	width: 50%;
+}
+.long{
+	width: 100%;
+}
+.welcomeBlock h1 {
+	padding: 1em;
+	position: relative;
+}
+.textBlock p{
+	padding: 0.4em 3.7em;
+	font-size: 0.9em;
+}
+#container {
+    max-width: 1200px;
+    display: block;
+    margin: 0px auto 0px auto;
+}
+.topButton {
+	position: relative;
+	margin: 65px 65px 30px 65px; 
+	float: right;
+}
+.block, .textBlock, .blockHalf {
+	position: relative;
+	float: left;
+	width: 100%;
+}
+.blockHalf {
+	width: calc(50% - 100px);
+	padding: 0px 50px 50px 50px;
+}
+.centerTable {
+	text-align: -webkit-center;
+	text-align: -moz-center;
+}
+footer{
+	position: relative;
+	float: left;
+	width: calc(100% - 60px);
+	padding: 5px 30px 30px 30px;
+}
+@media (max-width: 48em) {
+	.welcomeBlock, .buttonBlock, .blockHalf {
+		width: 100%;
+	}
+	.blockHalf {
+	 padding: 0px 50px;;
+	}
+	.topButton {
+		position: relative;
+		margin: 15px 0px;
+	}
 }

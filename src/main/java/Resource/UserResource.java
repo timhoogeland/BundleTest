@@ -94,7 +94,7 @@ public class UserResource {
     @POST
     @Produces("application/json")
     public Response addUser(@FormParam("userid") int id,
-                               @FormParam("userType") String userType,
+                               @FormParam("usertype") String userType,
                                @FormParam("name") String name,
                                @FormParam("phonenumber") int phonenumber,
                                @FormParam("password") String password,
@@ -117,7 +117,7 @@ public class UserResource {
     @Path("/{id}")
 //    @RolesAllowed({"beheerder","admin","user"})
     public Response updateAccount(@FormParam("userid") int id,
-						            @FormParam("userType") String userType,
+						            @FormParam("usertype") String userType,
 						            @FormParam("name") String name,
 						            @FormParam("phonenumber") int phonenumber,
 						            @FormParam("password") String password,

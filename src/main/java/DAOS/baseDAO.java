@@ -14,6 +14,7 @@ public class baseDAO{
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+
 		}
 		
 		try{
@@ -22,8 +23,15 @@ public class baseDAO{
 					"e7d603d54069603da1c9a731f2c8ed0c2d434db04c240bcbc4155e6e89746a91");
 		}catch (SQLException e) {
 			e.printStackTrace();
-		}
+
 			
+		}
 		return connection;
+
+
+		
+			
+		
+
 	}
 }
