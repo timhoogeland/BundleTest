@@ -18,9 +18,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import bundlePWABackend.bundlePWABackend.ServiceProvider;
-import bundlePWABackend.bundlePWABackend.User;
-import bundlePWABackend.bundlePWABackend.UserService;
+import Objects.User;
+import Services.ServiceProvider;
+import Services.UserService;
 
 @Path("/user")
 public class UserResource {

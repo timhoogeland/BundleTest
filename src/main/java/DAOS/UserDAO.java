@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import bundlePWABackend.bundlePWABackend.User;
+import Objects.User;
 
 public class UserDAO extends baseDAO {
 	

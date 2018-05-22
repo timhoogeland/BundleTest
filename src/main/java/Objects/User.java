@@ -1,4 +1,4 @@
-package bundlePWABackend.bundlePWABackend;
+package Objects;
 
 import java.sql.Date;
 

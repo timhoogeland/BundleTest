@@ -3,7 +3,7 @@ package Services;
 import java.util.List;
 
 import DAOS.loanDAO;
-import bundlePWABackend.bundlePWABackend.Loan;
+import Objects.Loan;
 
 public class LoanService {
 loanDAO Loan = new loanDAO();

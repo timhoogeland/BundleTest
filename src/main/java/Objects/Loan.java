@@ -1,19 +1,19 @@
-package bundlePWABackend.bundlePWABackend;
+package Objects;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Loan {
 private int loanId;
 private int amount;
 private String status;
-private String startdate;
+private Date startdate;
 private int duration;
-private String closingdate;
+private Date closingdate;
 private String loantype;
 private int contractId;
 
 
-public Loan(int loanId, int amount, String status, String startdate, int duration, String closingdate, String loantype,int contractId) {
+public Loan(int loanId, int amount, String status, Date startdate, int duration, Date closingdate, String loantype,int contractId) {
 	super();
 	this.loanId = loanId;
 	this.amount = amount;
@@ -42,10 +42,10 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
-public String getStartdate() {
+public Date getStartdate() {
 	return startdate;
 }
-public void setStartdate(String startdate) {
+public void setStartdate(Date startdate) {
 	this.startdate = startdate;
 }
 public int getDuration() {
@@ -54,10 +54,10 @@ public int getDuration() {
 public void setDuration(int duration) {
 	this.duration = duration;
 }
-public String getClosingdate() {
+public Date getClosingdate() {
 	return closingdate;
 }
-public void setClosingdate(String closingdate) {
+public void setClosingdate(Date closingdate) {
 	this.closingdate = closingdate;
 }
 public String getLoantype() {
