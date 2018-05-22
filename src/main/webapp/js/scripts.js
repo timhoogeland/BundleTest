@@ -41,7 +41,7 @@ function eraseCookie(name) {
 //     }
 
 //     else{
-//         window.location.replace("login.html");
+//         window.location.replace("login.jsp");
 //     }}
 
 
@@ -63,7 +63,7 @@ function eraseCookie(name) {
 //       setCookie('password',pass,1);
 
 
-      window.location.replace("contracts.html")
+      window.location.replace("contracts.jsp")
     }
     catch(exception)
               {
