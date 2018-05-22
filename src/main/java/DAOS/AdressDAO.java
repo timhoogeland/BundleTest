@@ -58,16 +58,15 @@ public class AdressDAO extends baseDAO {
     }
     
     public Adress save(Adress adress) {
-        String query = "INSERT INTO "+tablename+" VALUES (?,?,?,?,?) RETURNING UserID";
+        String query = "INSERT INTO "+tablename+" (street, number, country, postalcode) VALUES (?,?,?,?,?) RETURNING adressid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setInt(1, adress.getAdressID());
-            pstmt.setString(2, adress.getStreet());
-            pstmt.setInt(3, adress.getNumber());
-            pstmt.setString(4, adress.getCountry());
-            pstmt.setString(5, adress.getPostalCode());
+            pstmt.setString(1, adress.getStreet());
+            pstmt.setInt(2, adress.getNumber());
+            pstmt.setString(3, adress.getCountry());
+            pstmt.setString(4, adress.getPostalCode());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {

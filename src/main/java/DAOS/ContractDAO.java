@@ -117,16 +117,15 @@ public class ContractDAO extends baseDAO {
 //    }
 //
     public Contract save(Contract contract) {
-        String query = "INSERT INTO "+tablename+" VALUES (?,?,?,?,?) RETURNING UserID";
+        String query = "INSERT INTO "+tablename+" (status, description, contractpdf, useridfk) VALUES (?,?,?,?) RETURNING contractid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setInt(1, contract.getContractID());
-            pstmt.setString(2, contract.getStatus());
-            pstmt.setString(3, contract.getDescription());
-            pstmt.setString(4, contract.getContractPDF());
-            pstmt.setInt(5, contract.getUserIDFK());
+            pstmt.setString(1, contract.getStatus());
+            pstmt.setString(2, contract.getDescription());
+            pstmt.setString(3, contract.getContractPDF());
+            pstmt.setInt(4, contract.getUserIDFK());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
