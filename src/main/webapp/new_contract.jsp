@@ -10,32 +10,36 @@
     <main class="main">
         <div id="welcome_text">
             <h1>New Contract</h1>
-            <form>
+            <form id="user">
                 <ul class="flex-outer">
-
                     <li>
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" placeholder="Enter your first name here">
+                        <input name="first-name" type="text" id="first-name" placeholder="Enter your first name here">
                     </li>
                     <li>
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" placeholder="Enter your last name here">
+                        <input name="last-name" type="text" id="last-name" placeholder="Enter your last name here">
                     </li>
                     <li>
                         <label for="date-of-birth">Date Of Birth</label>
-                        <input type="date" id="date-of-birth">
+                        <input name="date-of-birth" type="date" id="date-of-birth">
                     </li>
                     <li>
                         <label for="phone">Phone</label>
-                        <input type="tel" id="phone" placeholder="Enter your phone here">
+                        <input name="phone" type="tel" id="phone" placeholder="Enter your phone here">
                     </li>
+                    </ul>
+                    </form>
+                    <form id="adress">
+                    <ul class="flex-outer">
+                    
                     <li>
                         <label for="street">Street</label>
-                        <input id="street" placeholder="Enter your street here"></input>
+                        <input name="street" id="street" placeholder="Enter your street here"></input>
                     </li>
                     <li>
                         <label for="postal-code">Postal Code</label>
-                        <input id="postal-code" placeholder="Enter your postal code here"></input>
+                        <input name="postal-code" id="postal-code" placeholder="Enter your postal code here"></input>
                     </li>
                     <li>
                         <label for="country">Country</label>
@@ -290,6 +294,10 @@
                             <option value="ZW">Zimbabwe</option>
                         </select>
                     </li>
+                    </ul>
+                    </form>
+                    <form id="loan">
+                    <ul class="flex-outer">
                     <li>
                         <label for="loan-type">Loan type</label>
                         <select name="loan-type" id="loan-type">
@@ -300,15 +308,15 @@
                     </li>
                     <li>
                         <label for="amount">Amount</label>
-                        <input id="amount" placeholder="Enter the loan-amount here"></input>
+                        <input name="amount" id="amount" placeholder="Enter the loan-amount here"></input>
                     </li>
                     <li>
                         <label for="start-date">Start date</label>
-                        <input type="date" id="start-date">
+                        <input name="date" type="date" id="start-date">
                     </li>
                     <li>
                         <label for="duration">Duration</label>
-                        <input type="number" duration" min="1" max="36" placeholder="Enter the loan-duration here"></input>
+                        <input name="duration" type="number" id="duration" min="1" max="36" placeholder="Enter the loan-duration here"></input>
                     </li>
                     <li>
                         <button type="submit">Submit</button>
@@ -317,6 +325,20 @@
             </form>
         </div>
     </main>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("form").submit(function () {
+            	var form = $("#adress");
+                var data = JSON.stringify(form.serialize());
+
+                alert(data);
+
+                $.post(
+                		)
+            });
+        });
+    </script>
 
     <jsp:include page="parts/footer.jsp" />
 
