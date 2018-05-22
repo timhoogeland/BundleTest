@@ -15,4 +15,8 @@ loanDAO Loan = new loanDAO();
 	public boolean newLoan(Loan newLoan){
 		return Loan.newLoan(newLoan);
 	}
+
+	public List<Loan> getAllLoans() {
+		return Loan.getAllLoans();
+	}
 }
