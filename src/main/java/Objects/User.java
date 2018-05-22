@@ -17,11 +17,13 @@ public class User {
 	
 	private String status;
 	
+	private Date dateOfBirth;
+
 	private int adresIDFK;
 	
 	private int airtimeIDFK;
 	
-	public User(int userID, String userType, String name, int phonenumber, String password, String salt, String status,
+	public User(int userID, String userType, String name, int phonenumber, String password, String salt, String status, Date dateofbirth,
 			int adresIDFK, int airtimeIDFK) {
 		this.userID = userID;
 		this.userType = userType;
@@ -30,6 +32,7 @@ public class User {
 		this.password = password;
 		this.salt = salt;
 		this.status = status;
+		this.dateOfBirth = dateofbirth;
 		this.adresIDFK = adresIDFK;
 		this.airtimeIDFK = airtimeIDFK;
 	}
@@ -88,6 +91,14 @@ public class User {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public int getAdresIDFK() {

@@ -114,7 +114,7 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
+        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status, dateofbirth) VALUES (?,?,?,?,?,?,?) RETURNING userid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -125,6 +125,7 @@ public class UserDAO extends baseDAO {
             pstmt.setString(4, User.getPassword());
             pstmt.setString(5, User.getSalt());
             pstmt.setString(6, User.getStatus());
+            pstmt.setDate(7, User.getDateOfBirth());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
