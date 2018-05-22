@@ -151,6 +151,7 @@ hr.send(null);
 	 }
 	 hr.send(null);
 	 }
+ 
 	  
  
 function toEditLoan(){
@@ -177,6 +178,7 @@ function loadLoanDetails(){
 	        var data = JSON.parse(hr.responseText);
 	        console.log(data);
 	    }
+	}
 }
 
 function toEditContract(){
