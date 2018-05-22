@@ -37,6 +37,7 @@ public class UserDAO extends baseDAO {
 
                 results.add(newUser);
             }
+            stmt.getConnection().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,7 +114,7 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING UserID";
+        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);

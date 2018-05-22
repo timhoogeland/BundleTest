@@ -19,7 +19,7 @@ public class ContractService {
 //	    public Contract update (Contract contract) { return contractDAO.update(contract); }
 //
 //	    public boolean delete (Contract contract) { return contractDAO.delete(contract); }
-//
-//	    public Contract addContract (Contract contract) { return contractDAO.save(contract); }
+
+	    public Contract addContract (Contract contract) { return contractDAO.save(contract); }
 }
 

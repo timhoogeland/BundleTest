@@ -12,11 +12,11 @@ import Objects.Loan;
 
 public class loanDAO extends baseDAO {
 	
-	public List<Loan> selectLoan(){
+	public List<Loan> selectLoan(String query){
 		List<Loan> resultslist = new ArrayList<Loan>();
 		try(Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
-			ResultSet dbResultSet = stmt.executeQuery("select * from public." + '"' + "loan" + '"');
+			ResultSet dbResultSet = stmt.executeQuery(query);
 			
 			while (dbResultSet.next()) {
 				int loanId = dbResultSet.getInt("loanid");
@@ -37,5 +37,34 @@ public class loanDAO extends baseDAO {
 			sqle.printStackTrace();
 		}
 		return resultslist;
+	}
+	public List<Loan> getLoanById(int loanId){
+		return selectLoan("select * from public." + '"' + "loan" + '"' + "where loanid = " + loanId);
+	}
+
+	public boolean newLoan(Loan newLoan) {
+		boolean result = false;
+		String query = 	"INSERT INTO public.loan(" + 
+						"amount, status, startdate, duration, closingdate, loantype, contractidfk) " + 
+						"VALUES (" + 
+						newLoan.getAmount() + ", " + 
+						newLoan.getStatus() + ", " +
+						newLoan.getStartDate() + ", " +
+						newLoan.getDuration() + ", " +
+						newLoan.getClosingDate() + ", " +
+						newLoan.getLoanType() + ", " +
+						newLoan.getContractId() + ", " +				
+						");";
+		try{
+			Connection con = super.getConnection();
+			Statement stmt = con.createStatement();
+			if (stmt.executeUpdate(query) == 1){
+				result = true;
+				stmt.getConnection().close();
+			}
+		}catch (SQLException e){
+			e.printStackTrace();					
+		}
+		return result;
 	}
 }

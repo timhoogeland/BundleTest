@@ -8,7 +8,11 @@ import Objects.Loan;
 public class LoanService {
 loanDAO Loan = new loanDAO();
 	
-	public List<Loan> getAllLoans() {
-		return Loan.selectLoan();
+	public List<Loan> getLoanById(int LoanId) {
+		return Loan.getLoanById(LoanId);
+	}
+	
+	public boolean newLoan(Loan newLoan){
+		return Loan.newLoan(newLoan);
 	}
 }
