@@ -28,12 +28,13 @@ public class UserDAO extends baseDAO {
                 String name = dbResultSet.getString("name");            	
             	int phonenumber = dbResultSet.getInt("phonenumber");
             	String password = dbResultSet.getString("password");
+            	Date dateofbirth = dbResultSet.getDate("dateofbirth");
             	String salt = dbResultSet.getString("salt");
             	String status = dbResultSet.getString("status");
             	int adresIDFK = dbResultSet.getInt("adresidfk");
             	int airtimeIDFK = dbResultSet.getInt("airtimeidfk");
            
-                User newUser = new User(id, userType, name, phonenumber, password, salt, status, adresIDFK, airtimeIDFK);
+                User newUser = new User(id, userType, name, phonenumber, password, salt, status, dateofbirth, adresIDFK, airtimeIDFK);
 
                 results.add(newUser);
             }

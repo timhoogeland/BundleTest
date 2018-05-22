@@ -58,7 +58,7 @@ public class AdressDAO extends baseDAO {
     }
     
     public Adress save(Adress adress) {
-        String query = "INSERT INTO "+tablename+" (street, number, country, postalcode) VALUES (?,?,?,?,?) RETURNING adressid";
+        String query = "INSERT INTO "+tablename+" (street, number, country, postalcode) VALUES (?,?,?,?) RETURNING adressid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
