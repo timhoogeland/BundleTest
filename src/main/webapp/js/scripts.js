@@ -136,12 +136,12 @@ hr.send(null);
 	         var table = document.getElementById('contractstable');
 	         data.forEach(function(object) {
 	           var tr = document.createElement('tr');
-	           tr.innerHTML = '<td id="loanid">' + object.loanId + '</td>' +
-	           '<td id ="amount">' + object.amount + '</td>' +
-	           '<td id = "duration">' + object.duration +" months" + '</td>' +
-	           '<td id = "closingdate">' + object.closingdate + '</td>' +
-	           '<td id="status">' + object.status + '</td>' +
-	           '<td id = "loantype">' + object.loantype + '</td>' +
+	           tr.innerHTML = '<td id="loanid" data-label="ID">' + object.loanId + '</td>' +
+	           '<td id ="amount" data-label="Amount">' + object.amount + '</td>' +
+	           '<td id = "duration" data-label="Duration">' + object.duration +" months" + '</td>' +
+	           '<td id = "closingdate" data-label="End Date">' + object.closingdate + '</td>' +
+	           '<td id="status" data-label="Status">' + object.status + '</td>' +
+	           '<td id = "loantype" data-label="Loan Type">' + object.loantype + '</td>' +
 	           "<td>  <button onclick='toViewContract();'>View</button> </td>" +
 	               "<td>  <button onclick='toEditContract();'>Edit</button> </td>";
 	           table.appendChild(tr);
