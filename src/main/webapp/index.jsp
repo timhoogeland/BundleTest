@@ -3,14 +3,20 @@
 
 <jsp:include page="/parts/head.jsp" />
 
-<body >
+<body  >
     
     <jsp:include page="/parts/navigation.jsp" />
 
-    <main class="main">
-        <div id="welcome_text">
+    <main>
+        <div class="welcomeBlock">
             <h1>Welcome</h1>
-            <p>Phasellus vitae condimentum tortor. Curabitur mattis ante justo. Morbi rutrum libero venenatis semper sollicitudin.
+        </div>
+        
+        <div class="buttonBlock">
+        </div>
+        
+        <div class="textBlock">
+        	<p>Phasellus vitae condimentum tortor. Curabitur mattis ante justo. Morbi rutrum libero venenatis semper sollicitudin.
                 Morbi viverra velit tortor, ac luctus lacus mattis id. In erat justo, luctus in eleifend vitae, viverra iaculis
                 ipsum. Maecenas dapibus mi in dolor scelerisque vehicula. Nunc vitae turpis nec urna rhoncus mattis non a
                 sapien. Integer placerat condimentum ornare. Vestibulum sit amet interdum quam. Duis quis quam consequat

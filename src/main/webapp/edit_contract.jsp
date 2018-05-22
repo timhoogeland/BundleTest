@@ -8,8 +8,11 @@
     <jsp:include page="parts/navigation.jsp" />
 
 	<main>
-	<div id="welcome_text">
+		<div class="welcomeBlock">
             <h1>Edit Contract</h1>
+        </div>
+        
+        <div class="block"> 
             <form>
                 <ul class="flex-outer">
 
