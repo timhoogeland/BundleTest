@@ -8,22 +8,25 @@
     <jsp:include page="parts/navigation.jsp" />
 
     <main>
-    <h1>View Loan - Person A</h1>
-    <div class="applicantinfo-loan">
+    	<div class="welcomeBlock long">
+    		<h1>View Loan - Tim Hoogeland</h1>
+    	</div>
+    	
+    <div class="blockHalf applicantinfo-loan">
       <h2> Applicant information </h2>
-
+	  <br>
       <div>
         <label for="firstname">
           <b>First name</b>
         </label>
-        <h3 id="firstname">uvuvwevwevwe onyetenyevwe ugwemuhwem osas</h3>
+        <h3 id="firstname">Tim</h3>
 
       </div>
       <div>
         <label for="lastname">
           <b>Last name</b>
         </label>
-        <h3 id="lastname">Janssen</h3>
+        <h3 id="lastname">Hoogeland</h3>
 
       </div>
 
@@ -62,11 +65,13 @@
         <h3 id="country">Zimbabwe</h3>
       </div>
       <div>
-        <hr>
-
+      </div>
+      </div>
+      
+      	<div class="blockHalf">
         <div class="loan_progress">
           <h2>Loan progress</h2>
-
+		  <br>
           <div id='statusDiv'>
             <label for="status">
               <b>Status</b>
@@ -84,11 +89,10 @@
           </div>
         </div>
 
-        <hr>
 
         <div class="loaninfo_loan">
           <h2> Loan information </h2>
-
+		  <br>
           <div>
             <label for="loantype">
               <b>Loan type</b>
@@ -96,7 +100,7 @@
             <h3 id="loantype">Short-term</h3>
           </div>
 
-        </div>
+      <div>
         <label for="sector">
           <b>Sector</b>
         </label>
@@ -115,6 +119,8 @@
           <b>Duration(months)</b>
         </label>
         <h3 id="duration">12</h3>
+      </div>
+      </div>
       </div>
 
 

@@ -390,13 +390,16 @@ button:hover {
 }
 
 /* Basic */
-.welcomeBlock, .buttonBlock, .block, .textBlock {
+.welcomeBlock, .buttonBlock, .block, .textBlock, .blockHalf {
 	z-index: -10;
 }
 .welcomeBlock, .buttonBlock {
 	float: left;
 	position: relative;
 	width: 50%;
+}
+.long{
+	width: 100%;
 }
 .welcomeBlock h1 {
 	padding: 1em;
@@ -416,10 +419,14 @@ button:hover {
 	margin: 65px 65px 30px 65px; 
 	float: right;
 }
-.block, .textBlock {
+.block, .textBlock, .blockHalf {
 	position: relative;
 	float: left;
 	width: 100%;
+}
+.blockHalf {
+	width: calc(50% - 100px);
+	padding: 0px 50px 50px 50px;
 }
 .centerTable {
 	text-align: -webkit-center;
@@ -432,8 +439,11 @@ footer{
 	padding: 5px 30px 30px 30px;
 }
 @media (max-width: 48em) {
-	.welcomeBlock, .buttonBlock {
+	.welcomeBlock, .buttonBlock, .blockHalf {
 		width: 100%;
+	}
+	.blockHalf {
+	 padding: 0px 50px;;
 	}
 	.topButton {
 		position: relative;

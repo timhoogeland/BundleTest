@@ -7,9 +7,12 @@
     
     <jsp:include page="/parts/navigation.jsp" />
 
-    <main class="main">
+    <main>
         <div class="welcomeBlock">
             <h1>Welcome</h1>
+        </div>
+        
+        <div class="buttonBlock">
         </div>
         
         <div class="textBlock">

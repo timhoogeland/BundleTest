@@ -7,9 +7,15 @@
     
     <jsp:include page="parts/navigation.jsp" />
 
-    <main class="main">
-        <div id="welcome_text">
+    <main>
+        <div class="welcomeBlock">
             <h1>New Contract</h1>
+        </div>
+        
+        <div class="buttonBlock">
+        </div>
+        
+        <div class="block">
             <form>
                 <ul class="flex-outer">
 

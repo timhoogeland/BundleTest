@@ -7,7 +7,7 @@
     
     <jsp:include page="parts/navigation.jsp" />
 
-    <main class="main">
+    <main>
         <div class="welcomeBlock">
             <h1>Contracts</h1>
         </div>
