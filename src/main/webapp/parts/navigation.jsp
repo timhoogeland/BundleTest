@@ -1,5 +1,5 @@
 <header class="header">
-    <a href="" class="logo">Bundle</a>
+    <a href="index.jsp" class="logo">Bundle</a>
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn">
     <span class="navicon"></span>

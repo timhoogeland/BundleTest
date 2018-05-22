@@ -8,7 +8,7 @@ if (navigator.serviceWorker.controller) {
       console.log('Service worker has been registered for scope:'+ reg.scope);
     });
   }
-  
+
 
 //Login
 function setCookie(cname, cvalue, exdays) {
@@ -41,7 +41,7 @@ function eraseCookie(name) {
 //     }
 
 //     else{
-//         window.location.replace("login.jsp");
+//         window.location.replace("login.html");
 //     }}
 
 
@@ -49,28 +49,85 @@ function eraseCookie(name) {
     console.log("werkt");
 		eraseCookie("username");
 		eraseCookie("password");
+    eraseCookie("loanofficerid");
 
 	}
 
 
-//   function validateLogin(){
+function validateLogin(){
+var logRequest;
+            try{
+          	  console.log("he");
+              var pass = document.getElementById('pass').value;
+              var username = document.getElementById('username').value;
 
-//     try{
-//       var pass = document.getElementById('pass').value;
-//       var username = document.getElementById('username').value;
+          	  logRequest = new XMLHttpRequest();
+          	  logRequest.open('GET', "http://localhost:4711/bundlePWABackend/restservices/login", true);
+              logRequest.setRequestHeader("username",username);
+              logRequest.setRequestHeader("password",pass);
+          	  logRequest.send(null);
+              logRequest.onload = function () {
+    if (logRequest.readyState === logRequest.DONE) {
+        if (logRequest.status === 200) {
+          var response = JSON.parse(logRequest.response);
+            console.log(logRequest);
 
-//       setCookie('username',username,1);
-//       setCookie('password',pass,1);
+            console.log(response);
 
-
-      window.location.replace("contracts.jsp")
+            console.log(response[0]['userid']);
+            setCookie('username',username,1);
+            setCookie('password',pass,1);
+            setCookie('loanofficerid',response[0]['userid'])
+         window.location.replace("index.html");
+        }
     }
-    catch(exception)
-              {
-               alert("Request failed");
-              }
-  }
+}
 
+
+  	}
+    catch(exception)
+        	   {
+        	    alert("Request failed");
+        	   }}
+
+function checkCookie(){
+  console.log(getCookie('loanofficerid'));
+}
+
+
+
+
+ function getLoans() {
+var hr = new XMLHttpRequest();
+hr.open("GET", "http://localhost:4711/bundlePWABackend/restservices/loan", true);
+
+hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+        var data = JSON.parse(hr.responseText);
+        console.log(data);
+        var table = document.getElementById('contractstable');
+        data.forEach(function(object) {
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + object.loanId + '</td>' +
+          '<td>' + object.amount + '</td>' +
+          '<td>' + object.duration +" months" + '</td>' +
+          '<td>' + object.closingdate + '</td>' +
+          '<td>' + object.status + '</td>' +
+          '<td>' + object.loantype + '</td>' +
+          "<td>  <button onclick='toLoan();'>View</button> </td>" +
+              "<td>  <button onclick='toEdit();'>Edit</button> </td>";
+          table.appendChild(tr);
+});
+    }
+}
+hr.send(null);
+}
+function toLoan(){
+  window.location.replace("/loan.html");
+}
+function toEdit(){
+  window.location.replace("/edit_contract.html");
+}
   function newContract(){
     var firstname = document.getElementById('firstname').value;
     if(firstname == "henk"){
@@ -96,4 +153,3 @@ function eraseCookie(name) {
   function sendContract(firstname,lastname,birthdate,phone,street,postalcode,country,picture,loantype,sector,amount,duration,description){
     console.log(firstname,lastname,birthdate,phone,street,postalcode,country,picture,loantype,sector,amount,duration,description);
   }
-
