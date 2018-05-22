@@ -10,14 +10,13 @@
     <main>
         <div class="welcomeBlock">
             <h1>New Contract</h1>
-            <form id="user">
         </div>
         
         <div class="buttonBlock">
         </div>
         
         <div class="block">
-            <form>
+            <form id="user" onsubmit="return false">
                 <ul class="flex-outer">
                     <li>
                         <label for="first-name">First Name</label>
@@ -37,7 +36,7 @@
                     </li>
                     </ul>
                     </form>
-                    <form id="adress">
+                    <form id="adress" onsubmit="return false">
                     <ul class="flex-outer">
                     
                     <li>
@@ -303,7 +302,7 @@
                     </li>
                     </ul>
                     </form>
-                    <form id="loan">
+                    <form id="loan" onsubmit="return false">
                     <ul class="flex-outer">
                     <li>
                         <label for="loan-type">Loan type</label>
@@ -334,7 +333,7 @@
     </main>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+         $(document).ready(function () {
             $("form").submit(function () {
             	/* var form = $("#adress");
                 var data = JSON.stringify(form.serialize());
@@ -351,11 +350,12 @@
 						alert("Adress added.");
 					},
 					error : function(response, textStatus, errorThrown) {
-						alert("Adress not added.");
 
 						console.log("textStatus: " + textStatus);
 						console.log("errorThrown: " + errorThrown);
 						console.log("status: " + response.status);
+						alert("Adress not added.");
+
 					}
 				});
 
