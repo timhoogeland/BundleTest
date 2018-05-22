@@ -1,13 +1,16 @@
 //Service worker initialisation
 if (navigator.serviceWorker.controller) {
     console.log('[PWA Builder] active service worker found, no need to register')
-} else {
+  } else {
     navigator.serviceWorker.register('pwabuilder-sw.js', {
-        scope: './'
-    }).then(function (reg) {
-        console.log('Service worker has been registered for scope:' + reg.scope);
+      scope: './'
+    }).then(function(reg) {
+      console.log('Service worker has been registered for scope:'+ reg.scope);
     });
-}
+  }
+  
+
+//Login
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -28,18 +31,19 @@ function eraseCookie(name) {
     document.cookie = name+'=; Max-Age=-99999999;';
 }
 
-function checkLogin(){
-		if( getCookie("username")!=null &&  getCookie("password")!=null){
-      var password = getCookie("password");
-      var username = getCookie("username");
-      console.log(username);
-      console.log(password);
-      namelabel.innerhtml = username;
-    }
+// function checkLogin(){
+// 		if( getCookie("username")!=null &&  getCookie("password")!=null){
+//       var password = getCookie("password");
+//       var username = getCookie("username");
+//       console.log(username);
+//       console.log(password);
+//       namelabel.innerhtml = username;
+//     }
 
-    else{
-        window.location.replace("login.html");
-    }}
+//     else{
+//         window.location.replace("login.html");
+//     }}
+
 
 	function logOut(){
     console.log("werkt");
@@ -48,14 +52,16 @@ function checkLogin(){
 
 	}
 
-  function validateLogin(){
 
-    try{
-      var pass = document.getElementById('pass').value;
-      var username = document.getElementById('username').value;
+//   function validateLogin(){
 
-      setCookie('username',username,1);
-      setCookie('password',pass,1);
+//     try{
+//       var pass = document.getElementById('pass').value;
+//       var username = document.getElementById('username').value;
+
+//       setCookie('username',username,1);
+//       setCookie('password',pass,1);
+
 
       window.location.replace("contracts.html")
     }
@@ -90,3 +96,4 @@ function checkLogin(){
   function sendContract(firstname,lastname,birthdate,phone,street,postalcode,country,picture,loantype,sector,amount,duration,description){
     console.log(firstname,lastname,birthdate,phone,street,postalcode,country,picture,loantype,sector,amount,duration,description);
   }
+
