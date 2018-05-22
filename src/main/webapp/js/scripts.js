@@ -160,6 +160,14 @@ function loadLoanDetails(){
 	    if (hr.readyState == 4 && hr.status == 200) {
 	        var data = JSON.parse(hr.responseText);
 	        console.log(data);
+	        $('#loanName').text();
+	        $('#firstname').text();
+	        $('#lastname').text();
+	        $('#').text();
+	        $('#').text();
+	        $('#').text();
+	        $('#').text();
+	        $('#').text();
 	    }
 	}
 }

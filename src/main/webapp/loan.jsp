@@ -9,7 +9,7 @@
 
     <main>
     	<div class="welcomeBlock long">
-    		<h1>View Loan - Tim Hoogeland</h1>
+    		<h1 id="loanName" >View Loan - Tim Hoogeland</h1>
     	</div>
     	
     <div class="blockHalf applicantinfo-loan">
@@ -17,14 +17,14 @@
 	  <br>
       <div>
         <label for="firstname">
-          <b>First name</b>
+          <b id="firstName" >First name</b>
         </label>
         <h3 id="firstname">Tim</h3>
 
       </div>
       <div>
         <label for="lastname">
-          <b>Last name</b>
+          <b id="lastName">Last name</b>
         </label>
         <h3 id="lastname">Hoogeland</h3>
 
