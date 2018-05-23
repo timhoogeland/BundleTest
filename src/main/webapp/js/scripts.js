@@ -41,10 +41,10 @@ function logOut(){
 	eraseCookie("loanid");
 }
 
-function validateLogin(){
+function validateLogin() {
+		$('#loginbutton').attr('loading', 'true');
 var logRequest;
             try{
-          	  console.log("he");
               var pass = document.getElementById('pass').value;
               var username = document.getElementById('username').value;
 
@@ -57,16 +57,15 @@ var logRequest;
     if (logRequest.readyState === logRequest.DONE) {
         if (logRequest.status === 200) {
           var response = JSON.parse(logRequest.response);
-            console.log(logRequest);
-
-            console.log(response);
-
-            console.log(response[0]['userid']);
+            $('#loginbutton').attr('loading', 'false');
+            $('#loginbutton').text('Succes');
             setCookie('username',username,1);
             setCookie('password',pass,1);
             setCookie('loanofficerid',response[0]['userid'])
          window.location.replace("index.jsp");
-        } else if (logRequest.readyState === logRequest.DONE) {
+        } else {
+        	$('#loginbutton').attr('loading', 'false');
+            $('#loginbutton').text('Try again');
         	addError('Retrieving data failed with status ' + logRequest.status + '. Try again later.');
         }
     }
@@ -285,3 +284,18 @@ function toEdit(){
   function addError(text) {
 	  $('#errorBlock').append('<div class="error"><p id="errorText">'+ text +'</p></div>');
   }
+
+function loadingText(points) {
+	if(points == '...') {
+		points = '.  ';
+	} else if(points == '.. ') {
+		points = '...';
+	} else if(points == '.  ') {
+		points = '.. ';
+	}
+	
+	
+	$('[loading="true"]').text('Loading' + points);
+	
+	setTimeout(function() { loadingText(points); }, 1000);
+}
