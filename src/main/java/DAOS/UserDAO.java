@@ -28,12 +28,13 @@ public class UserDAO extends baseDAO {
                 String name = dbResultSet.getString("name");            	
             	int phonenumber = dbResultSet.getInt("phonenumber");
             	String password = dbResultSet.getString("password");
+            	Date dateofbirth = dbResultSet.getDate("dateofbirth");
             	String salt = dbResultSet.getString("salt");
             	String status = dbResultSet.getString("status");
             	int adresIDFK = dbResultSet.getInt("adresidfk");
             	int airtimeIDFK = dbResultSet.getInt("airtimeidfk");
            
-                User newUser = new User(id, userType, name, phonenumber, password, salt, status, adresIDFK, airtimeIDFK);
+                User newUser = new User(id, userType, name, phonenumber, password, salt, status, dateofbirth, adresIDFK, airtimeIDFK);
 
                 results.add(newUser);
             }
@@ -114,7 +115,7 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
+        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status, dateofbirth) VALUES (?,?,?,?,?,?,?) RETURNING userid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -125,6 +126,7 @@ public class UserDAO extends baseDAO {
             pstmt.setString(4, User.getPassword());
             pstmt.setString(5, User.getSalt());
             pstmt.setString(6, User.getStatus());
+            pstmt.setDate(7, User.getDateOfBirth());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {

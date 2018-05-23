@@ -8,10 +8,12 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import Objects.Adress;
+import Objects.Contract;
 import Objects.User;
 import Services.AdressService;
 import Services.ServiceProvider;
@@ -43,6 +45,20 @@ public class AdressResource {
 
 	        JsonArray array = jab.build();
 	        return array.toString();
+	    }
+	    
+	    @GET
+	    @Path("/{id}")
+//	    @RolesAllowed({"beheerder","admin","user"})
+	    @Produces("application/json")
+	    public String getAdressByID(@PathParam("id") int id) {
+	        Adress c = service.getAdressByID(id);
+	        if(c != null) {
+	            JsonArrayBuilder jab = Json.createArrayBuilder();
+	            jab.add(buildJSON(c));
+	            return jab.build().toString();
+	        }
+	        return Response.status(Response.Status.NOT_FOUND).toString();
 	    }
 	    
 	    @POST

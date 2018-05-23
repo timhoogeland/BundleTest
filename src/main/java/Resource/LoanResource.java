@@ -81,8 +81,12 @@ public class LoanResource {
 		LoanService service = LoanServiceProvider.getLoanService();
 		
 		System.out.println("1 amount: " + amount);
+		System.out.println("1 status: " + status);
 		System.out.println("1 startDate: " + startDate);
+		System.out.println("1 duration: " + duration);
 		System.out.println("1 closingDate: " + closingDate);
+		System.out.println("1 loanType: " + loanType);
+		System.out.println("1 contractId: " + contractId);
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		System.out.println("2 startDate: " + utilStartDate);
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingDate);
