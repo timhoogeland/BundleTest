@@ -13,7 +13,7 @@ import Objects.User;
 
 public class UserDAO extends baseDAO {
 	
-	private String tablename = "public.\"User\"";
+	private String tablename = "public.user";
 
     private List<User> selectUsers (String query) {
         List<User> results = new ArrayList<User>();
@@ -23,18 +23,20 @@ public class UserDAO extends baseDAO {
             ResultSet dbResultSet = stmt.executeQuery(query);
 
             while (dbResultSet.next()) {
-                int id = dbResultSet.getInt("userid");
+                int userId = dbResultSet.getInt("userid");
                 String userType = dbResultSet.getString("usertype");
-                String name = dbResultSet.getString("name");            	
+                String firstName = dbResultSet.getString("firstname");   
+                String lastName = dbResultSet.getString("lastname");   
             	int phonenumber = dbResultSet.getInt("phonenumber");
             	String password = dbResultSet.getString("password");
-            	Date dateofbirth = dbResultSet.getDate("dateofbirth");
             	String salt = dbResultSet.getString("salt");
             	String status = dbResultSet.getString("status");
-            	int adresIDFK = dbResultSet.getInt("adresidfk");
-            	int airtimeIDFK = dbResultSet.getInt("airtimeidfk");
+            	Date DateOfBirth = dbResultSet.getDate("dateofbirth");
+            	int addressIdFk = dbResultSet.getInt("addressidfk");
+            	String photo = dbResultSet.getString("photo");
            
-                User newUser = new User(id, userType, name, phonenumber, password, salt, status, dateofbirth, adresIDFK, airtimeIDFK);
+                User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, DateOfBirth);
+
 
                 results.add(newUser);
             }
@@ -46,10 +48,10 @@ public class UserDAO extends baseDAO {
         return results;
     }
 
-    public List<User> findAll() { return selectUsers("SELECT * From "+tablename); }
+    public List<User> findAll() { return selectUsers("SELECT * From " + tablename); }
 
     public User findByID(int id) {
-        List<User> results = selectUsers("SELECT * FROM "+tablename+" WHERE userid = " + id + "");
+        List<User> results = selectUsers("SELECT * FROM " + tablename + " WHERE userid = " + id + "");
 
         if (results.size() == 0) {
             return null;
@@ -59,7 +61,7 @@ public class UserDAO extends baseDAO {
     }
     
     public int findIdByName(String name){
-    	List<User> results = selectUsers("SELECT * FROM "+tablename+" WHERE name = '" + name + "'");
+    	List<User> results = selectUsers("SELECT * FROM " + tablename + " WHERE name = '" + name + "'");
 
         if (results.size() == 0) {
             return (Integer) null;
@@ -69,7 +71,7 @@ public class UserDAO extends baseDAO {
     }
 
     public User update(User User) {
-        String query = "UPDATE "+tablename+" SET userid=?, usertype=?, name=?, phonenumber=?,"
+        String query = "UPDATE "+tablename+" SET userid=?, usertype=?, firstname=?, phonenumber=?,"
         		+ " password=?, salt=?, status=?"
         		+ " WHERE userid=?";
 
@@ -77,7 +79,7 @@ public class UserDAO extends baseDAO {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, User.getUserID());
             pstmt.setString(2, User.getUserType());
-            pstmt.setString(3, User.getName());
+            pstmt.setString(3, User.getFirstName());
             pstmt.setInt(4, User.getPhonenumber());
             pstmt.setString(5, User.getPassword());
             pstmt.setString(6, User.getSalt());
@@ -115,13 +117,12 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status, dateofbirth) VALUES (?,?,?,?,?,?,?) RETURNING userid";
-
+        String query = "INSERT INTO "+tablename+"(usertype, firstname, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
             pstmt.setString(1, User.getUserType());
-            pstmt.setString(2, User.getName());
+            pstmt.setString(2, User.getFirstName());
             pstmt.setInt(3, User.getPhonenumber());
             pstmt.setString(4, User.getPassword());
             pstmt.setString(5, User.getSalt());

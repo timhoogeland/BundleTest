@@ -16,6 +16,7 @@ import Objects.Contract;
 import Objects.User;
 import Services.ServiceProvider;
 import Services.ContractService;
+import Services.ContractServiceProvider;
 
 @Path("/contract")
 public class ContractResource {
@@ -76,18 +77,17 @@ public class ContractResource {
 	    
 	    @POST
 	    @Produces("application/json")
-	    public Response addContract(@FormParam("contractid") int id,
+	    public Response addContract(@FormParam("contractid") int contractId,
 	                             @FormParam("status") String status,
 	                             @FormParam("description") String desc,
 	                             @FormParam("contractpdf") String pdf,
-	                             @FormParam("useridfk") int userIDFK)
+	                             @FormParam("userid") int userId)
 	    {
-
-	        Contract newContract = new Contract(id, status, desc, pdf, userIDFK);
-	        Contract returnContract = service.addContract(newContract);
-	        if (returnContract != null) {
-	            String a = buildJSON(returnContract).build().toString();
-	            return Response.ok(a).build();
+	    	ContractService service = ContractServiceProvider.getContractService();
+	    	
+	        Contract newContract = new Contract(contractId, status, desc, pdf, userId);
+	        if (service.newContract(newContract)){
+	            return Response.ok().build();
 	        } else {
 	            return Response.status(Response.Status.BAD_REQUEST).build();
 	        }

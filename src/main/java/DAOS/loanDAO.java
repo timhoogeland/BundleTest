@@ -56,9 +56,8 @@ public class loanDAO extends baseDAO {
 						newLoan.getLoanType() + "', " +
 						newLoan.getContractId() +				
 						");";
-		System.out.println(query);
-		try{
-			Connection con = super.getConnection();
+		
+		try(Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
 			if (stmt.executeUpdate(query) == 1){
 				result = true;

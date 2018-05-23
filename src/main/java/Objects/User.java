@@ -7,7 +7,9 @@ public class User {
 	
 	private String userType;
 	
-	private String name;
+	private String firstName;
+	
+	private String lastName;
 	
 	private int phonenumber;
 	
@@ -17,24 +19,26 @@ public class User {
 	
 	private String status;
 	
-	private Date dateOfBirth;
+	private int addressIdFk;
 
-	private int adresIDFK;
+	private Date dateOfBirth;
 	
-	private int airtimeIDFK;
+	private String photo;
 	
-	public User(int userID, String userType, String name, int phonenumber, String password, String salt, String status, Date dateofbirth,
-			int adresIDFK, int airtimeIDFK) {
+	public User(int userID, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
+			int adresIDFK, String photo, Date dateOfBirth) {
+
 		this.userID = userID;
 		this.userType = userType;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.phonenumber = phonenumber;
 		this.password = password;
 		this.salt = salt;
-		this.status = status;
-		this.dateOfBirth = dateofbirth;
-		this.adresIDFK = adresIDFK;
-		this.airtimeIDFK = airtimeIDFK;
+		this.setStatus(status);
+		this.addressIdFk = adresIDFK;
+		this.setPhoto(photo);
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public int getUserID() {
@@ -53,12 +57,12 @@ public class User {
 		this.userType = userType;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirsName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public int getPhonenumber() {
@@ -74,7 +78,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if (salt != null){
+			this.password = password;
+		}else{
+			salt = "";
+		}
 	}
 
 	public String getSalt() {
@@ -82,7 +90,11 @@ public class User {
 	}
 
 	public void setSalt(String salt) {
-		this.salt = salt;
+		if (salt != null){
+			this.salt = salt;
+		}else{
+			this.salt = "";
+		}
 	}
 
 	public String getStatus() {
@@ -90,7 +102,19 @@ public class User {
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		if (status != null){
+			this.status = status;
+		}else{
+			this.status = "";
+		}
+	}
+
+	public int getAddressIdFk() {
+		return addressIdFk;
+	}
+
+	public void setAddressIdFk(int addressIdFk) {
+		this.addressIdFk = addressIdFk;
 	}
 	
 	public Date getDateOfBirth() {
@@ -101,19 +125,23 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public int getAdresIDFK() {
-		return adresIDFK;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setAdresIDFK(int adresIDFK) {
-		this.adresIDFK = adresIDFK;
+	public void setPhoto(String photo) {
+		if (photo != null){
+			this.photo = photo;
+		}else{
+			this.photo = "";
+		}
 	}
 
-	public int getAirtimeIDFK() {
-		return airtimeIDFK;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setAirtimeIDFK(int airtimeIDFK) {
-		this.airtimeIDFK = airtimeIDFK;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

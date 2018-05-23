@@ -1,6 +1,8 @@
 package Resource;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -28,18 +30,17 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
-
-        job.add("userid", user.getUserID())
-                .add("userType", user.getUserType())
-                .add("name", user.getName())
-                .add("phonenumber", user.getPhonenumber())
-                .add("password", user.getPassword())
-                .add("salt", user.getSalt())
-                .add("status", user.getStatus())
-                .add("dateofbirth", user.getDateOfBirth().toString())
-                .add("adresIDFK", user.getAdresIDFK())
-        		.add("airtimeIDFK", user.getAirtimeIDFK());
-
+        
+        job.add("userid", user.getUserID());
+        job.add("userType", user.getUserType());
+        job.add("firstName", user.getFirstName());
+        job.add("lastName", user.getLastName());
+        job.add("phonenumber", user.getPhonenumber());
+        job.add("status", user.getStatus());
+        job.add("addressIdFk", user.getAddressIdFk());
+        job.add("photo", user.getPhoto());
+        job.add("dateofbirth", user.getDateOfBirth().toString());
+        
         return job;
     }
     
@@ -94,19 +95,23 @@ public class UserResource {
 
     @POST
     @Produces("application/json")
-    public Response addUser(@FormParam("userid") int id,
+    public Response addUser(@FormParam("userid") int userId,
                                @FormParam("usertype") String userType,
-                               @FormParam("name") String name,
+                               @FormParam("firstname") String firstName,
+                               @FormParam("lastname") String lastName,
                                @FormParam("phonenumber") int phonenumber,
                                @FormParam("password") String password,
                                @FormParam("salt") String salt,
                                @FormParam("status") String status,
-                               @FormParam("dateofbirth") Date birth,
-    						   @FormParam("adresidfk") int adresidfk,
-    						   @FormParam("airtimeidfk") int airtimeidfk)
+    						   @FormParam("adresidfk") int addressIdFk,
+    						   @FormParam("photo") String photo,
+    						   @FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
-        User newUser = new User(id, userType, name, phonenumber, password, salt, status, birth, adresidfk, airtimeidfk);
-        User returnUser = service.addUser(newUser);
+    	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
+		
+        User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
+        User returnUser = service.newUser(newUser);
         if (returnUser != null) {
             String a = buildJSON(returnUser).build().toString();
             return Response.ok(a).build();
@@ -115,36 +120,36 @@ public class UserResource {
         }
     }
 
-    @PUT
-    @Path("/{id}")
-//    @RolesAllowed({"beheerder","admin","user"})
-    public Response updateAccount(@FormParam("userid") int id,
-						            @FormParam("usertype") String userType,
-						            @FormParam("name") String name,
-						            @FormParam("phonenumber") int phonenumber,
-						            @FormParam("password") String password,
-						            @FormParam("salt") String salt,
-						            @FormParam("status") String status,
-									@FormParam("adresidfk") int adresidfk,
-									@FormParam("airtimeidfk") int airtimeidfk){
-
-        User user = service.getUserByID(id);
-        if (user != null) {
-        	user.setName(name);
-            user.setPassword(password);
-            user.setPhonenumber(phonenumber);
-            user.setSalt(salt);
-            user.setStatus(status);
-            user.setAdresIDFK(adresidfk);
-            user.setAirtimeIDFK(airtimeidfk);
-            
-            User updatedUser = service.update(user);
-
-            return Response.ok(buildJSON(updatedUser)).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-    }
+//    @PUT
+//    @Path("/{id}")
+////    @RolesAllowed({"beheerder","admin","user"})
+//    public Response updateAccount(@FormParam("userid") int id,
+//						            @FormParam("usertype") String userType,
+//						            @FormParam("name") String name,
+//						            @FormParam("phonenumber") int phonenumber,
+//						            @FormParam("password") String password,
+//						            @FormParam("salt") String salt,
+//						            @FormParam("status") String status,
+//									@FormParam("adresidfk") int adresidfk,
+//									@FormParam("airtimeidfk") int airtimeidfk){
+//
+//        User user = service.getUserByID(id);
+//        if (user != null) {
+//        	user.setName(name);
+//            user.setPassword(password);
+//            user.setPhonenumber(phonenumber);
+//            user.setSalt(salt);
+//            user.setStatus(status);
+//            user.setAdresIDFK(adresidfk);
+//            user.setAirtimeIDFK(airtimeidfk);
+//            
+//            User updatedUser = service.update(user);
+//
+//            return Response.ok(buildJSON(updatedUser)).build();
+//        } else {
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//    }
 
     @DELETE
     @Path("/{id}")
