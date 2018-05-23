@@ -29,18 +29,14 @@ public class UserDAO extends baseDAO {
                 String lastName = dbResultSet.getString("lastname");   
             	int phonenumber = dbResultSet.getInt("phonenumber");
             	String password = dbResultSet.getString("password");
-            	Date dateofbirth = dbResultSet.getDate("dateofbirth");
             	String salt = dbResultSet.getString("salt");
             	String status = dbResultSet.getString("status");
-            	String DoB = dbResultSet.getString("dateofbirth");
+            	Date DateOfBirth = dbResultSet.getDate("dateofbirth");
             	int addressIdFk = dbResultSet.getInt("addressidfk");
             	String photo = dbResultSet.getString("photo");
            
-<<<<<<< HEAD
-                User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo);
-=======
-                User newUser = new User(id, userType, name, phonenumber, password, salt, status, dateofbirth, adresIDFK, airtimeIDFK);
->>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
+                User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, DateOfBirth);
+
 
                 results.add(newUser);
             }
@@ -121,12 +117,7 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-<<<<<<< HEAD
         String query = "INSERT INTO "+tablename+"(usertype, firstname, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
-=======
-        String query = "INSERT INTO "+tablename+"(usertype, name, phonenumber, password, salt, status, dateofbirth) VALUES (?,?,?,?,?,?,?) RETURNING userid";
->>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
-
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
