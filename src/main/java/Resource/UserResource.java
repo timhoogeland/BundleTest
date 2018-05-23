@@ -28,6 +28,7 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
+<<<<<<< HEAD
         
         job.add("userid", user.getUserID());
         job.add("userType", user.getUserType());
@@ -38,6 +39,20 @@ public class UserResource {
         job.add("addressIdFk", user.getAddressIdFk());
         job.add("photo", user.getPhoto());
         
+=======
+
+        job.add("userid", user.getUserID())
+                .add("userType", user.getUserType())
+                .add("name", user.getName())
+                .add("phonenumber", user.getPhonenumber())
+                .add("password", user.getPassword())
+                .add("salt", user.getSalt())
+                .add("status", user.getStatus())
+                .add("dateofbirth", user.getDateOfBirth().toString())
+                .add("adresIDFK", user.getAdresIDFK())
+        		.add("airtimeIDFK", user.getAirtimeIDFK());
+
+>>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
         return job;
     }
     
@@ -100,10 +115,18 @@ public class UserResource {
                                @FormParam("password") String password,
                                @FormParam("salt") String salt,
                                @FormParam("status") String status,
+<<<<<<< HEAD
     						   @FormParam("adresidfk") int addressIdFk,
     						   @FormParam("photo") String photo)
     {
         User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo);
+=======
+                               @FormParam("dateofbirth") Date birth,
+    						   @FormParam("adresidfk") int adresidfk,
+    						   @FormParam("airtimeidfk") int airtimeidfk)
+    {
+        User newUser = new User(id, userType, name, phonenumber, password, salt, status, birth, adresidfk, airtimeidfk);
+>>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
         User returnUser = service.addUser(newUser);
         if (returnUser != null) {
             String a = buildJSON(returnUser).build().toString();

@@ -19,12 +19,23 @@ public class User {
 	
 	private String status;
 	
+<<<<<<< HEAD
 	private int addressIdFk;
+=======
+	private Date dateOfBirth;
+
+	private int adresIDFK;
+>>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
 	
 	private String photo;
 	
+<<<<<<< HEAD
 	public User(int userID, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
 			int adresIDFK, String photo) {
+=======
+	public User(int userID, String userType, String name, int phonenumber, String password, String salt, String status, Date dateofbirth,
+			int adresIDFK, int airtimeIDFK) {
+>>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
 		this.userID = userID;
 		this.userType = userType;
 		this.firstName = firstName;
@@ -32,9 +43,16 @@ public class User {
 		this.phonenumber = phonenumber;
 		this.password = password;
 		this.salt = salt;
+<<<<<<< HEAD
 		this.setStatus(status);
 		this.addressIdFk = adresIDFK;
 		this.setPhoto(photo);
+=======
+		this.status = status;
+		this.dateOfBirth = dateofbirth;
+		this.adresIDFK = adresIDFK;
+		this.airtimeIDFK = airtimeIDFK;
+>>>>>>> 892c68c81a80a660fe41f028ed2d121233204aae
 	}
 
 	public int getUserID() {
@@ -111,6 +129,14 @@ public class User {
 
 	public void setAddressIdFk(int addressIdFk) {
 		this.addressIdFk = addressIdFk;
+	}
+	
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getPhoto() {
