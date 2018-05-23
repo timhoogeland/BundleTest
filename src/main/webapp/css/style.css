@@ -440,6 +440,7 @@ footer{
 @media (max-width: 48em) {
 	.welcomeBlock, .buttonBlock, .blockHalf {
 		width: 100%;
+		
 	}
 	.blockHalf {
 	 padding: 0px 50px;;
