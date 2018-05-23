@@ -6,7 +6,7 @@ import DAOS.loanDAO;
 import Objects.Loan;
 
 public class LoanService {
-loanDAO Loan = new loanDAO();
+	loanDAO Loan = new loanDAO();
 	
 	public List<Loan> getLoanById(int LoanId) {
 		return Loan.getLoanById(LoanId);
