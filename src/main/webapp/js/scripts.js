@@ -12,8 +12,6 @@ if (navigator.serviceWorker.controller) {
 }
 // END: PWA initialisation
 
-
-
 // Login
 function setCookie(name, value, days) {
 	var expires = "";
@@ -36,6 +34,7 @@ function getCookie(name) {
 	}
 	return null;
 }
+
 function eraseCookie(name) {
 	document.cookie = name + '=; Max-Age=-99999999;path=/;';
 }
@@ -338,6 +337,7 @@ function removeNotification() {
 		$('#notificationBlock .notification:last').remove();
 	}, 1100)
 }
+
 
 function loadingText(points) {
 	if (points == '...') {
