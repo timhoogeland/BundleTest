@@ -308,7 +308,7 @@
                     <ul class="flex-outer">
                     <li>
                         <label for="loan-type">Loan type</label>
-                        <select name="loan-type" id="loan-type">
+                        <select name="loantype" id="loan-type">
                             <option value="ST">Short-term</option>
                             <option value="MT">Mid-term</option>
                             <option value="LT">Long-term</option>
@@ -319,8 +319,8 @@
                         <input name="amount" id="amount" placeholder="Enter the loan-amount here"></input>
                     </li>
                     <li>
-                        <label for="start-date">Start date</label>
-                        <input name="date" type="date" id="start-date">
+                        <label for="startdate">Start date</label>
+                        <input name="startdate" type="date" id="start-date">
                     </li>
                     <li>
                         <label for="duration">Duration</label>
@@ -337,10 +337,6 @@
     <script type="text/javascript">
          $(document).ready(function () {
             $("form").submit(function () {
-            	/* var form = $("#adress");
-                var data = JSON.stringify(form.serialize());
-
-                alert(data); */
 
                 $.ajax({
 					url : "/bundlePWABackend/restservices/adress",
@@ -350,6 +346,7 @@
 					success : function(data) {
 						
 						alert("Adress added.");
+						
 					},
 					error : function(response, textStatus, errorThrown) {
 
@@ -360,6 +357,26 @@
 
 					}
 				});
+                $.ajax({
+					url : "/bundlePWABackend/restservices/loan",
+					type : "post",
+					data : $("#loan").serialize(),
+					
+					success : function(data) {
+						
+						alert("Loan added.");
+					},
+					error : function(response, textStatus, errorThrown) {
+
+						console.log("textStatus: " + textStatus);
+						console.log("errorThrown: " + errorThrown);
+						console.log("status: " + response.status);
+						alert("Loan not added.");
+
+					}
+				});
+                
+                
 
             });
         });
