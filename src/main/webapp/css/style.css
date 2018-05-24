@@ -434,17 +434,15 @@ button:hover {
 .hide {
 	display: none;
 }
-.error {
+.notification {
 	width: calc(100% - 150px);
 	position: relative;
 	float: left;
 	padding: 25px;
 	z-index: -10;
-	margin: 10px 50px;
-	background-color: #fa5858;
-	
+	margin: 10px 50px;	
 }
-.error p{
+.notification p{
 	font-size: 1em;
 	font-weight: bold;
 	text-align: center;

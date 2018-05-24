@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -14,13 +16,15 @@ import javax.xml.bind.DatatypeConverter;
 import Objects.Login;
 
 public class LoginDAO extends baseDAO {
-	public int login(String username, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		int userid = 0;
-		int database_userid = 0;
+	public Map<String, String> login(String username, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		Map<String, String> userdata = new HashMap<String, String>();;
+		String database_userid = null;
 		String database_password = null;
 		String database_salt = null;
+		String database_status = null;
+		String database_usertype = null;
 
-		String query = "select userid, password, salt from public.user where username = ?";
+		String query = "select userid, password, salt, status, usertype from public.user where username = ?";
 		
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -28,9 +32,11 @@ public class LoginDAO extends baseDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				database_userid = rs.getInt("userid");
+				database_userid = Integer.toString(rs.getInt("userid"));
 				database_password = rs.getString("password");
 				database_salt = rs.getString("salt");
+				database_status = rs.getString("status");
+				database_usertype = rs.getString("usertype");
 			}
 			
 			pstmt.getConnection().close();
@@ -38,7 +44,7 @@ public class LoginDAO extends baseDAO {
 			sqle.printStackTrace();
 		}
 		
-		if (database_password != null && database_salt != null && database_userid != 0) {
+		if (database_password != null && database_salt != null && database_userid != null) {
 			int iterations = 985;
 			char[] chars = password.toCharArray();
 			byte[] salt = hexStringToByteArray(database_salt);
@@ -49,11 +55,13 @@ public class LoginDAO extends baseDAO {
 	        String client_password = toHex(hash);
 
 	        if(client_password.equals(database_password)) {
-	        	userid = database_userid;
+	        	userdata.put("userid", database_userid);
+	        	userdata.put("usertype", database_usertype);
+	        	userdata.put("status", database_status);
 	        }
 		}
 
-		return userid;
+		return userdata;
 	}
 	
 	private static String toHex(byte[] bytes) {

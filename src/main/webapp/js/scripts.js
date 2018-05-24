@@ -67,16 +67,17 @@ function validateLogin() {
 					setCookie('username', username, 1);
 					setCookie('password', pass, 1);
 					setCookie('loanofficerid', response[0]['userid']);
+					addNotification("Login successful", "green");
 					window.location.replace("index.jsp");
 				} else {
 					$('#loginbutton').attr('loading', 'false');
 					$('#loginbutton').text('Try again');
-					addError('The username or password is incorrect');
+					addNotification(response[0]['error']);
 				}
 			} else {
 				$('#loginbutton').attr('loading', 'false');
 				$('#loginbutton').text('Try again');
-				addError('Retrieving data failed with status '
+				addNotification('Retrieving data failed with status '
 						+ logRequest.status + '. Try again later.');
 			}
 		}
@@ -119,7 +120,7 @@ function getLoans() {
 				table.appendChild(tr);
 			});
 		} else if (hr.readyState == 4) {
-			addError('Retrieving data failed with status ' + hr.status
+			addNotification('Retrieving data failed with status ' + hr.status
 					+ '. Try again later.');
 		}
 	}
@@ -154,7 +155,7 @@ function getContracts() {
 				table.appendChild(tr);
 			});
 		} else if (hr.readyState == 4) {
-			addError('Retrieving data failed with status ' + hr.status
+			addNotification('Retrieving data failed with status ' + hr.status
 					+ '. Try again later.');
 		}
 	}
@@ -231,20 +232,20 @@ function loadLoanDetails() {
 									$('#postal').text(data[0].postalcode);
 									$('#country').text(data[0].country);
 								} else if (hr4.readyState == 4) {
-									addError('Retrieving data failed with status '
+									addNotification('Retrieving data failed with status '
 											+ hr4.status + '. Try again later.');
 								}
 							}
 							hr4.send(null);
 						} else if (hr3.readyState == 4) {
-							addError('Retrieving data failed with status '
+							addNotification('Retrieving data failed with status '
 									+ hr3.status + '. Try again later.');
 						}
 					}
 					hr3.send(null);
 
 				} else if (hr2.readyState == 4) {
-					addError('Retrieving data failed with status ' + hr2.status
+					addNotification('Retrieving data failed with status ' + hr2.status
 							+ '. Try again later.');
 				}
 
@@ -252,7 +253,7 @@ function loadLoanDetails() {
 			hr2.send(null);
 
 		} else if (hr.readyState == 4) {
-			addError('Retrieving data failed with status ' + hr.status
+			addNotification('Retrieving data failed with status ' + hr.status
 					+ '. Try again later.');
 		}
 	}
@@ -317,17 +318,24 @@ function sendContract(firstname, lastname, birthdate, phone, street,
 			country, picture, loantype, sector, amount, duration, description);
 }
 
-function addError(text) {
-	$('#errorBlock').fadeIn().append(
-			'<div class="error hide"><p id="errorText">' + text
+function addNotification(text, color) {
+	backgroundColor = "#ffffff";
+	if (color != undefined && color === "green") {
+		backgroundColor = "#5dbc5d";
+	} else {
+		backgroundColor = "#fa5858";
+	}
+	
+	$('#notificationBlock').fadeIn().append(
+			'<div class="notification hide" style="background-color:'+backgroundColor+'"><p id="notificationText">' + text
 					+ '</div></div>');
-	$('#errorBlock .error:last').hide().fadeIn();
-	setTimeout(removeError, 3000);
+	$('#notificationBlock .notification:last').hide().fadeIn();
+	setTimeout(removeNotification, 3000);
 }
-function removeError() {
-	$('#errorBlock .error:last').fadeOut(1000);
+function removeNotification() {
+	$('#notificationBlock .notification:last').fadeOut(1000);
 	setTimeout(function() {
-		$('#errorBlock .error:last').remove();
+		$('#notificationBlock .notification:last').remove();
 	}, 1100)
 }
 
