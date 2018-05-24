@@ -1,7 +1,10 @@
 package Resource;
 
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
+import java.util.Map;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -32,31 +35,25 @@ public class LoginResource {
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String getUserId(@HeaderParam("username") String username,
-			  				@HeaderParam("password") String password){
-		System.out.println(username+ password);
+			  				@HeaderParam("password") String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		
 		LoginDAO dao = new LoginDAO();
-		int id = dao.login(username, password);
-		
-		if(id == 0){throw new IllegalArgumentException("no user found");};
+		Map<String, String> userdata = dao.login(username, password);
 		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		JsonObjectBuilder job =Json.createObjectBuilder();
-		job.add("userid", id);
+		
+		if (userdata.isEmpty()) {
+			job.add("error", "The username or password is incorrect");
+		} else if (userdata.get("status").equals("inactive")) {
+			job.add("error", "This user is inactive, contact a administrator");
+		} else {
+			job.add("userid", userdata.get("userid"));
+			job.add("usertype", userdata.get("usertype"));
+		}
+		
 		jab.add(job);
 		JsonArray array = jab.build();
-		
-		
-		Calendar expiration = Calendar.getInstance();
-		expiration.add(Calendar.MINUTE, 30);
-		 
-		String token = Jwts.builder()
-				 .setSubject(username)
-				 .claim("id", id)
-				 .setExpiration(expiration.getTime())
-				 .signWith(SignatureAlgorithm.HS512, key)
-				 .compact();
-		
-		 return array.toString();
+		return array.toString();
 	}
 }

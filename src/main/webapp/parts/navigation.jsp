@@ -57,5 +57,9 @@
 
 <br>
 <br>
+<br>
+<br>
 
 <div id="container">
+	<div id="notificationBlock">
+	</div>

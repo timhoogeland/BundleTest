@@ -116,26 +116,26 @@ public class ContractDAO extends baseDAO {
 //        return result;
 //    }
 //
-    public Contract save(Contract contract) {
-        String query = "INSERT INTO "+tablename+" (status, description, contractpdf, useridfk) VALUES (?,?,?,?) RETURNING contractid";
+    public boolean newContract(Contract newContract) {
+        boolean result = false;
+        String query = 	"INSERT INTO " + tablename + 
+        				"(status, description, contractpdf, useridfk) VALUES (\"" +
+        				newContract.getStatus() + "\", \"" +
+        				newContract.getDescription() + "\", \"" +
+        				newContract.getContractPDF() + "\", " +
+        				newContract.getUserIDFK() + ");";
 
         try (Connection con = super.getConnection()){
-            PreparedStatement pstmt = con.prepareStatement(query);
-            
-            pstmt.setString(1, contract.getStatus());
-            pstmt.setString(2, contract.getDescription());
-            pstmt.setString(3, contract.getContractPDF());
-            pstmt.setInt(4, contract.getUserIDFK());
-
-            ResultSet dbResultSet = pstmt.executeQuery();
-            if(dbResultSet.next()) {
-                return findByID(dbResultSet.getInt(1));
+        	Statement stmt = con.createStatement();
+            System.out.println(query);
+            if(stmt.executeUpdate(query) == 1) {
+                result = true;
+                stmt.getConnection().close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return findByID(contract.getContractID());
+        return result;
     }
 
 //    public String findRoleForNameAndPassword(String name, String password){

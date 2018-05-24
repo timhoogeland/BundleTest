@@ -24,6 +24,28 @@ import Services.LoanServiceProvider;
 
 @Path("/loan")
 public class LoanResource {
+	
+	@GET
+	@Produces("application/json")
+	public String getAllLoans(){
+		LoanService service = LoanServiceProvider.getLoanService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		for(Loan l : service.getAllLoans()){
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("loanId", l.getLoanId())
+			.add("amount", l.getAmount())
+			.add("status", l.getStatus())
+			.add("startdate",  l.getStartDate().toString())
+			.add("duration", l.getDuration())
+			.add("closingdate",  l.getClosingDate().toString())
+			.add("loantype",l.getLoanType())
+		    .add("contractid", l.getContractId());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
 	@GET
 	@Path("/{loanId}")
 	@Produces("application/json")
@@ -58,17 +80,10 @@ public class LoanResource {
 		
 		LoanService service = LoanServiceProvider.getLoanService();
 		
-		System.out.println("1 amount: " + amount);
-		System.out.println("1 startDate: " + startDate);
-		System.out.println("1 closingDate: " + closingDate);
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-		System.out.println("2 startDate: " + utilStartDate);
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingDate);
-		System.out.println("2 closingDate: " + utilClosingDate);
 		java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-		System.out.println("3 startDate: " + sqlStartDate);
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
-		System.out.println("3 closingDate: " + sqlClosingDate);
 		
 		Loan newLoan = new Loan(99, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, loanType, Integer.parseInt(contractId));
 		if (service.newLoan(newLoan)){

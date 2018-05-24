@@ -9,7 +9,7 @@
 
     <main>
     	<div class="welcomeBlock long">
-    		<h1>View Contract - Farming</h1>
+    		<h1>Contract - Farming</h1>
     	</div>
     
 	    <div class="blockHalf applicantinfo-contract">

@@ -3,7 +3,7 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<body >
+<body onload="loadingText('...')">
     
     <jsp:include page="parts/navigation.jsp" />
 
@@ -26,7 +26,7 @@
 			  </li>
 			  
 			  <li>
-			  	<button type="submit">Login</button>
+			  	<button id="loginbutton" type="submit" >Login</button>
 			  </li>
 		  </ul>
 		
