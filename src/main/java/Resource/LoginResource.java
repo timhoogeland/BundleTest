@@ -1,6 +1,8 @@
 package Resource;
 
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
 
 import javax.json.Json;
@@ -32,16 +34,22 @@ public class LoginResource {
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String getUserId(@HeaderParam("username") String username,
-			  				@HeaderParam("password") String password){
-		System.out.println(username+ password);
+			  				@HeaderParam("password") String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		
 		LoginDAO dao = new LoginDAO();
 		int id = dao.login(username, password);
 		
-		if(id == 0){throw new IllegalArgumentException("no user found");};
-		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		JsonObjectBuilder job =Json.createObjectBuilder();
+		
+		if (id == 0) {
+			job.add("error", 403);
+			jab.add(job);
+			JsonArray array = jab.build();
+			return array.toString();
+		};
+		
+		
 		job.add("userid", id);
 		jab.add(job);
 		JsonArray array = jab.build();
