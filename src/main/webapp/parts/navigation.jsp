@@ -63,4 +63,3 @@
 <div id="container">
 	<div id="notificationBlock">
 	</div>
-
