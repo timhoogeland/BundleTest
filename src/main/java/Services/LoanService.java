@@ -19,4 +19,8 @@ public class LoanService {
 	public List<Loan> getAllLoans() {
 		return Loan.getAllLoans();
 	}
+	
+	public boolean updateLoan(Loan loan){
+		return Loan.updateLoan(loan);
+	}
 }
