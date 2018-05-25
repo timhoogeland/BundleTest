@@ -13,7 +13,7 @@ import Objects.Contract;
 
 public class AdressDAO extends baseDAO {
 
-	private String tablename = "public.\"adress\"";
+	private String tablename = "public.\"address\"";
 
     private List<Adress> selectAdresss (String query) {
         List<Adress> results = new ArrayList<Adress>();
@@ -23,7 +23,7 @@ public class AdressDAO extends baseDAO {
             ResultSet dbResultSet = stmt.executeQuery(query);
 
             while (dbResultSet.next()) {
-                int id = dbResultSet.getInt("adressid");
+                int id = dbResultSet.getInt("addressid");
                 String street = dbResultSet.getString("street");
                 int number = dbResultSet.getInt("number");            	
             	String country = dbResultSet.getString("country");
@@ -43,7 +43,7 @@ public class AdressDAO extends baseDAO {
     public List<Adress> findAll() { return selectAdresss("SELECT * From "+tablename); }
 
     public Adress findByID(int id) {
-        List<Adress> results = selectAdresss("SELECT * FROM "+tablename+" WHERE adressid = " + id + "");
+        List<Adress> results = selectAdresss("SELECT * FROM "+tablename+" WHERE addressid = " + id + "");
 
         if (results.size() == 0) {
             return null;
@@ -57,16 +57,16 @@ public class AdressDAO extends baseDAO {
         return results;
     }
     
-    public Adress save(Adress adress) {
-        String query = "INSERT INTO "+tablename+" (street, number, country, postalcode) VALUES (?,?,?,?) RETURNING adressid";
+    public Adress save(Adress address) {
+        String query = "INSERT INTO "+tablename+" (street, number, country, postalcode) VALUES (?,?,?,?) RETURNING addressid";
 
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setString(1, adress.getStreet());
-            pstmt.setInt(2, adress.getNumber());
-            pstmt.setString(3, adress.getCountry());
-            pstmt.setString(4, adress.getPostalCode());
+            pstmt.setString(1, address.getStreet());
+            pstmt.setInt(2, address.getNumber());
+            pstmt.setString(3, address.getCountry());
+            pstmt.setString(4, address.getPostalCode());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
@@ -76,6 +76,6 @@ public class AdressDAO extends baseDAO {
             e.printStackTrace();
         }
 
-        return findByID(adress.getAdressID());
+        return findByID(address.getAdressID());
     }
 }

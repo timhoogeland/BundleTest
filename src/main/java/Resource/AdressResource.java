@@ -63,13 +63,14 @@ public class AdressResource {
 	    
 	    @POST
 	    @Produces("application/json")
-	    public Response addUser(
+	    public Response addAddress(
 	                               @FormParam("street") String street,
 	                               @FormParam("number") int number,
 	                               @FormParam("country") String country,
 	                               @FormParam("postalcode") String postalcode)
 
 	    {
+	    	
 	        Adress newAdress = new Adress(0, street, number, country, postalcode);
 	        Adress returnAdress = service.addContract(newAdress);
 	        if (returnAdress != null) {
