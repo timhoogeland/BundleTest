@@ -3,7 +3,7 @@ package Objects;
 import java.sql.Date;
 
 public class User {
-	private int userID;
+	private int userId;
 	
 	private String userType;
 	
@@ -28,7 +28,7 @@ public class User {
 	public User(int userID, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
 			int adresIDFK, String photo, Date dateOfBirth) {
 
-		this.userID = userID;
+		this.userId = userID;
 		this.userType = userType;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -41,12 +41,12 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public int getUserID() {
-		return userID;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUserType() {

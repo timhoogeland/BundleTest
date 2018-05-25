@@ -50,7 +50,7 @@ public class UserDAO extends baseDAO {
 
     public List<User> findAll() { return selectUsers("SELECT * From " + tablename); }
 
-    public User findByID(int id) {
+    public User findById(int id) {
         List<User> results = selectUsers("SELECT * FROM " + tablename + " WHERE userid = " + id + "");
 
         if (results.size() == 0) {
@@ -66,7 +66,7 @@ public class UserDAO extends baseDAO {
         if (results.size() == 0) {
             return (Integer) null;
         } else {
-            return results.get(0).getUserID();
+            return results.get(0).getUserId();
         }
     }
 
@@ -77,7 +77,7 @@ public class UserDAO extends baseDAO {
 
         try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, User.getUserID());
+            pstmt.setInt(1, User.getUserId());
             pstmt.setString(2, User.getUserType());
             pstmt.setString(3, User.getFirstName());
             pstmt.setInt(4, User.getPhonenumber());
@@ -91,19 +91,19 @@ public class UserDAO extends baseDAO {
             e.printStackTrace();
         }
 
-        return findByID(User.getUserID());
+        return findById(User.getUserId());
     }
 
     public boolean delete (User User) {
         boolean result = false;
-        boolean UserExists = findByID(User.getUserID()) != null;
+        boolean UserExists = findById(User.getUserId()) != null;
 
         if (UserExists) {
             String query = "DELETE FROM "+tablename+" WHERE userid=?";
 
             try (Connection con = getConnection()) {
                 PreparedStatement pstmt = con.prepareStatement(query);
-                pstmt.setInt(1, User.getUserID());
+                pstmt.setInt(1, User.getUserId());
 
                 if (pstmt.executeUpdate() == 1) { // 1 row updated!
                     result = true;
@@ -117,27 +117,30 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(usertype, firstname, phonenumber, password, salt, status) VALUES (?,?,?,?,?,?) RETURNING userid";
+        String query = "INSERT INTO "+tablename+"(userid, usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setString(1, User.getUserType());
-            pstmt.setString(2, User.getFirstName());
-            pstmt.setInt(3, User.getPhonenumber());
-            pstmt.setString(4, User.getPassword());
-            pstmt.setString(5, User.getSalt());
-            pstmt.setString(6, User.getStatus());
-            pstmt.setDate(7, User.getDateOfBirth());
-
+            pstmt.setInt(1, User.getUserId());
+            pstmt.setString(2, User.getUserType());
+            pstmt.setString(3, User.getFirstName());
+            pstmt.setString(4, User.getLastName());
+            pstmt.setInt(5, User.getPhonenumber());
+            pstmt.setString(6, User.getPassword());
+            pstmt.setString(7, User.getSalt());
+            pstmt.setString(8, User.getStatus());
+            pstmt.setDate(9, User.getDateOfBirth());
+            pstmt.setString(10, User.getPhoto());
+            pstmt.setInt(11, User.getAddressIdFk());
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
-                return findByID(dbResultSet.getInt(1));
+                return findById(dbResultSet.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return findByID(User.getUserID());
+        return findById(User.getUserId());
     }
     
     public String findRoleForNameAndPassword(String name, String password){
