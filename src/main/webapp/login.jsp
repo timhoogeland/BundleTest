@@ -6,9 +6,9 @@
 <body onload="loadingText('...')">
     
     <jsp:include page="parts/navigation.jsp" />
-
+	
     <main>
-      <div class="welcomeBlock">
+      <div class="welcomeBlock centerText">
       	<h1>Login</h1>
       </div>
       

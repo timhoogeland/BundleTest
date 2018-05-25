@@ -1,65 +1,55 @@
-<header class="header">
-    <a href="index.jsp" class="logo">Bundle</a>
-    <input class="menu-btn" type="checkbox" id="menu-btn" />
-    <label class="menu-icon" for="menu-btn">
-    <span class="navicon"></span>
+<header>
+	<div class="logo">
+		<a href="index.jsp">
+			<img alt="Bundle Logo" src="img/logowhite.png">
+		</a>
+	</div>
+	
+	<input class="menu-btn" type="checkbox" id="menu-btn" /> <label class="menu-icon" for="menu-btn"> <span class="navicon"></span>
 
-    </label>
-    <ul id = "menu" class="menu">
-        <li>
-            <a href="index.jsp">Home</a>
-        </li>
-        <li>
-            <a href="loans.jsp">Loans</a>
-        </li>
-        <li>
-            <a href="contracts.jsp">Contracts</a>
-        </li>
-        <li id ="login">
-            
-            <a  href="login.jsp">Login</a>
-        </li>
-    </ul>
+	</label>
+	<ul class="menu" id="menu">
+		<li><a href="index.jsp">Home</a></li>
+		<li><a href="loans.jsp">Loans</a></li>
+		<li><a href="contracts.jsp">Contracts</a></li>
+		<li id="login"><a href="login.jsp">Login</a></li>
+	</ul>
+	
+	<footer>
+    	<p class="copyright">&#169; Bundle 2017-2018</p>
+	</footer>
 
-    <script>
-	    $(function(){
-	        var current = location.pathname;
-	        current = current.replace('/bundlePWABackend/', '');
-			
-	        if(getCookie("username")!=null &&  getCookie("password")!=null){
-	            document.getElementById('login').innerHTML = '<span onclick = javascript:logOut();> <a href="login.jsp">Logout</a>  </span>';
-			
-	          }
-	          if (getCookie("username")==null &&  getCookie("password")==null){
+	<script>
+		$(function() {
+			var current = location.pathname;
+			current = current.replace('/bundlePWABackend/', '');
 
-	        	  document.getElementById('menu').innerHTML = '  <li> <a href="index.jsp">Home</a></li>   <li id ="login"><a  href="login.jsp">Login</a></li>';
-	              
-	        	  if(window.location.pathname == "/bundlePWABackend/loans.jsp"||window.location.pathname =="/bundlePWABackend/contracts.jsp"){
-	        		  window.location.replace("login.jsp");
-	        	  }
-	        	 
-	        	  
-	        	  
-	          }
-	        $('.menu li a').each(function(){
-	            var $this = $(this);
-	            // if the current path is like this link, make it active
-	            if($this.attr('href').indexOf(current) !== -1){
-	                $this.addClass('active');
-	                
-                  }
-	            
+			if (getCookie("username") != null && getCookie("password") != null) {
+				document.getElementById('login').innerHTML = '<span onclick = javascript:logOut();> <a href="login.jsp">Logout</a>  </span>';
 
-	        })
-	    })
-    </script>
+			}
+			if (getCookie("username") == null && getCookie("password") == null) {
+
+				document.getElementById('menu').innerHTML = '  <li> <a href="index.jsp">Home</a></li>   <li id ="login"><a  href="login.jsp">Login</a></li>';
+
+				if (window.location.pathname == "/bundlePWABackend/loans.jsp"
+						|| window.location.pathname == "/bundlePWABackend/contracts.jsp") {
+					window.location.replace("login.jsp");
+				}
+
+			}
+			$('.menu li a').each(function() {
+				var $this = $(this);
+				// if the current path is like this link, make it active
+				if ($this.attr('href').indexOf(current) !== -1) {
+					$this.addClass('active');
+
+				}
+
+			})
+		})
+	</script>
 </header>
 
-<br>
-<br>
-<br>
-<br>
-
 <div id="container">
-	<div id="notificationBlock">
-	</div>
+	<div id="notificationBlock"></div>
