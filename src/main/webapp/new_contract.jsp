@@ -339,13 +339,14 @@
             $("form").submit(function () {
 
                 $.ajax({
-					url : "/bundlePWABackend/restservices/adress",
+					url : "/bundlePWABackend/restservices/user",
 					type : "post",
-					data : $("#adress").serialize(),
+					data : $("#user").serialize(),
 					
 					success : function(data) {
 						
-						alert("Adress added.");
+						alert("Adress added. {0}", data);
+						
 						
 					},
 					error : function(response, textStatus, errorThrown) {
