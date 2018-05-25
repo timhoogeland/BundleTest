@@ -4,74 +4,143 @@ import java.sql.Date;
 
 public class Loan {
 private int loanId;
+private String loanType;
 private int amount;
 private String status;
-private Date startdate;
+private Date startDate;
 private int duration;
-private Date closingdate;
-private String loantype;
-private int contractId;
+private Date closingDate;
+private int paidAmount;
+private String contractPdf;
+private String description;
+private int userIdFk;
 
 
-public Loan(int loanId, int amount, String status, Date startdate, int duration, Date closingdate, String loantype,int contractId) {
-	super();
+public Loan(int loanId, String loanType, int amount, String status, Date startDate, int duration, Date closingDate, int paidAmount, String contractPdf, String description, int userIdFk) {
 	this.loanId = loanId;
+	this.loanType = loanType;
 	this.amount = amount;
 	this.status = status;
-	this.startdate = startdate;
+	this.startDate = startDate;
 	this.duration = duration;
-	this.closingdate = closingdate;
-	this.loantype = loantype;
-	this.contractId = contractId;
+	this.setClosingDate(closingDate);
+	this.paidAmount = paidAmount;
+	this.contractPdf = contractPdf;
+	this.setDescription(description);
+	this.userIdFk = userIdFk;
 }
+
+
 public int getLoanId() {
 	return loanId;
 }
-public void setLoanId(int loanId) {
-	this.loanId = loanId;
+
+
+public String getLoanType() {
+	return loanType;
 }
+
+
 public int getAmount() {
 	return amount;
 }
-public void setAmount(int amount) {
-	this.amount = amount;
-}
+
+
 public String getStatus() {
 	return status;
 }
-public void setStatus(String status) {
-	this.status = status;
-}
+
+
 public Date getStartDate() {
-	return startdate;
+	return startDate;
 }
-public void setStartdate(Date startdate) {
-	this.startdate = startdate;
-}
+
+
 public int getDuration() {
 	return duration;
 }
+
+
+public Date getClosingDate() {
+	return closingDate;
+}
+
+
+public int getPaidAmount() {
+	return paidAmount;
+}
+
+
+public String getContractPdf() {
+	return contractPdf;
+}
+
+
+public String getDescription() {
+	return description;
+}
+
+
+public int getUserIdFk() {
+	return userIdFk;
+}
+
+
+public void setLoanId(int loanId) {
+	this.loanId = loanId;
+}
+
+
+public void setLoanType(String loantype) {
+	this.loanType = loantype;
+}
+
+
+public void setAmount(int amount) {
+	this.amount = amount;
+}
+
+
+public void setStatus(String status) {
+	this.status = status;
+}
+
+
+public void setStartDate(Date startdate) {
+	this.startDate = startdate;
+}
+
+
 public void setDuration(int duration) {
 	this.duration = duration;
 }
-public Date getClosingDate() {
-	return closingdate;
-}
-public void setClosingdate(Date closingdate) {
-	this.closingdate = closingdate;
-}
-public String getLoanType() {
-	return loantype;
-}
-public void setLoanType(String loantype) {
-	this.loantype = loantype;
-}
-public int getContractId() {
-	return contractId;
-}
-public void setContractId(int contractId) {
-	this.contractId = contractId;
+
+
+public void setClosingDate(Date closingdate) {
+	this.closingDate = closingdate;
 }
 
 
+public void setPaidAmount(int paidAmount) {
+	this.paidAmount = paidAmount;
+}
+
+
+public void setContractPdf(String contractPdf) {
+	this.contractPdf = contractPdf;
+}
+
+
+public void setDescription(String description) {
+	if (description != null){
+		this.description = description;
+	}else{
+		this.description = "";
+	}
+}
+
+
+public void setUserIdFk(int userIdFk) {
+	this.userIdFk = userIdFk;
+}
 }

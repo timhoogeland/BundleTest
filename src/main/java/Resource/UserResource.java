@@ -3,6 +3,7 @@ package Resource;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -31,7 +32,7 @@ public class UserResource {
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
         
-        job.add("userid", user.getUserID());
+        job.add("userid", user.getUserId());
         job.add("userType", user.getUserType());
         job.add("firstName", user.getFirstName());
         job.add("lastName", user.getLastName());
@@ -95,25 +96,24 @@ public class UserResource {
 
     @POST
     @Produces("application/json")
-    public Response addUser(@FormParam("userid") int userId,
-                               @FormParam("usertype") String userType,
-                               @FormParam("firstname") String firstName,
-                               @FormParam("lastname") String lastName,
-                               @FormParam("phonenumber") int phonenumber,
-                               @FormParam("password") String password,
-                               @FormParam("salt") String salt,
-                               @FormParam("status") String status,
-    						   @FormParam("adresidfk") int addressIdFk,
-    						   @FormParam("photo") String photo,
-    						   @FormParam("dateofbirth") String dateOfBirth) throws ParseException
+    public Response addUser(@FormParam("usertype") String userType,
+    						@FormParam("firstname") String firstName,
+                            @FormParam("lastname") String lastName,
+                            @FormParam("phonenumber") int phonenumber,
+                            @FormParam("password") String password,
+                            @FormParam("salt") String salt,
+                            @FormParam("status") String status,
+    						@FormParam("addressidfk") int addressIdFk,
+    						@FormParam("photo") String photo,
+    						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
-		
-        User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
+		Random rand = new Random();
+        User newUser = new User(rand.nextInt(1000), userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {
-            String a = buildJSON(returnUser).build().toString();
+        	String a = buildJSON(newUser).build().toString();
             return Response.ok(a).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();

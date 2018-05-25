@@ -12,7 +12,7 @@ public class UserService {
 
 	    public List<User> getAllUsers() { return userDAO.findAll(); }
 
-	    public User getUserByID(int id) { return userDAO.findByID(id); }
+	    public User getUserByID(int id) { return userDAO.findById(id); }
 	    
 	    public int getIdByEmail(String name) { return userDAO.findIdByName(name); }
 
