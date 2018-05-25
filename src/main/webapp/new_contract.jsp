@@ -337,11 +337,11 @@
     <script type="text/javascript">
          $(document).ready(function () {
             $("form").submit(function () {
-
-                $.ajax({
+            	
+            	$.ajax({
 					url : "/bundlePWABackend/restservices/user",
 					type : "post",
-					data : $("#user").serialize(),
+					data : $("#adress").serialize(),
 					
 					success : function(data) {
 						
@@ -358,6 +358,28 @@
 
 					}
 				});
+
+                $.ajax({
+					url : "/bundlePWABackend/restservices/user",
+					type : "post",
+					data : $("#user").serialize(),
+					
+					success : function(data) {
+						
+						alert("User added. {0}", data);
+						
+						
+					},
+					error : function(response, textStatus, errorThrown) {
+
+						console.log("textStatus: " + textStatus);
+						console.log("errorThrown: " + errorThrown);
+						console.log("status: " + response.status);
+						alert("User not added.");
+
+					}
+				});
+            	
                 $.ajax({
 					url : "/bundlePWABackend/restservices/loan",
 					type : "post",
