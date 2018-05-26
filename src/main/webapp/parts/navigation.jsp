@@ -10,8 +10,9 @@
 	</label>
 	<ul class="menu" id="menu">
 		<li><a href="index.jsp">Home</a></li>
-		<li><a href="loans.jsp">Loans</a></li>
 		<li><a href="contracts.jsp">Contracts</a></li>
+		<li><a href="allaccounts.jsp">All Accounts (admin)</a></li>
+		<li><a href="account.jsp">My Account</a></li>
 		<li id="login"><a href="login.jsp">Login</a></li>
 	</ul>
 	
@@ -21,9 +22,6 @@
 
 	<script>
 		$(function() {
-			var current = location.pathname;
-			current = current.replace('/bundlePWABackend/', '');
-
 			if (getCookie("username") != null && getCookie("password") != null) {
 				document.getElementById('login').innerHTML = '<span onclick = javascript:logOut();> <a href="login.jsp">Logout</a>  </span>';
 
@@ -38,12 +36,19 @@
 				}
 
 			}
+			
+			// Give navigation bar active page a color
+			var current = location.pathname;
+			current = current.replace('/bundlePWABackend/', '');
 			$('.menu li a').each(function() {
 				var $this = $(this);
 				// if the current path is like this link, make it active
-				if ($this.attr('href').indexOf(current) !== -1) {
-					$this.addClass('active');
-
+				if (current != '') {
+					if ($this.attr('href').indexOf(current) !== -1) {
+						$this.addClass('active');
+					}
+				} else {
+					$('.menu li a[href="index.jsp"]').addClass('active');
 				}
 
 			})

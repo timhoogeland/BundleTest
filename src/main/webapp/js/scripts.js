@@ -48,41 +48,52 @@ function logOut() {
 
 function validateLogin() {
 	$('#loginbutton').attr('loading', 'true');
-	var logRequest;
-	try {
-		var pass = document.getElementById('pass').value;
-		var username = document.getElementById('username').value;
-		logRequest = new XMLHttpRequest();
-		logRequest.open('GET', "/bundlePWABackend/restservices/login", true);
-		logRequest.setRequestHeader("username", username);
-		logRequest.setRequestHeader("password", pass);
-		logRequest.send(null);
-		logRequest.onload = function() {
-			if (logRequest.readyState === logRequest.DONE && logRequest.status === 200) {
-				var response = JSON.parse(logRequest.response);
-				if (response[0]['userid'] !== undefined) {
-					$('#loginbutton').attr('loading', 'false');
-					$('#loginbutton').text('Succes');
-					setCookie('username', username, 1);
-					setCookie('password', pass, 1);
-					setCookie('loanofficerid', response[0]['userid']);
-					addNotification("Login successful", "green");
-					window.location.replace("index.jsp");
+	var pass = document.getElementById('pass').value;
+	var username = document.getElementById('username').value;
+	
+	if (username == '') {
+		$('#loginbutton').attr('loading', 'false');
+		$('#loginbutton').text('Try again');
+		addNotification('Username can not be empty');
+	} else if (pass == '') {
+		$('#loginbutton').attr('loading', 'false');
+		$('#loginbutton').text('Try again');
+		addNotification('Password can not be empty');
+	} else {
+		var logRequest;
+		try {
+			logRequest = new XMLHttpRequest();
+			logRequest.open('GET', "/bundlePWABackend/restservices/login", true);
+			logRequest.setRequestHeader("username", username);
+			logRequest.setRequestHeader("password", pass);
+			logRequest.send(null);
+			logRequest.onload = function() {
+				if (logRequest.readyState === logRequest.DONE && logRequest.status === 200) {
+					var response = JSON.parse(logRequest.response);
+					if (response[0]['userid'] !== undefined) {
+						$('#loginbutton').attr('loading', 'false');
+						$('#loginbutton').text('Succes');
+						setCookie('username', username, 1);
+						setCookie('password', pass, 1);
+						setCookie('loanofficerid', response[0]['userid']);
+						addNotification("Login successful", "green");
+						window.location.replace("index.jsp");
+					} else {
+						$('#loginbutton').attr('loading', 'false');
+						$('#loginbutton').text('Try again');
+						addNotification(response[0]['error']);
+					}
 				} else {
 					$('#loginbutton').attr('loading', 'false');
 					$('#loginbutton').text('Try again');
-					addNotification(response[0]['error']);
+					addNotification('Retrieving data failed with status '
+							+ logRequest.status + '. Try again later.');
 				}
-			} else {
-				$('#loginbutton').attr('loading', 'false');
-				$('#loginbutton').text('Try again');
-				addNotification('Retrieving data failed with status '
-						+ logRequest.status + '. Try again later.');
 			}
+	
+		} catch (exception) {
+			alert("Request failed");
 		}
-
-	} catch (exception) {
-		alert("Request failed");
 	}
 }
 
@@ -100,7 +111,7 @@ function getLoans() {
 			var table = document.getElementById('loanstable');
 			data.forEach(function(object) {
 				var tr = document.createElement('tr');
-				tr.innerHTML = '<td id="loanid" data-label="ID">'
+				tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
 						+ object.loanId + '</td>'
 						+ '<td id ="amount" data-label="Amount">'
 						+ object.amount + '</td>'
@@ -112,9 +123,9 @@ function getLoans() {
 						+ object.status + '</td>'
 						+ '<td id = "loantype" data-label="Loan Type">'
 						+ object.loantype + '</td>'
-						+ "<td>  <button onclick='toViewLoan(" + object.loanId
+						+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan(" + object.loanId
 						+ ");'>View</button> </td>"
-						+ "<td>  <button onclick='toEditLoan(" + object.loanId
+						+ "<td class='tdHide'>  <button class='small' onclick='toEditLoan(" + object.loanId
 						+ ");'>Edit</button> </td>";
 				table.appendChild(tr);
 			});
@@ -135,7 +146,7 @@ function getContracts() {
 			var table = document.getElementById('contractstable');
 			data.forEach(function(object) {
 				var tr = document.createElement('tr');
-				tr.innerHTML = '<td id="loanid" data-label="ID">'
+				tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
 						+ object.loanId + '</td>'
 						+ '<td id ="amount" data-label="Amount">'
 						+ object.amount + '</td>'
@@ -147,9 +158,9 @@ function getContracts() {
 						+ object.status + '</td>'
 						+ '<td id = "loantype" data-label="Loan Type">'
 						+ object.loantype + '</td>'
-						+ "<td>  <button onclick='toViewContract("
+						+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
 						+ object.loanId + ");'>View</button> </td>"
-						+ "<td>  <button onclick='toEditContract("
+						+ "<td class='tdHide'>  <button class='small' onclick='toEditContract("
 						+ object.loanId + ");'>Edit</button> </td>";
 				table.appendChild(tr);
 			});
