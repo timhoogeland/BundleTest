@@ -2,7 +2,7 @@
     <!-- Meta Data -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>bundle | - Change lives with loans</title>
+    <title>Bundle | - Change lives with loans</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Icon Data -->

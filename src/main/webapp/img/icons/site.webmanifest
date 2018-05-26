@@ -1,6 +1,8 @@
 {
-    "name": "Bundle",
+    "name": "bundle | - Change lives with loans",
     "short_name": "Bundle",
+    "lang": "en-US",
+ 	"start_url": "/",
     "icons": [
         {
             "src": "/img/icons/android-chrome-36x36.png?v=dLmp703EP9",
@@ -30,6 +32,11 @@
         {
             "src": "/img/icons/android-chrome-192x192.png?v=dLmp703EP9",
             "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/icons/android-chrome-512x512.png?v=dLmp703EP9",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ],

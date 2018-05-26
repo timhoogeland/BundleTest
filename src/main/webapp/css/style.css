@@ -59,10 +59,11 @@ p {
 
 header {
 	 background: #12736d;
-	 box-shadow: 4px 1px 4px 0 rgba(0,0,0,.1);
+	 box-shadow: 3px 0px 5px 0px rgba(0,0,0,.2);
 	 position: fixed;
 	 width: 350px;
 	 height: 100%;
+	 overflow: auto;
 	 left: 0;
 	 top: 0;
 }
@@ -138,7 +139,7 @@ header .menu-btn {
 }
 
 header .menu-btn:checked ~ .menu {
-	max-height: 10000px;;
+	max-height: 400px;;
 }
 
 header .menu-btn:checked ~ .menu-icon .navicon {
@@ -191,7 +192,7 @@ header li a {
 }
 
 .welcomeBlock h1 {
-	padding: 1em;
+	padding: 2em 1em 1em 1em;
 	position: relative;
 }
 
@@ -238,7 +239,6 @@ header li a {
 
 #notificationBlock {
 	position: absolute;
-    height: 100%;
     width: 500px;
     top: 20px;
     right: 25px;
@@ -247,6 +247,7 @@ header li a {
 .notification {
 	min-width: 400px;
     position: relative;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,.2);
     float: right;
     padding: 25px;
     z-index: 10;
@@ -354,30 +355,58 @@ button {
 	letter-spacing: .09em;
 }
 
+.small{
+	min-width: 75px;
+	padding: 15px 30px;;
+}
+
 button:hover {
 	background-color: #efb956; 
 	color: white; 
 	display: block;
 }
 
+table {
+	overflow: auto;
+	width: 100%;
+	margin: 25px;
+}
+
 table, th, td {
 	border-collapse: collapse;
+	text-align: left;
 }
 
 th, td {
 	font-size: 1em;
 	font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-	padding: 15px;
 }
 
 th {
-    background-color: #333333;
-    color: white;
+    color: #333333;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 25px 25px 25px 13px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 
-tr:nth-child(even){background-color: #e2e1de;}
+td {
+	color: #333333;
+	min-width: 50px;
+	padding: 5px 15px;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
 
-tr:hover {background-color: #cecdc9;}
+tr:hover {
+	background-color: #f7f7f7;
+}
+
+.tdHide  {
+	background-color: #fdfdfd;	
+	padding: 5px 0px 5px 15px;
+	border-bottom: none;
+	text-align: center;
+}
 
 .contracts {
 	position: absolute;
@@ -392,8 +421,37 @@ tr:hover {background-color: #cecdc9;}
 	margin-bottom: 0;
 }
 
-/* Bigger than 1000 px tablet*/ 
-@media (max-width: 1000px) {
+.outer {
+	display: table;
+	position: absolute;
+    height: calc(100% - 200px);
+    width: calc(100% - 400px);
+}
+
+.middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.inner {
+	margin: 0 auto;
+}
+
+.login {
+	max-width: 400px;
+}
+
+.login button {
+	width: 100%;
+}
+
+.login .welcomeBlock {
+	width: 100%;
+	text-align: center;
+}
+
+/* Bigger than 1150 px tablet*/ 
+@media (max-width: 1150px) {
 	header {
 		width: 250px;
 	}
@@ -405,6 +463,59 @@ tr:hover {background-color: #cecdc9;}
 	.textBlock p {
 	    padding: 0.4em 0em;
 	    font-size: 0.9em;
+	}
+	
+	table {
+	  border: 0px;
+	  border-collapse: collapse;
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  table-layout: fixed;
+	  text-align: center;
+	}
+
+	table tr {
+		background-color: #fffbfb;
+		border: 0em;
+		padding: 15px;
+		display: block;
+		margin: 0px 0px 25px 0px;
+		border: 0.5px solid #e6e6e6;
+	}
+
+	table th,
+	table td {
+		padding: .625em;
+		text-align: right;
+		display: block;
+		border: 0px;
+	}
+
+	table button {
+		display: block;
+		clear: left;
+		width: 100%;
+	}
+
+	table td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
+
+	table th {
+		display: none;
+	}
+	
+	.tdHide  {
+		background-color: #f8f8f8;	
+	}
+	
+	.desktop {
+		display: none;
 	}
 }
 
@@ -427,6 +538,7 @@ tr:hover {background-color: #cecdc9;}
 	
 	.welcomeBlock h1 {
 		text-align: center;
+		padding: 1em;
 		margin: 10px 0px 0px 0px;
 	}
 	
@@ -460,49 +572,6 @@ tr:hover {background-color: #cecdc9;}
 		margin: 38px 25px;
 	}
 	
-	table {
-	  border: 0px;
-	  border-collapse: collapse;
-	  margin: 0;
-	  padding: 0;
-	  width: 100%;
-	  table-layout: fixed;
-	  text-align: center;
-	}
-
-	table tr {
-		background-color: #f8f8f8;
-		border: 0em;
-		padding: .35em;
-		display: block;
-	}
-
-	table th,
-	table td {
-		padding: .625em;
-		text-align: right;
-		display: block;
-		border: 0px;
-	}
-
-	table button {
-		display: block;
-		clear: left;
-		width: 100%;
-	}
-
-	table td::before {
-		content: attr(data-label);
-		float: left;
-		font-weight: bold;
-		text-transform: uppercase;
-		font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-	}
-
-	table th {
-		display: none;
-	}
-
 	button {
 		display: block;
 		width: 100%;
@@ -540,10 +609,30 @@ tr:hover {background-color: #cecdc9;}
 	
 	#notificationBlock {
 	    width: 100%;
+	    right: 15px;
 	}
 	
 	.notification {
 		width: calc(100% - 50px);
-		padding: 25px 0px;
+		min-width: 50px;
+		padding: 15px 10px;
+	}
+	
+	.outer {
+		display: initial;
+		position: relative;
+	}
+	
+	.middle {
+		display: initial;
+		float: left;
+		width: 100%;
+	}
+}
+
+/* For landscape mode on phones */
+@media (max-height: 620px){
+	header footer {
+		position: relative;
 	}
 }

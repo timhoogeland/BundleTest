@@ -16,19 +16,16 @@
         </div>
 
         <div class="block">
-	        <div class="centerTable" id="contracts" style="overflow-x:auto;overflow-y: auto;">
-	
+	        <div id="contracts">
 	            <table id="loanstable" class='contracts_table'>
 	                <thead>
-	                    <tr>
+	                    <tr class="desktop">
 	                        <th>ID</th>
-	                        <th>Amount ($)</th>
+	                        <th>Amount</th>
 	                        <th>Duration</th>
 	                        <th>End Date</th>
 	                        <th>Status</th>
 	                        <th>Loan Type</th>
-	                        <th>View</th>
-	                        <th>Edit</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
