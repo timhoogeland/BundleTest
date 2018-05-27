@@ -181,10 +181,10 @@ header li a {
 	 background-color: #efb956;
 }
 
-.welcomeBlock, .buttonBlock {
+.welcomeBlock {
 	float: left;
 	position: relative;
-	width: 50%;
+	width: 100%;
 }
 
 .long{
@@ -192,8 +192,15 @@ header li a {
 }
 
 .welcomeBlock h1 {
-	padding: 2em 1em 1em 1em;
-	position: relative;
+	padding: 2em 0em 1em 1em;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.login .welcomeBlock h1 {
+	padding: 2em 0em 1em 0em;
+	width: 100%;
 }
 
 .textBlock p{
@@ -206,12 +213,6 @@ header li a {
     display: block;
     margin: 0px auto 0px auto;
     padding: 0px 25px 0px 375px;
-}
-
-.topButton {
-	position: relative;
-	margin: 65px 65px 30px 65px; 
-	float: right;
 }
 
 .block, .textBlock, .blockHalf {
@@ -333,6 +334,7 @@ footer{
 .flex-outer li select {
 	padding: 15px;
 	border: 0px solid #333333;
+	border-radius: 5px;
 	background: #33333328;
 }
 
@@ -347,7 +349,8 @@ button {
 	font-weight: bold;
 	display: block;
 	font-size: 1em;
-	margin: 4px 2px;
+	margin: 4px 0px;
+	border-radius: 5px;
 	-webkit-transition-duration: 0.4s;
 	transition-duration: 0.4s;
 	cursor: pointer;
@@ -355,15 +358,24 @@ button {
 	letter-spacing: .09em;
 }
 
+.buttonRound {
+	border-radius: 100%;
+    min-width: 0px;
+    padding: 10px 13px;
+    margin: 113px 10px 5px 0px;
+    position: relative;
+    float: right;
+}
+
 .small{
 	min-width: 75px;
 	padding: 15px 30px;;
+	display: inline;
 }
 
 button:hover {
 	background-color: #efb956; 
-	color: white; 
-	display: block;
+	color: white;
 }
 
 table {
@@ -403,7 +415,7 @@ tr:hover {
 
 .tdHide  {
 	background-color: #fdfdfd;	
-	padding: 5px 0px 5px 15px;
+	padding: 5px 10px 5px 15px;
 	border-bottom: none;
 	text-align: center;
 }
@@ -421,24 +433,12 @@ tr:hover {
 	margin-bottom: 0;
 }
 
-.outer {
-	display: table;
-	position: absolute;
-    height: calc(100% - 200px);
-    width: calc(100% - 400px);
-}
-
-.middle {
-	display: table-cell;
-	vertical-align: middle;
-}
-
-.inner {
-	margin: 0 auto;
-}
-
 .login {
 	max-width: 400px;
+    position: fixed;
+    top: calc(50% - 100px);
+    right: calc(50% - 375px);
+    transform: translate(0px, -50%);
 }
 
 .login button {
@@ -476,17 +476,21 @@ tr:hover {
 	}
 
 	table tr {
-		background-color: #fffbfb;
+		background-color: #ffffff;
 		border: 0em;
 		padding: 15px;
+		border-radius: 5px;
 		display: block;
 		margin: 0px 0px 25px 0px;
 		border: 0.5px solid #e6e6e6;
 	}
+	
+	table tr:hover {
+		background-color: #ffffff;
+	}
 
 	table th,
 	table td {
-		padding: .625em;
 		text-align: right;
 		display: block;
 		border: 0px;
@@ -511,11 +515,44 @@ tr:hover {
 	}
 	
 	.tdHide  {
-		background-color: #f8f8f8;	
+		background-color: #ffffff;
+		width: 95%;
+	    padding: 5px;
+	    display: inline-block;	
+	}
+	
+	.small {
+		display: inline-block;
+    	width: 48%;
 	}
 	
 	.desktop {
 		display: none;
+	}
+	
+	.login {
+		max-width: 200px;
+		right: calc(50% - 200px);
+	}
+	
+	.welcomeBlock {
+		width: 100%;
+	}
+	
+	.welcomeBlock h1 {
+		text-align: center;
+		width: 100%;
+		padding: 2em 0em 1em 0em;
+	}
+	
+	.buttonRound {
+		margin: 0px 5px 20px 10px;
+	}
+	
+	
+	.login .welcomeBlock h1 {
+		width: 100%;
+		padding: 1em 0.65em;
 	}
 }
 
@@ -538,7 +575,8 @@ tr:hover {
 	
 	.welcomeBlock h1 {
 		text-align: center;
-		padding: 1em;
+		float: left;
+		padding: 1em 0px 0.5em 0px;
 		margin: 10px 0px 0px 0px;
 	}
 	
@@ -546,18 +584,13 @@ tr:hover {
 		padding: 10px 0px;
 	}
 	
-	.welcomeBlock, .buttonBlock, .blockHalf {
+	.welcomeBlock, .blockHalf {
 		width: 100%;
 
 	}
 	
 	.blockHalf {
 	 padding: 0px 50px;;
-	}
-	
-	.topButton {
-		position: relative;
-		margin: 15px 10px;
 	}
 	
 	#container {
@@ -579,8 +612,7 @@ tr:hover {
 
 	button:hover {
 		background-color: #efb956; 
-		color: white; 
-		display: block;
+		color: white;
 	}
 	
 	header .menu {
@@ -627,6 +659,20 @@ tr:hover {
 		display: initial;
 		float: left;
 		width: 100%;
+	}
+	
+	.login {
+		position: relative;
+		right: initial;
+		max-width: initial;
+	}
+	
+	.login .welcomeBlock h1 {
+		padding: 1em 0em;
+	}
+	
+	.buttonRound {
+		width: initial;
 	}
 }
 

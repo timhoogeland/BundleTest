@@ -159,8 +159,8 @@ function getContracts() {
 						+ '<td id = "loantype" data-label="Loan Type">'
 						+ object.loantype + '</td>'
 						+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
-						+ object.loanId + ");'>View</button> </td>"
-						+ "<td class='tdHide'>  <button class='small' onclick='toEditContract("
+						+ object.loanId + ");'>View</button> " +
+								"<button class='small' onclick='toEditContract("
 						+ object.loanId + ");'>Edit</button> </td>";
 				table.appendChild(tr);
 			});
