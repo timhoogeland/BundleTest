@@ -10,12 +10,8 @@
 	<main>
 	<div class="welcomeBlock">
 		<h1>Contracts</h1>
-	</div>
-
-	<div class="buttonBlock">
-		<button class="topButton"
-			onclick="window.location.href='new_contract.jsp'">New
-			Contract</button>
+		<button class="buttonRound">?</button>
+		<button class="buttonRound" onclick="window.location.href='new_contract.jsp'">+</button>
 	</div>
 
 	<div class="block">
