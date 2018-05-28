@@ -45,8 +45,16 @@
                         <input name="street" id="street" placeholder="Enter your street here"></input>
                     </li>
                     <li>
+                        <label for="number">Number</label>
+                        <input name="number" id="number" placeholder="Enter your number here"></input>
+                    </li>
+                    <li>
                         <label for="postal-code">Postal Code</label>
                         <input name="postalcode" id="postal-code" placeholder="Enter your postal code here"></input>
+                    </li>
+                    <li>
+                        <label for="location">GPS Location</label>
+                        <input name="location" id="location" placeholder="Searching for location.."></input>
                     </li>
                     <li>
                         <label for="country">Country</label>
@@ -333,19 +341,38 @@
             </form>
         </div>
     </main>
+	<script type="text/javascript">
+	var locationInput = document.getElementById("location");
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+	    } else {
+            console.log("location not supported");
+	        locationInput.value = "Geolocation is not supported by this browser.";
+	    }
+	}
+	function showPosition(position) {
+        console.log("location not supported")
 
+	    locationInput.value = position.coords.latitude + 
+	    ", " + position.coords.longitude; 
+	}
+
+    getLocation();
+    showPosition();
+	</script>
     <script type="text/javascript">
          $(document).ready(function () {
             $("form").submit(function () {
 
-                $.ajax({
-					url : "/bundlePWABackend/restservices/user",
+            	/* $.ajax({
+					url : "/bundlePWABackend/restservices/adress",
 					type : "post",
-					data : $("#user").serialize(),
+					data : $("#adress").serialize(),
 					
-					success : function(data) {
+					success : function(response) {
 						
-						alert("Adress added. {0}", data);
+						alert("Adress added. {0}", response);
 						
 						
 					},
@@ -357,7 +384,29 @@
 						alert("Adress not added.");
 
 					}
+				}); */
+            	
+                /* $.ajax({
+					url : "/bundlePWABackend/restservices/user",
+					type : "post",
+					data : $("#user").serialize(),
+					
+					success : function(data) {
+						
+						alert("User added. {0}", data);
+						
+						
+					},
+					error : function(response, textStatus, errorThrown) {
+
+						console.log("textStatus: " + textStatus);
+						console.log("errorThrown: " + errorThrown);
+						console.log("status: " + response.status);
+						alert("User not added.");
+
+					}
 				});
+                
                 $.ajax({
 					url : "/bundlePWABackend/restservices/loan",
 					type : "post",
@@ -375,7 +424,7 @@
 						alert("Loan not added.");
 
 					}
-				});
+				}); */
         });
         });
     </script>
