@@ -222,8 +222,8 @@ header li a {
 }
 
 .blockHalf {
-	width: calc(50% - 100px);
-	padding: 0px 50px 50px 50px;
+	width: calc(50% - 30px);
+	padding: 15px;
 }
 
 .centerTable {
@@ -367,6 +367,12 @@ button {
     float: right;
 }
 
+	
+label .buttonRound {
+	padding: 5px 7px 3px 7px;
+   	margin: -6px 10px 0px 15px;
+}
+
 .small{
 	min-width: 75px;
 	padding: 15px 30px;;
@@ -496,6 +502,12 @@ tr:hover {
 	margin: 10px 0px 10px 10px;
 }
 
+.userPicture {
+	width: 150px;
+	padding: 15px 0px;
+	height: 150px;
+}
+
 /* Bigger than 1150 px tablet*/ 
 @media (max-width: 1150px) {
 	header {
@@ -594,7 +606,6 @@ tr:hover {
 	.buttonRound {
 		margin: 0px 5px 20px 10px;
 	}
-	
 	
 	.login .welcomeBlock h1 {
 		width: 100%;
