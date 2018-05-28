@@ -86,7 +86,7 @@ public class AddressDAO extends baseDAO {
 
 	public Adress update(Adress address) {
 		String query = "UPDATE "+tablename+" SET street = ?, number = ?, country = ?, postalcode = ?,"
-        		+ " description = ?, location=? WHERE userid = ? ;";
+        		+ " description = ?, location=? WHERE addressid = ? ;";
 		try (Connection con = super.getConnection()){
 	            PreparedStatement pstmt = con.prepareStatement(query);
 	            
