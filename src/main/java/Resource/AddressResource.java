@@ -78,7 +78,7 @@ public class AddressResource {
 	    	
 	    	Random rand = new Random();
 	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
-	        Adress returnAdress = service.updateAddress(newAdress);
+	        Adress returnAdress = service.addAddress(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
