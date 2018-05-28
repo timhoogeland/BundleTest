@@ -20,5 +20,5 @@ public class AdressService {
 //
 //    public boolean delete (Contract contract) { return contractDAO.delete(contract); }
     
-      public Adress addContract (Adress adress) { return adressDAO.save(adress); }
+      public Adress addContract (Adress adress) { return adressDAO.newAddress(adress); }
 }

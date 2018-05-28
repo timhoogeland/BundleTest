@@ -1,5 +1,7 @@
 package Resource;
 
+import java.util.Random;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -18,18 +20,20 @@ import Objects.User;
 import Services.AdressService;
 import Services.ServiceProvider;
 
-@Path("/adress")
+@Path("/address")
 public class AdressResource {
     private AdressService service = ServiceProvider.getAdressService();
 
 	    private JsonObjectBuilder buildJSON(Adress a) {
 	        JsonObjectBuilder job = Json.createObjectBuilder();
 
-	        job.add("adressid", a.getAdressID())
+	        job.add("adressid", a.getAdressId())
 	                .add("street", a.getStreet())
 	                .add("number", a.getNumber())
 	                .add("country", a.getCountry())
-	                .add("postalcode", a.getPostalCode());
+	                .add("postalcode", a.getPostalCode())
+	        		.add("description", a.getDescription())
+	        		.add("location", a.getLocation());
 
 	        return job;
 	    }
@@ -67,11 +71,13 @@ public class AdressResource {
 	                               @FormParam("street") String street,
 	                               @FormParam("number") int number,
 	                               @FormParam("country") String country,
-	                               @FormParam("postalcode") String postalcode)
+	                               @FormParam("postalcode") String postalcode,
+	                               @FormParam("description") String description,
+	                               @FormParam("location") String location)
 
 	    {
-	    	
-	        Adress newAdress = new Adress(0, street, number, country, postalcode);
+	    	Random rand = new Random();
+	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
 	        Adress returnAdress = service.addContract(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
