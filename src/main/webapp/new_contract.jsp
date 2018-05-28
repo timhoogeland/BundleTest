@@ -345,21 +345,34 @@
 	var locationInput = document.getElementById("location");
 	function getLocation() {
 	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(showPosition);
+	        navigator.geolocation.getCurrentPosition(showPosition, showError);
 	    } else {
-            console.log("location not supported");
 	        locationInput.value = "Geolocation is not supported by this browser.";
 	    }
 	}
 	function showPosition(position) {
-        console.log("location not supported")
-
-	    locationInput.value = position.coords.latitude + 
+	    locationInput.value = position.coords.latitude+ 
 	    ", " + position.coords.longitude; 
+	}
+	
+	function showError(error) {
+	    switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	        	locationInput.value = "User denied the request for Geolocation."
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	        	locationInput.value = "Location information is unavailable."
+	            break;
+	        case error.TIMEOUT:
+	        	locationInput.value = "The request to get user location timed out."
+	            break;
+	        case error.UNKNOWN_ERROR:
+	        	locationInput.value = "An unknown error occurred."
+	            break;
+	    }
 	}
 
     getLocation();
-    showPosition();
 	</script>
     <script type="text/javascript">
          $(document).ready(function () {
