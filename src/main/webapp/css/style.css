@@ -450,6 +450,52 @@ tr:hover {
 	text-align: center;
 }
 
+.popup {
+	position: fixed;
+    top: 0px;
+    left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.25);;
+	z-index: 10;
+}
+
+.popup div{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #FDFDFD;
+	border-radius: 10px;
+	border: 1px solid rgba(0,0,0,0.25);
+	width: 400px;
+	height: 350px;
+	padding: 20px 25px;
+	z-index: 11;
+}
+
+.popup div h2 {
+	position: relative;
+	float: left;
+	color: #efb956;
+}
+
+.popup div p {
+	position: relative;
+	margin: 15px 0px 0px 0px;
+	font-size: 1em;
+	float: left;
+	width: 100%;
+	height: calc(100% - 90px);
+	overflow: auto;
+}
+
+.popup div .buttonRound {
+	position: relative;
+	float: right;
+	margin: 10px 0px 10px 10px;
+}
+
 /* Bigger than 1150 px tablet*/ 
 @media (max-width: 1150px) {
 	header {
@@ -649,6 +695,7 @@ tr:hover {
 		min-width: 50px;
 		padding: 15px 10px;
 	}
+
 	
 	.outer {
 		display: initial;
@@ -673,6 +720,14 @@ tr:hover {
 	
 	.buttonRound {
 		width: initial;
+	}
+	
+	.popup div{
+		width: calc(100% - 60px);
+	}
+	
+	.popup div h2 {
+		width: calc(100% - 50px);
 	}
 }
 
