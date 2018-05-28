@@ -37,7 +37,7 @@
                     </ul>
                     <br>
                     </form>
-                    <form id="adress" onsubmit="return false">
+                    <form id="address" onsubmit="return false">
                     <ul class="flex-outer">
                     
                     <li>
@@ -45,8 +45,20 @@
                         <input name="street" id="street" placeholder="Enter your street here"></input>
                     </li>
                     <li>
+                        <label for="number">Number</label>
+                        <input name="number" id="number" placeholder="Enter your number here"></input>
+                    </li>
+                    <li>
                         <label for="postal-code">Postal Code</label>
                         <input name="postalcode" id="postal-code" placeholder="Enter your postal code here"></input>
+                    </li>
+                    <li>
+                        <label for="location">GPS Location</label>
+                        <input name="location" id="location" placeholder="Searching for location.."></input>
+                    </li>
+                     <li>
+                        <label for="description">Description</label>
+                        <input name="description" id="description" placeholder="Enter a description (not required)"></input>
                     </li>
                     <li>
                         <label for="country">Country</label>
@@ -333,19 +345,53 @@
             </form>
         </div>
     </main>
+	<script type="text/javascript">
+	var locationInput = document.getElementById("location");
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition, showError);
+	    } else {
+	        locationInput.value = "Geolocation is not supported by this browser.";
+	    }
+	}
+	function showPosition(position) {
+	    locationInput.value = position.coords.latitude+ 
+	    ", " + position.coords.longitude; 
+	}
+	
+	function showError(error) {
+	    switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	        	locationInput.value = "User denied the request for Geolocation."
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	        	locationInput.value = "Location information is unavailable."
+	            break;
+	        case error.TIMEOUT:
+	        	locationInput.value = "The request to get user location timed out."
+	            break;
+	        case error.UNKNOWN_ERROR:
+	        	locationInput.value = "An unknown error occurred."
+	            break;
+	    }
+	}
 
+    getLocation();
+	</script>
     <script type="text/javascript">
          $(document).ready(function () {
             $("form").submit(function () {
-            	
+
             	$.ajax({
-					url : "/bundlePWABackend/restservices/user",
+					url : "/bundlePWABackend/restservices/address",
 					type : "post",
-					data : $("#adress").serialize(),
+					data : $("#address").serialize(),
 					
-					success : function(data) {
+					success : function(response.adressid) {
 						
-						alert("Adress added. {0}", data);
+						console.log(response);
+						alert("Adress added");
+						
 						
 						
 					},
@@ -358,8 +404,8 @@
 
 					}
 				});
-
-                $.ajax({
+            	
+                /* $.ajax({
 					url : "/bundlePWABackend/restservices/user",
 					type : "post",
 					data : $("#user").serialize(),
@@ -379,7 +425,7 @@
 
 					}
 				});
-            	
+                
                 $.ajax({
 					url : "/bundlePWABackend/restservices/loan",
 					type : "post",
@@ -397,7 +443,7 @@
 						alert("Loan not added.");
 
 					}
-				});
+				}); */
         });
         });
     </script>
