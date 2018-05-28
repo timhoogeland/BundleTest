@@ -11,7 +11,7 @@ import java.util.List;
 import Objects.Adress;
 import Objects.Contract;
 
-public class AdressDAO extends baseDAO {
+public class AddressDAO extends baseDAO {
 
 	private String tablename = "public.address";
 
@@ -83,4 +83,29 @@ public class AdressDAO extends baseDAO {
 
         return findByID(address.getAdressId());
     }
+
+	public Adress update(Adress address) {
+		String query = "UPDATE "+tablename+" SET street = ?, number = ?, country = ?, postalcode = ?,"
+        		+ " description = ?, location=? WHERE userid = ? ;";
+		try (Connection con = super.getConnection()){
+	            PreparedStatement pstmt = con.prepareStatement(query);
+	            
+	            pstmt.setString(1, address.getStreet());
+	            pstmt.setInt(2, address.getNumber());
+	            pstmt.setString(3, address.getCountry());
+	            pstmt.setString(4, address.getPostalCode());
+	            pstmt.setString(5, address.getDescription());
+	            pstmt.setString(6, address.getLocation());
+	            pstmt.setInt(7, address.getAdressId());
+
+	            ResultSet dbResultSet = pstmt.executeQuery();
+	            if(dbResultSet.next()) {
+	                return findByID(dbResultSet.getInt(1));
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return findByID(address.getAdressId());
+	}
 }
