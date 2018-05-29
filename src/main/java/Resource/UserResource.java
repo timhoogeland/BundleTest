@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import Objects.User;
+import Objects.UserLoanInformation;
 import Services.AddressService;
 import Services.ServiceProvider;
 import Services.UserService;
@@ -34,6 +35,7 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
         //AddressService addressService = ServiceProvider.getAdressService();
         AddressResource addressResource = new AddressResource();
         
@@ -48,6 +50,16 @@ public class UserResource {
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
         job.add("username", user.getUsername());
+        
+        for (UserLoanInformation u : service.getUserLoanInformation(user.getUserId())) {
+        	JsonObjectBuilder secondJob = Json.createObjectBuilder();
+        	secondJob.add("loanofficerid", u.getLoanOfficerId());
+        	secondJob.add("groupid", u.getGroupId());
+        	secondJob.add("loanid", u.getLoanId());
+        	
+        	jab.add(secondJob);
+        }
+        job.add("loanInformation", jab);
         
         return job;
     }

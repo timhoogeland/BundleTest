@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Objects.User;
+import Objects.UserLoanInformation;
 
 public class UserDAO extends baseDAO {
 	
@@ -163,5 +164,31 @@ public class UserDAO extends baseDAO {
     	}
     	
     	return role;
+    }
+    
+    public List<UserLoanInformation> getUserLoanInformation(int userId){
+    	List<UserLoanInformation> result = new ArrayList<UserLoanInformation>();
+    	String query = 	"SELECT g.loanofficeridfk, g.id as groupid, l.loanid" +
+    					" FROM public.loan l, public.grouploan gl, public.group g" +
+    					" WHERE l.useridfk = ? and l.loanid = gl.loanidfk and gl.groupidfk = g.id;";
+    	
+    	try(Connection con = super.getConnection()) {
+    		PreparedStatement pstmt = con.prepareStatement(query);
+    		pstmt.setInt(1, userId);
+    		
+    		ResultSet dbResultSet = pstmt.executeQuery();
+    		
+    		while (dbResultSet.next()) {
+    			int loanOfficerId = dbResultSet.getInt("loanofficeridfk");
+    			int groupId = dbResultSet.getInt("groupid");
+    			int loanId = dbResultSet.getInt("loanid");
+    			
+    			UserLoanInformation userLoanInformation = new UserLoanInformation(loanOfficerId, groupId, loanId);
+    			result.add(userLoanInformation);
+    		}
+    	}catch (SQLException e){
+    		e.printStackTrace();
+    	}
+    	return result;
     }
 }

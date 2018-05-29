@@ -4,6 +4,7 @@ import java.util.List;
 
 import DAOS.UserDAO;
 import Objects.User;
+import Objects.UserLoanInformation;
 
 public class UserService {
 	    private UserDAO userDAO = new UserDAO();
@@ -33,4 +34,7 @@ public class UserService {
 	    public User newUser (User user) { 
 	    	return userDAO.save(user); 
 	    	}
+	    public List<UserLoanInformation> getUserLoanInformation(int userId){
+	    	return userDAO.getUserLoanInformation(userId);
+	    }
 }

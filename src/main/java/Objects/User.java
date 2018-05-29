@@ -142,6 +142,10 @@ public class User {
 	}
 
 	public void setUserName(String username) {
-		this.username = username;
+		if (username != null){
+			this.username = username;
+		}else{
+			this.username = "";
+		}
 	}
 }
