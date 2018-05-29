@@ -171,6 +171,45 @@ function getContracts() {
 	hr.send(null);
 }
 
+<<<<<<< HEAD
+=======
+function getUser() {
+	var hr = new XMLHttpRequest();
+	hr.open("GET", "/bundlePWABackend/restservices/user/1", true);
+
+	hr.onreadystatechange = function() {
+		if (hr.readyState == 4 && hr.status == 200) {
+			var userData = JSON.parse(hr.responseText);
+			var addressData = JSON.parse(userData[0].address);
+			
+			$('.call1').attr("loading","false");
+			$('#picture').attr("src", userData[0].photo);
+			$('#username').text(userData[0].username);
+			$('#name').text(userData[0].firstName + " " + userData[0].lastName);
+			$('#phone').text(userData[0].phonenumber);
+			$('#birthdate').text(userData[0].dateofbirth);
+			$('#role').text(userData[0].userType);
+			$('#status').text(userData[0].status);
+			$('#street').text(addressData[0].street + " " + addressData[0].number);
+			$('#postal').text(addressData[0].postalcode);
+			$('#country').text(addressData[0].country);
+			$('#description').text(addressData[0].description);
+			$('#coordinates').text(addressData[0].location);
+		} else if (hr.readyState == 4) {
+			addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
+		}
+	}
+	hr.send(null);
+}
+
+function checkValue(value){
+	if (value === "" || value === undefined || value == null) {
+		return "Not supplied";
+	} 
+	
+	return value;
+}
+>>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -185,6 +224,7 @@ function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+<<<<<<< HEAD
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
 
@@ -308,6 +348,8 @@ function getGroups{
 
 }
 
+=======
+>>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
