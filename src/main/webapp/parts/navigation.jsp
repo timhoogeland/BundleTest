@@ -1,4 +1,4 @@
-<header>
+<header id="nav">
 	<div class="logo">
 		<a href="index.jsp">
 			<img alt="Bundle Logo" src="img/logowhite.png">

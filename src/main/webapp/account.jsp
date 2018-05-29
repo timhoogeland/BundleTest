@@ -3,7 +3,7 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<body onload="getUser(); loadingText('...');">
+<body onload="getUser();">
     
     <jsp:include page="parts/navigation.jsp" />
 
@@ -15,15 +15,19 @@
         </div>
         
         <div class="block">
+        
+        	<div class="loaderBlock">
+        		<div class="loader"></div>
+        	</div>
+        	
 	        <div class="blockHalf">
 	        	<h2>Personal information</h2>
 				<br>
 				
 				<div>
-					<label for="picture"> <b>Picture</b>
-					</label>
-					<br>
-					<img id="picture" class="userPicture" alt="User Picture" src="img/nopf.png">
+					<div class="pf">
+						<button id="pfbutton" class="buttonImg hide" >Load</button>
+					</div>
 				</div>
 				
 				<div>
@@ -97,45 +101,28 @@
 					<h3 id="coordinates" class="call1" loading="true">Loading...</h3>
 				</div>
 				
-				<h2>Group</h2>
-				<br>
+				<div id="group" class="hide">
 				
-				<div>
-					<label for="loanofficer"> 
-						<b>Loan Officer</b>
-						<button class="buttonRound">&#8618;</button>
-					</label>
-					<h3 id="loanofficer" loading="true">Loading...</h3>
+					<h2>Group</h2>
+					<br>
 					
+					<div>
+						<label for="loanofficer"> 
+							<b>Loan Officer</b>
+							<button id="officerButton" class="buttonRound">&#8618;</button>
+						</label>
+						<h3 id="loanofficer" class="call2" loading="true">Loading...</h3>
+						
+					</div>
+					
+					<div>
+						<label for="groupnumber"> 
+							<b>Group number </b> 
+							<button id="groupButton" class="buttonRound">&#8618;</button>
+						</label>
+						<h3 id="groupnumber" class="call2" loading="true">Loading...</h3>
+					</div>
 				</div>
-				
-				<div>
-					<label for="groupnumber"> 
-						<b>Group number </b> 
-						<button class="buttonRound">&#8618;</button>
-					</label>
-					<h3 id="groupnumber" loading="true">Loading...</h3>
-				</div>
-
-				
-				<h2>Contracts</h2>
-				<br>
-				
-				<div>
-					<label for="activecontracts"> 
-						<b>Active contracts</b>
-						<button class="buttonRound">&#8618;</button>
-					</label>
-					<h3 id="activecontracts" loading="true">Loading...</h3>
-				</div>
-				
-				<div>
-					<label for="activeapplicants"> 
-						<b>Active applicant</b>
-					</label>
-					<h3 id="activeapplicants" loading="true">Loading...</h3>
-				</div>
-				
 			</div>
 		</div>
     </main>

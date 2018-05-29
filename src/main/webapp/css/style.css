@@ -219,11 +219,12 @@ header li a {
 	position: relative;
 	float: left;
 	width: 100%;
+	height: 100%;
 }
 
 .blockHalf {
-	width: calc(50% - 30px);
-	padding: 15px;
+    width: calc(50% - 180px);
+    padding: 15px 0px 0px 180px;
 }
 
 .centerTable {
@@ -527,6 +528,48 @@ progress::-webkit-progress-bar {
 	width: 400px;
 	float: left;
 }
+
+.pf {
+	width: 130px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 5px;
+    height: 130px;
+	background: url('../img/nopf.png') 0 0 no-repeat / cover;
+}
+
+.buttonImg {
+	position: absolute;
+    min-width: 5px;
+    padding: 10px;
+    margin: 45px 30px;
+}
+
+.loader {
+    border: 10px solid #e4e3e3;
+    border-top: 10px solid #12736d;
+    border-radius: 50%;
+    width: 80px;
+    position: absolute;
+    left: calc(50% - 40px);
+    top: calc(50% - 40px);
+    height: 80px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loaderBlock {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background-color: rgb(253, 253, 253, 1);
+    z-index: 1;
+}
+
 /* Bigger than 1150 px tablet*/
 @media (max-width: 1150px) {
 	header {
@@ -630,6 +673,11 @@ progress::-webkit-progress-bar {
 		width: 100%;
 		padding: 1em 0.65em;
 	}
+	
+	.blockHalf {
+	    width: calc(50% - 50px);
+	    padding: 15px 25px 0px 25px;
+	}
 }
 
 /* Smaller than 620 px (phone) */
@@ -640,7 +688,7 @@ progress::-webkit-progress-bar {
 	}
 
 	.logo img {
-		width: 110px;
+		width: 100px;
 		padding: 25px 25px;
 	}
 
@@ -662,11 +710,11 @@ progress::-webkit-progress-bar {
 
 	.welcomeBlock, .blockHalf {
 		width: 100%;
-
 	}
 
 	.blockHalf {
-	 padding: 0px 50px;;
+	    padding: 0px 15px;
+    	width: calc(100% - 30px)
 	}
 
 	#container {
@@ -700,7 +748,7 @@ progress::-webkit-progress-bar {
 		display: initial;
 		cursor: pointer;
 	    float: right;
-	    padding: 28px 20px;
+	    padding: 24px 20px;
 	    position: relative;
 	    user-select: none;
 	    color: #f4f4f4;
@@ -754,6 +802,29 @@ progress::-webkit-progress-bar {
 
 	.popup div h2 {
 		width: calc(100% - 50px);
+	}
+	
+	.buttonImg {
+	    width: 78px;
+	    padding: 15px;
+	    position: relative;
+	    top: 90px;
+    	left: 40px;
+	}
+	
+	.loader {
+		top: calc(10% - 40px);
+	}
+	
+	.pf {
+	    width: 220px;
+	    margin: 0px auto 20px auto;
+	    border-radius: 5px;
+	    height: 220px;
+	    
+	}
+	.blockHalf h2 {
+		text-align: center;
 	}
 }
 
