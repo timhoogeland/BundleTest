@@ -23,20 +23,34 @@ public class LoanGroupResource {
 	private JsonObjectBuilder buildJSON(LoanGroup l){
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
-		job.add("loanGroupId", l.getId());
-		job.add("loanOfficerId", l.getloanofficerId());
+		job.add("loanGroupId", l.getGroupId());
+		job.add("loanOfficerId", l.getLoanId());
 		
 		return job;
 	}
 	
 	@GET
-	@Path("/{loanofficerId}")
+	@Path("/loanofficer/{loanofficerId}")
 	@Produces("application/json")
 	public String getGroupByLoanOfficer(@PathParam("loanofficerId") int loanofficerId){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
 		for(LoanGroup l :service.getAllLoanGroupsByLoanOfficer(loanofficerId)){		
 			jab.add(buildJSON(l));
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/{groupId}")
+	@Produces("application/json")
+	public String getLoanGroupByGroupId(@PathParam("groupId") int groupId){
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for(LoanGroup l : service.getLoanGroupById(groupId)){
+			jab.add(buildJSON(l));
+			
 		}
 		JsonArray array = jab.build();
 		return array.toString();

@@ -12,16 +12,16 @@ import Objects.Group;
 import Objects.LoanGroup;
 
 public class LoanGroupDAO extends baseDAO{
-	public List<LoanGroup> selectGroup(String query){
+	public List<LoanGroup> selectLoanGroup(String query){
 		List<LoanGroup> resultslist = new ArrayList<LoanGroup>();
 		try(Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
 			ResultSet dbResultSet = stmt.executeQuery(query);
 			while (dbResultSet.next()) {
-				int groupId = dbResultSet.getInt("id");
-				int loanofficerfk = dbResultSet.getInt("loanofficerfk");
-				LoanGroup group= new LoanGroup(groupId, loanofficerfk);
-				resultslist.add(group);
+				int groupId = dbResultSet.getInt("groupidfk");
+				int loanId = dbResultSet.getInt("loanidfk");
+				LoanGroup loanGroup= new LoanGroup(groupId, loanId);
+				resultslist.add(loanGroup);
 			}
 			stmt.getConnection().close();
 		}
@@ -31,12 +31,17 @@ public class LoanGroupDAO extends baseDAO{
 		return resultslist;
 	}
 	
-	public List<LoanGroup> getAllGroups() {
-		return selectGroup("select * FROM public.group;");
+	public List<LoanGroup> getAllLoanGroups() {
+		return selectLoanGroup("select * FROM public.grouploan;");
 	}
 	
 	public List<LoanGroup> getAllLoanGroupsByLoanOfficer(int loanofficerId){
-		return selectGroup("select * FROM public.group g where g.loanofficerfk =" + loanofficerId + ";");
+		return selectLoanGroup("select l.groupidfk, l.loanidfk FROM public.grouploan l, public.group g where l.groupidfk = g.id and g.loanofficeridfk =" + loanofficerId + ";");
+		
+	}
+
+	public List<LoanGroup> getLoanGroupById(int groupId) {
+		return selectLoanGroup("Select * FROM public.grouploan where groupidfk = " + groupId);
 	}
 
 }

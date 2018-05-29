@@ -9,13 +9,17 @@ import Objects.LoanGroup;
 
 
 public class LoanGroupService {
-LoanGroupDAO loanGroup = new LoanGroupDAO();
+LoanGroupDAO loanGroupDAO = new LoanGroupDAO();
 	
 	public List<LoanGroup> getAllLoanGroupsByLoanOfficer(int loanofficerId) {
-		return loanGroup.getAllLoanGroupsByLoanOfficer(loanofficerId);
+		return loanGroupDAO.getAllLoanGroupsByLoanOfficer(loanofficerId);
 	}
 
 	public List<LoanGroup> getAllLoanGroups() {
-		return loanGroup.getAllGroups();
+		return loanGroupDAO.getAllLoanGroups();
+	}
+
+	public List<LoanGroup> getLoanGroupById(int groupId) {
+		return loanGroupDAO.getLoanGroupById(groupId);
 	}
 }
