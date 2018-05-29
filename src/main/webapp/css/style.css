@@ -747,15 +747,7 @@ progress::-webkit-progress-bar {
 	.login .welcomeBlock h1 {
 		padding: 1em 0em;
 	}
-<<<<<<< HEAD
 
-	.buttonRound {
-		width: initial;
-	}
-
-=======
-	
->>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 	.popup div{
 		width: calc(100% - 60px);
 	}

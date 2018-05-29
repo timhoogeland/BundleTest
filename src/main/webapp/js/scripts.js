@@ -188,7 +188,7 @@ function getUser() {
 			var addressData = JSON.parse(userData[0].address);
 			
 			$('.call1').attr("loading","false");
-			$('#picture').attr("src", userData[0].photo);
+			$('#picture').attr("src", checkValue(userData[0].photo, 'img/nopf.png'));
 			$('#username').text(checkValue(userData[0].username));
 			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
 			$('#phone').text(checkValue(userData[0].phonenumber));
@@ -207,9 +207,9 @@ function getUser() {
 	hr.send(null);
 }
 
-function checkValue(value){
+function checkValue(value, error = 'Not Supplied'){
 	if (value === "" || value === undefined || value == null || !value || value === " ") {
-		return "Not supplied";
+		return error;
 	} 
 	
 	return value;
