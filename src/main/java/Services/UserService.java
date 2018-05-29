@@ -4,6 +4,7 @@ import java.util.List;
 
 import DAOS.UserDAO;
 import Objects.User;
+import Objects.UserLoanInformation;
 
 public class UserService {
 	    private UserDAO userDAO = new UserDAO();
@@ -26,11 +27,14 @@ public class UserService {
 	    	return userDAO.update(user); 
 	    	}
 
-	    public boolean delete (User user) { 
-	    	return userDAO.delete(user); 
+	    public boolean delete (int userId) { 
+	    	return userDAO.delete(userId); 
 	    	}
 
 	    public User newUser (User user) { 
 	    	return userDAO.save(user); 
 	    	}
+	    public List<UserLoanInformation> getUserLoanInformation(int userId){
+	    	return userDAO.getUserLoanInformation(userId);
+	    }
 }

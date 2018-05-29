@@ -15,6 +15,11 @@
 	</div>
 
 	<div class="block">
+	
+		<div class="loaderBlock">
+        		<div class="loader"></div>
+        </div>
+        	
 		<div id="contracts"">
 			<table id='contractstable' class='contracts_table'>
 				<thead>

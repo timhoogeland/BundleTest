@@ -12,26 +12,64 @@ import javax.ws.rs.Produces;
 
 import Objects.Group;
 import Objects.LoanGroup;
+import Objects.LoanGroupInformation;
 import Services.LoanGroupService;
 import Services.LoanGroupServiceProvider;
 
 
 @Path("/loangroup")
 public class LoanGroupResource {
-@GET
-@Path("/{loanofficerId}")
-@Produces("application/json")
-public String getGroup(@PathParam("loanofficerId") int loanofficerId){
-	LoanGroupService service = LoanGroupServiceProvider.getLoanGroupService();
-	JsonArrayBuilder jab = Json.createArrayBuilder();
-	for(LoanGroup g :service.getAllGroups(loanofficerId)){
-		JsonObjectBuilder job =Json.createObjectBuilder();
-		job.add("id", g.getId());
+	private LoanGroupService service = LoanGroupServiceProvider.getLoanGroupService();
+	
+	private JsonObjectBuilder buildJSON(LoanGroup l){
+		JsonObjectBuilder job = Json.createObjectBuilder();
 		
-		jab.add(job);
+		job.add("loanGroupId", l.getGroupId());
+		job.add("loanId", l.getLoanId());
+		
+		return job;
 	}
-	JsonArray array = jab.build();
-	return array.toString();
-}
-
+	
+	@GET
+	@Path("/loanofficer/{loanofficerId}")
+	@Produces("application/json")
+	public String getGroupByLoanOfficer(@PathParam("loanofficerId") int loanofficerId){
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		JsonArrayBuilder secondJab = Json.createArrayBuilder();
+		
+		for(Integer groupId : service.getAllLoanGroupsByLoanOfficer(loanofficerId)){
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("groupid", groupId);
+			for(LoanGroupInformation l :service.getAllApplicantsByLoanGroupId(groupId)){		
+				JsonObjectBuilder secondJob = Json.createObjectBuilder();
+				secondJob.add("firstname", l.getFirstname());
+				secondJob.add("lastname", l.getLastname());
+				secondJob.add("userid", l.getUserId());
+				secondJob.add("paidamount", l.getPaidAmount());
+				secondJob.add("amount", l.getAmount());
+				secondJob.add("loanid", l.getLoanId());
+				secondJob.add("groupid", l.getGroupId());
+				
+				secondJab.add(secondJob);
+			}
+			job.add("groupinformation", secondJab);
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/{groupId}")
+	@Produces("application/json")
+	public String getLoanGroupByGroupId(@PathParam("groupId") int groupId){
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for(LoanGroup l : service.getLoanGroupById(groupId)){
+			jab.add(buildJSON(l));
+			
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
 }
