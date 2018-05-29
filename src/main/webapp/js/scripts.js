@@ -171,8 +171,7 @@ function getContracts() {
 	hr.send(null);
 }
 
-<<<<<<< HEAD
-=======
+
 function getUser() {
 	var hr = new XMLHttpRequest();
 	hr.open("GET", "/bundlePWABackend/restservices/user/1", true);
@@ -181,7 +180,7 @@ function getUser() {
 		if (hr.readyState == 4 && hr.status == 200) {
 			var userData = JSON.parse(hr.responseText);
 			var addressData = JSON.parse(userData[0].address);
-			
+
 			$('.call1').attr("loading","false");
 			$('#picture').attr("src", userData[0].photo);
 			$('#username').text(userData[0].username);
@@ -205,11 +204,11 @@ function getUser() {
 function checkValue(value){
 	if (value === "" || value === undefined || value == null) {
 		return "Not supplied";
-	} 
-	
+	}
+
 	return value;
 }
->>>>>>> cacb379b39eadd57b8236edde10bac275768367b
+
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -224,7 +223,7 @@ function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-<<<<<<< HEAD
+
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
 
@@ -310,7 +309,7 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
-function getGroups{
+function getGroups(){
   var hr = new XMLHttpRequest();
   hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 
@@ -320,36 +319,36 @@ function getGroups{
       var table = document.getElementById('groupsdiv');
       data.forEach(function(object) {
         var tr = document.createElement('div');
-        tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
-            + object.loanId + '</td>'
-            + '<td id ="amount" data-label="Amount">'
-            + object.amount + '</td>'
-            + '<td id = "duration" data-label="Duration">'
-            + object.duration + " months" + '</td>'
-            + '<td id = "closingdate" data-label="End Date">'
-            + object.closingdate + '</td>'
-            + '<td id="status" data-label="Status">'
-            + object.status + '</td>'
-            + '<td id = "loantype" data-label="Loan Type">'
-            + object.loantype + '</td>'
-            + "<td class='tdHide'>  <button class='small' onclick='toViewLoan(" + object.loanId
-            + ");'>View</button> </td>"
-            + "<td class='tdHide'>  <button class='small' onclick='toEditLoan(" + object.loanId
-            + ");'>Edit</button> </td>";
-        table.innerHTML+= tr;
+
+    table.innerHTML=  [  '<div class="group"><div> <label for="picture"> <b>',
+        "TEST object.name",
+        '</b></label>',
+        '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+         ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        ' <div> <label for="picture"> <b>',
+             "TEST object.name",
+             '</b></label>',
+             '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+              ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        '</div>'
+      ].join('\n')
+
+        console.log("heeft iets gedaan")
       });
+
+
+
     } else if (hr.readyState == 4) {
       addNotification('Retrieving data failed with status ' + hr.status
           + '. Try again later.');
-    }
+    }}
+
+  	hr.send(null);
   }
-  hr.send(null);
-}
 
-}
 
-=======
->>>>>>> cacb379b39eadd57b8236edde10bac275768367b
+
+
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
