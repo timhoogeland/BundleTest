@@ -34,6 +34,8 @@
                         <label for="phone">Phone</label>
                         <input name="phone" type="tel" id="phone" placeholder="Enter your phone here">
                     </li>
+                    <li style="display: none;">
+                    </li>
                     </ul>
                     <br>
                     </form>
@@ -389,9 +391,11 @@
 					
 					success : function(response) {
 						
-						console.log(response);
+                        var adressid = response["adressid"];
+						console.log(response["adressid"]);
+                        document.getElementById("addressidfk").value = adressid;
 						alert("Adress added");
-						
+						sendUserData();
 						
 						
 					},
@@ -405,7 +409,8 @@
 					}
 				});
             	
-                /* $.ajax({
+            	function sendUserData(){
+                    $.ajax({
 					url : "/bundlePWABackend/restservices/user",
 					type : "post",
 					data : $("#user").serialize(),
@@ -425,25 +430,27 @@
 
 					}
 				});
+                };
                 
-                $.ajax({
-					url : "/bundlePWABackend/restservices/loan",
-					type : "post",
-					data : $("#loan").serialize(),
+                
+                // $.ajax({
+				// 	url : "/bundlePWABackend/restservices/loan",
+				// 	type : "post",
+				// 	data : $("#loan").serialize(),
 					
-					success : function(data) {
+				// 	success : function(data) {
 						
-						alert("Loan added.");
-					},
-					error : function(response, textStatus, errorThrown) {
+				// 		alert("Loan added.");
+				// 	},
+				// 	error : function(response, textStatus, errorThrown) {
 
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-						alert("Loan not added.");
+				// 		console.log("textStatus: " + textStatus);
+				// 		console.log("errorThrown: " + errorThrown);
+				// 		console.log("status: " + response.status);
+				// 		alert("Loan not added.");
 
-					}
-				}); */
+				// 	}
+				// });
         });
         });
     </script>
