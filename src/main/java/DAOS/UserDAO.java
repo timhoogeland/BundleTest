@@ -132,6 +132,8 @@ public class UserDAO extends baseDAO {
             pstmt.setDate(9, User.getDateOfBirth());
             pstmt.setString(10, User.getPhoto());
             pstmt.setInt(11, User.getAddressIdFk());
+            
+
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
                 return findById(dbResultSet.getInt(1));
@@ -151,7 +153,6 @@ public class UserDAO extends baseDAO {
     		PreparedStatement pstmt = con.prepareStatement(query);
     		pstmt.setString(1, name);
     		pstmt.setString(2, password);
-    		
     		ResultSet rs = pstmt.executeQuery();
     		
     		if(rs.next()){
