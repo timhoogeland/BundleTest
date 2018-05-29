@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 
 import Objects.Group;
 import Objects.LoanGroup;
+import Objects.LoanGroupInformation;
 import Services.LoanGroupService;
 import Services.LoanGroupServiceProvider;
 
@@ -24,7 +25,7 @@ public class LoanGroupResource {
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		job.add("loanGroupId", l.getGroupId());
-		job.add("loanOfficerId", l.getLoanId());
+		job.add("loanId", l.getLoanId());
 		
 		return job;
 	}
@@ -35,8 +36,19 @@ public class LoanGroupResource {
 	public String getGroupByLoanOfficer(@PathParam("loanofficerId") int loanofficerId){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
-		for(LoanGroup l :service.getAllLoanGroupsByLoanOfficer(loanofficerId)){		
-			jab.add(buildJSON(l));
+		for(LoanGroupInformation l :service.getAllLoanGroupsByLoanOfficer(loanofficerId)){		
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			
+			job.add("firstname", l.getFirstname());
+			job.add("lastname", l.getLastname());
+			job.add("userid", l.getUserId());
+			job.add("paidamount", l.getPaidAmount());
+			job.add("amount", l.getAmount());
+			job.add("loanid", l.getLoanId());
+			job.add("groupid", l.getGroupId());
+			
+			
+			jab.add(job);
 		}
 		JsonArray array = jab.build();
 		return array.toString();

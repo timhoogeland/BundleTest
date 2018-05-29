@@ -54,12 +54,8 @@ public class GroupDAO extends baseDAO{
 	
 	public List<Group> getGroupById(int groupId){
 		String query = 	"select u.firstname, u.lastname, u.userid, l.loanid " + 
-						"from public.loan l, " + 
-						"public.user u, " + 
-						"public.grouploan g " + 
-						"where g.loanidfk = l.loanid " + 
-						"and l.useridfk = u.userid " + 
-						"and g.groupidfk = ?;";
+						"from public.loan l, public.user u, public.grouploan g " + 
+						"where g.loanidfk = l.loanid and l.useridfk = u.userid and g.groupidfk = ?;";
 		
 		try(Connection con = super.getConnection()){
 			PreparedStatement pstmt = con.prepareStatement(query);

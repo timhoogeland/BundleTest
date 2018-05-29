@@ -2,6 +2,7 @@ package DAOS;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import Objects.Group;
 import Objects.LoanGroup;
+import Objects.LoanGroupInformation;
 
 public class LoanGroupDAO extends baseDAO{
 	public List<LoanGroup> selectLoanGroup(String query){
@@ -35,8 +37,38 @@ public class LoanGroupDAO extends baseDAO{
 		return selectLoanGroup("select * FROM public.grouploan;");
 	}
 	
-	public List<LoanGroup> getAllLoanGroupsByLoanOfficer(int loanofficerId){
-		return selectLoanGroup("select l.groupidfk, l.loanidfk FROM public.grouploan l, public.group g where l.groupidfk = g.id and g.loanofficeridfk =" + loanofficerId + ";");
+	public List<LoanGroupInformation> getAllLoanGroupsByLoanOfficer(int loanOfficerId){
+		List<LoanGroupInformation> resultslist = new ArrayList<LoanGroupInformation>();
+		String query = 	"select u.firstname, u.lastname, u.userid, l.paidamount, l.amount, l.loanid, g.id" + 
+				" from public.loan l, public.user u, public.grouploan gl, public.group g" + 
+				" where gl.loanidfk = l.loanid and l.useridfk = u.userid and gl.groupidfk = g.id and g.loanofficeridfk = ?";
+		
+		try(Connection con = super.getConnection()) {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loanOfficerId);
+
+			ResultSet dbResultSet = pstmt.executeQuery();
+			
+			while (dbResultSet.next()) {
+				String firstname = dbResultSet.getString("firstname");
+				String lastname = dbResultSet.getString("lastname");
+				int userId = dbResultSet.getInt("userid");
+				int paidAmount = dbResultSet.getInt("paidamount");
+				int amount = dbResultSet.getInt("amount");
+				int loanId = dbResultSet.getInt("loanid");
+				int groupId = dbResultSet.getInt("id");
+				
+				LoanGroupInformation loanGroupInformation = new LoanGroupInformation(firstname, lastname, userId, paidAmount, amount, loanId, groupId);
+			
+				resultslist.add(loanGroupInformation);
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return resultslist;
+				//selectLoanGroup("select l.groupidfk, l.loanidfk FROM public.grouploan l, public.group g where l.groupidfk = g.id and g.loanofficeridfk =" + loanofficerId + ";");
+		
 		
 	}
 
