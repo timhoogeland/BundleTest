@@ -31,7 +31,12 @@ public class LoanGroupDAO extends baseDAO{
 		return resultslist;
 	}
 	
-	public List<LoanGroup> getAllGroups(int loanofficerId){
-		return selectGroup("select * FROM public." + '"' + "Group" + '"'+ "g where g.loanofficerfk ="+ loanofficerId + ";");
+	public List<LoanGroup> getAllGroups() {
+		return selectGroup("select * FROM public.group;");
 	}
+	
+	public List<LoanGroup> getAllLoanGroupsByLoanOfficer(int loanofficerId){
+		return selectGroup("select * FROM public.group g where g.loanofficerfk =" + loanofficerId + ";");
+	}
+
 }
