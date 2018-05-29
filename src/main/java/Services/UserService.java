@@ -10,15 +10,27 @@ public class UserService {
 
 	    public UserService() {}
 
-	    public List<User> getAllUsers() { return userDAO.findAll(); }
+	    public List<User> getAllUsers() { 
+	    	return userDAO.findAll(); 
+	    	}
 
-	    public User getUserByID(int id) { return userDAO.findById(id); }
+	    public User getUserByID(int id) { 
+	    	return userDAO.findById(id); 
+	    	}
 	    
-	    public int getIdByEmail(String name) { return userDAO.findIdByName(name); }
+	    public int getIdByEmail(String name) { 
+	    	return userDAO.findIdByName(name); 
+	    	}
 
-	    public User update (User user) { return userDAO.update(user); }
+	    public User update (User user) { 
+	    	return userDAO.update(user); 
+	    	}
 
-	    public boolean delete (User user) { return userDAO.delete(user); }
+	    public boolean delete (User user) { 
+	    	return userDAO.delete(user); 
+	    	}
 
-	    public User newUser (User user) { return userDAO.save(user); }
+	    public User newUser (User user) { 
+	    	return userDAO.save(user); 
+	    	}
 }
