@@ -40,6 +40,7 @@
                     <br>
                     </form>
                     <form id="address" onsubmit="return false">
+
                     <ul class="flex-outer">
                     
                     <li>
@@ -62,6 +63,7 @@
                         <label for="description">Description</label>
                         <input name="description" id="description" placeholder="Enter a description (not required)"></input>
                     </li>
+
                     <li>
                         <label for="country">Country</label>
                         <select name="country" id="country">
