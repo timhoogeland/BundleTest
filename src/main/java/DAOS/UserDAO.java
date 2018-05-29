@@ -25,8 +25,8 @@ public class UserDAO extends baseDAO {
             while (dbResultSet.next()) {
                 int userId = dbResultSet.getInt("userid");
                 String userType = dbResultSet.getString("usertype");
-                String firstName = dbResultSet.getString("firstname");   
-                String lastName = dbResultSet.getString("lastname");   
+                String firstname = dbResultSet.getString("firstname");   
+                String lastname = dbResultSet.getString("lastname");   
             	int phonenumber = dbResultSet.getInt("phonenumber");
             	String password = dbResultSet.getString("password");
             	String salt = dbResultSet.getString("salt");
@@ -34,8 +34,9 @@ public class UserDAO extends baseDAO {
             	Date DateOfBirth = dbResultSet.getDate("dateofbirth");
             	int addressIdFk = dbResultSet.getInt("addressidfk");
             	String photo = dbResultSet.getString("photo");
+            	String username = dbResultSet.getString("username");
            
-                User newUser = new User(userId, userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, DateOfBirth);
+                User newUser = new User(userId, userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, DateOfBirth, username);
 
 
                 results.add(newUser);
@@ -70,42 +71,42 @@ public class UserDAO extends baseDAO {
         }
     }
 
-    public User update(User User) {
-        String query = "UPDATE "+tablename+" SET userid=?, usertype=?, firstname=?, phonenumber=?,"
-        		+ " password=?, salt=?, status=?"
-        		+ " WHERE userid=?";
+    public User update(User user) {
+        String query = "UPDATE " + tablename + " SET usertype = ?, firstname = ?, lastname = ? phonenumber = ?,"
+        		+ " status = ?, dateofbirth = ?, photo = ?, addressidfk = ?, username = ?"
+        		+ " WHERE userid = ?";
 
         try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, User.getUserId());
-            pstmt.setString(2, User.getUserType());
-            pstmt.setString(3, User.getFirstName());
-            pstmt.setInt(4, User.getPhonenumber());
-            pstmt.setString(5, User.getPassword());
-            pstmt.setString(6, User.getSalt());
-            pstmt.setString(7, User.getStatus());
+            pstmt.setString(1, user.getUserType());
+            pstmt.setString(3, user.getFirstName());
+            pstmt.setString(4, user.getLastname());
+            pstmt.setInt(5, user.getPhonenumber());
+            pstmt.setString(6, user.getStatus());
+            pstmt.setString(7, user.getPhoto());
+            pstmt.setInt(8, user.getAddressIdFk());
+            pstmt.setString(9, user.getUsername());
+            pstmt.setInt(10, user.getUserId());
 
-            int aff = pstmt.executeUpdate(query);
-            System.out.println("Row(s) affected: "+aff);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return findById(User.getUserId());
+        return findById(user.getUserId());
     }
 
-    public boolean delete (User User) {
+    public boolean delete (int userId) {
         boolean result = false;
-        boolean UserExists = findById(User.getUserId()) != null;
 
-        if (UserExists) {
-            String query = "DELETE FROM "+tablename+" WHERE userid=?";
+        if (findById(userId) != null) {
+            String query = "DELETE FROM " + tablename + " WHERE userid = ?";
 
             try (Connection con = getConnection()) {
                 PreparedStatement pstmt = con.prepareStatement(query);
-                pstmt.setInt(1, User.getUserId());
+                pstmt.setInt(1, userId);
 
-                if (pstmt.executeUpdate() == 1) { // 1 row updated!
+                if (pstmt.executeUpdate() == 1) {
                     result = true;
                 }
             } catch (SQLException e) {
@@ -116,23 +117,22 @@ public class UserDAO extends baseDAO {
         return result;
     }
 
-    public User save(User User) {
-        String query = "INSERT INTO "+tablename+"(userid, usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
+    public User save(User user) {
+        String query = "INSERT INTO " + tablename + "(usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk, username) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setInt(1, User.getUserId());
-            pstmt.setString(2, User.getUserType());
-            pstmt.setString(3, User.getFirstName());
-            pstmt.setString(4, User.getLastName());
-            pstmt.setInt(5, User.getPhonenumber());
-            pstmt.setString(6, User.getPassword());
-            pstmt.setString(7, User.getSalt());
-            pstmt.setString(8, User.getStatus());
-            pstmt.setDate(9, User.getDateOfBirth());
-            pstmt.setString(10, User.getPhoto());
-            pstmt.setInt(11, User.getAddressIdFk());
-            
+            pstmt.setString(1, user.getUserType());
+            pstmt.setString(2, user.getFirstName());
+            pstmt.setString(3, user.getLastname());
+            pstmt.setInt(4, user.getPhonenumber());
+            pstmt.setString(5, user.getPassword());
+            pstmt.setString(6, user.getSalt());
+            pstmt.setString(7, user.getStatus());
+            pstmt.setDate(8, user.getDateOfBirth());
+            pstmt.setString(9, user.getPhoto());
+            pstmt.setInt(10, user.getAddressIdFk());
+            pstmt.setString(11, user.getUsername());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
@@ -142,12 +142,12 @@ public class UserDAO extends baseDAO {
             e.printStackTrace();
         }
 
-        return findById(User.getUserId());
+        return findById(user.getUserId());
     }
     
     public String findRoleForNameAndPassword(String name, String password){
     	String role = null;
-    	String query = "SELECT rol FROM "+tablename+" WHERE name = ? AND password = ?";
+    	String query = "SELECT rol FROM " + tablename + " WHERE name = ? AND password = ?";
     	
     	try(Connection con = super.getConnection()){
     		PreparedStatement pstmt = con.prepareStatement(query);

@@ -10,18 +10,21 @@ public class AddressService {
 
     public AddressService() {}
 
-    public List<Adress> getAllAdresses() { return addressDAO.findAll(); }
+    public List<Adress> getAllAdresses() {
+    	return addressDAO.findAll();
+    	}
 
-    public Adress getAdressByID(int id) { return addressDAO.findByID(id); }
-//    
-//    public List<Adress> getContractsByFK(int id) { return adressDAO.findAdresssByUserIDFK(id);}
+    public Adress getAdressByID(int addressId) { 
+    	
+    	return addressDAO.findById(addressId); 
+    	}
+
+    public boolean deleteAdress (int addressId) { 
+    	return addressDAO.deleteAddress(addressId); 
+    	}
     
-//    public Contract update (Contract contract) { return contractDAO.update(contract); }
-//
-//    public boolean delete (Contract contract) { return contractDAO.delete(contract); }
-    
-      public Adress addAddress (Adress adress) { 
-    	  return addressDAO.newAddress(adress); }
+      public Adress newAddress (Adress address) { 
+    	  return addressDAO.newAddress(address); }
 
 	public Adress updateAddress(Adress updateAddress) {
 		return addressDAO.update(updateAddress);

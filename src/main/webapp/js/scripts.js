@@ -173,7 +173,7 @@ function getContracts() {
 function getUser() {
 	var hr = new XMLHttpRequest();
 	var id = undefined;
-	
+
 	if(getParameterByName("id") === null) {
 		id = getCookie("userid");
 	} else {
@@ -211,9 +211,9 @@ function checkValue(value, error = 'Not Supplied'){
 	if (value === "" || value === undefined || value == null || !value || value === " ") {
 		return error;
 	}
-		return error;
-	}
-
+	
+	return value;
+}
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -314,6 +314,7 @@ function loadLoanDetails() {
 }
 
 function getGroups(){
+
   var hr = new XMLHttpRequest();
   hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 

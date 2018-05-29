@@ -7,10 +7,14 @@ import Objects.Group;
 
 public class GroupService {
 	
-	GroupDAO group = new GroupDAO();
+	GroupDAO groupDAO = new GroupDAO();
+	
+	public List<Group> getAllGroups(){
+		return groupDAO.getAllGroups();
+	}
 	
 	public List<Group> getGroupById(int groupId){
-		return group.getGroupById(groupId);
+		return groupDAO.getGroupById(groupId);
 	}
 
 }
