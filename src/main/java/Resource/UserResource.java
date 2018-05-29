@@ -124,6 +124,7 @@ public class UserResource {
     						@FormParam("photo") String photo,
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
+    	
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
 		
