@@ -96,7 +96,7 @@ header li a:hover{
 header .menu {
 	 transition: max-height .2s ease-out;
 }
-  
+
 header .menu-icon {
 	 cursor: pointer;
 	 float: right;
@@ -133,7 +133,7 @@ header .menu-icon .navicon:before {
 header .menu-icon .navicon:after {
 	top: -5px;
 }
-  
+
 header .menu-btn {
 	display: none;
 }
@@ -168,9 +168,9 @@ header .menu-icon {
 	display: none;
 }
 
-	
+
 header li {
-	float: left;  
+	float: left;
 }
 
 header li a {
@@ -370,7 +370,7 @@ button {
     float: right;
 }
 
-	
+
 label .buttonRound {
 	inline-size: initial;
     line-height: initial;
@@ -385,7 +385,7 @@ label .buttonRound {
 }
 
 button:hover {
-	background-color: #efb956; 
+	background-color: #efb956;
 	color: white;
 }
 
@@ -425,7 +425,7 @@ tr:hover {
 }
 
 .tdHide  {
-	background-color: #fdfdfd;	
+	background-color: #fdfdfd;
 	padding: 5px 10px 5px 15px;
 	border-bottom: none;
 	text-align: center;
@@ -512,22 +512,36 @@ tr:hover {
 	padding: 15px 0px;
 	height: 150px;
 }
+.groupPicture{
+	width: 40px;
+	padding: 0px 0px;
+	height: 40px;
 
-/* Bigger than 1150 px tablet*/ 
+}
+progress::-webkit-progress-bar {
+	background-color: #12736d;
+}
+
+.group{
+	height: 400px;
+	width: 400px;
+	float: left;
+}
+/* Bigger than 1150 px tablet*/
 @media (max-width: 1150px) {
 	header {
 		width: 250px;
 	}
-	
+
 	#container {
 		padding: 0px 25px 0px 300px;
 	}
-	
+
 	.textBlock p {
 	    padding: 0.4em 0em;
 	    font-size: 0.9em;
 	}
-	
+
 	table {
 	  border: 0px;
 	  border-collapse: collapse;
@@ -547,7 +561,7 @@ tr:hover {
 		margin: 0px 0px 25px 0px;
 		border: 0.5px solid #e6e6e6;
 	}
-	
+
 	table tr:hover {
 		background-color: #ffffff;
 	}
@@ -576,42 +590,42 @@ tr:hover {
 	table th {
 		display: none;
 	}
-	
+
 	.tdHide  {
 		background-color: #ffffff;
 		width: 95%;
 	    padding: 5px;
-	    display: inline-block;	
+	    display: inline-block;
 	}
-	
+
 	.small {
 		display: inline-block;
     	width: 48%;
 	}
-	
+
 	.desktop {
 		display: none;
 	}
-	
+
 	.login {
 		max-width: 200px;
 		right: calc(50% - 200px);
 	}
-	
+
 	.welcomeBlock {
 		width: 100%;
 	}
-	
+
 	.welcomeBlock h1 {
 		text-align: center;
 		width: 100%;
 		padding: 2em 0em 1em 0em;
 	}
-	
+
 	.buttonRound {
 		margin: 0px 5px 20px 10px;
 	}
-	
+
 	.login .welcomeBlock h1 {
 		width: 100%;
 		padding: 1em 0.65em;
@@ -624,64 +638,64 @@ tr:hover {
 		position: relative;
 		float: left;
 	}
-	
+
 	.logo img {
 		width: 110px;
 		padding: 25px 25px;
 	}
-	
+
 	header {
 		position: relative;
 		width: 100%;
 	}
-	
+
 	.welcomeBlock h1 {
 		text-align: center;
 		float: left;
 		padding: 1em 0px 0.5em 0px;
 		margin: 10px 0px 0px 0px;
 	}
-	
+
 	.textBlock p {
 		padding: 10px 0px;
 	}
-	
+
 	.welcomeBlock, .blockHalf {
 		width: 100%;
 
 	}
-	
+
 	.blockHalf {
 	 padding: 0px 50px;;
 	}
-	
+
 	#container {
 		padding: 15px;
 	}
-	
+
 	footer {
 		display: none;
 	}
-	
+
 	.menu-icon{
 		margin: 38px 25px;
 	}
-	
+
 	button {
 		display: block;
 		width: 100%;
 	}
 
 	button:hover {
-		background-color: #efb956; 
+		background-color: #efb956;
 		color: white;
 	}
-	
+
 	header .menu {
 		clear: both;
 	    max-height: 0;
 	}
-	
+
 	header .menu-icon {
 		display: initial;
 		cursor: pointer;
@@ -691,53 +705,61 @@ tr:hover {
 	    user-select: none;
 	    color: #f4f4f4;
 	}
-	
+
 	.mobile {
 		display: initial;
 	}
-	
+
 	footer {
 		position: initial;
 		color: black;
 	}
-	
+
 	#notificationBlock {
 	    width: 100%;
 	    right: 15px;
 	}
-	
+
 	.notification {
 		width: calc(100% - 50px);
 		min-width: 50px;
 		padding: 15px 10px;
 	}
 
-	
+
 	.outer {
 		display: initial;
 		position: relative;
 	}
-	
+
 	.middle {
 		display: initial;
 		float: left;
 		width: 100%;
 	}
-	
+
 	.login {
 		position: relative;
 		right: initial;
 		max-width: initial;
 	}
-	
+
 	.login .welcomeBlock h1 {
 		padding: 1em 0em;
 	}
+<<<<<<< HEAD
+
+	.buttonRound {
+		width: initial;
+	}
+
+=======
 	
+>>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 	.popup div{
 		width: calc(100% - 60px);
 	}
-	
+
 	.popup div h2 {
 		width: calc(100% - 50px);
 	}

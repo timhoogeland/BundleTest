@@ -20,28 +20,30 @@
                 <ul class="flex-outer">
                     <li>
                         <label for="first-name">First Name</label>
-                        <input name="first-name" type="text" id="first-name" placeholder="Enter your first name here">
+                        <input name="firstname" type="text" id="first-name" placeholder="Enter your first name here">
                     </li>
                     <li>
                         <label for="last-name">Last Name</label>
-                        <input name="last-name" type="text" id="last-name" placeholder="Enter your last name here">
+                        <input name="lastname" type="text" id="last-name" placeholder="Enter your last name here">
                     </li>
                     <li>
                         <label for="date-of-birth">Date Of Birth</label>
-                        <input name="date-of-birth" type="date" id="date-of-birth">
+                        <input name="dateofbirth" type="date" id="date-of-birth">
                     </li>
                     <li>
                         <label for="phone">Phone</label>
-                        <input name="phone" type="tel" id="phone" placeholder="Enter your phone here">
+                        <input name="phonenumber" type="tel" id="phone" placeholder="Enter your phone here">
                     </li>
-                    <li style="display: none;">
+                    <li>
+                        <label for="password">Password</label>
+                        <input name="password" type="password" id="password" placeholder="Enter your password here">
                     </li>
                     </ul>
                     <br>
                     </form>
                     <form id="address" onsubmit="return false">
 
-                    <ul class="flex-outer">
+                    <ul class="flex-outer" id="addressFO">
                     
                     <li>
                         <label for="street">Street</label>
@@ -343,6 +345,10 @@
                         <input name="duration" type="number" id="duration" min="1" max="36" placeholder="Enter the loan-duration here"></input>
                     </li>
                     <li>
+                        <label for="loandescription">Loan description</label>
+                        <input name="loandescription" id="loandescription" placeholder="Enter the loan description here"></input>
+                    </li>
+                    <li>
                         <button type="submit">Submit</button>
                     </li>
                 </ul>
@@ -385,6 +391,8 @@
     <script type="text/javascript">
          $(document).ready(function () {
             $("form").submit(function () {
+                var addressid;
+                var userid;
 
             	$.ajax({
 					url : "/bundlePWABackend/restservices/address",
@@ -393,10 +401,10 @@
 					
 					success : function(response) {
 						
-                        var adressid = response["adressid"];
-						console.log(response["adressid"]);
-                        document.getElementById("addressidfk").value = adressid;
-						alert("Adress added");
+						if(addressid == null){
+							addressid = response["adressid"];
+						}
+						
 						sendUserData();
 						
 						
@@ -406,20 +414,28 @@
 						console.log("textStatus: " + textStatus);
 						console.log("errorThrown: " + errorThrown);
 						console.log("status: " + response.status);
-						alert("Adress not added.");
 
 					}
 				});
             	
             	function sendUserData(){
+
+                    var formData = $("#user").serializeArray();
+                    formData.push({name: "usertype", value: "applicant"});
+                    formData.push({name: "addressidfk", value: addressid});
+
                     $.ajax({
 					url : "/bundlePWABackend/restservices/user",
 					type : "post",
-					data : $("#user").serialize(),
+					data : formData,
 					
-					success : function(data) {
+					success : function(response) {
 						
-						alert("User added. {0}", data);
+						if(userid == null){
+							userid = response["userid"];
+						}
+						
+						sendLoanData();
 						
 						
 					},
@@ -428,31 +444,34 @@
 						console.log("textStatus: " + textStatus);
 						console.log("errorThrown: " + errorThrown);
 						console.log("status: " + response.status);
-						alert("User not added.");
 
 					}
 				});
                 };
                 
-                
-                // $.ajax({
-				// 	url : "/bundlePWABackend/restservices/loan",
-				// 	type : "post",
-				// 	data : $("#loan").serialize(),
+                function sendLoanData(){
+                    var formData = $("#loan").serializeArray();
+                    formData.push({name: "useridfk", value: userid});
+                	
+                $.ajax({
+					url : "/bundlePWABackend/restservices/loan",
+					type : "post",
+					data : formData,
 					
-				// 	success : function(data) {
+					success : function(response) {
 						
-				// 		alert("Loan added.");
-				// 	},
-				// 	error : function(response, textStatus, errorThrown) {
+						alert("Contract saved.");
+					},
+					error : function(response, textStatus, errorThrown) {
 
-				// 		console.log("textStatus: " + textStatus);
-				// 		console.log("errorThrown: " + errorThrown);
-				// 		console.log("status: " + response.status);
-				// 		alert("Loan not added.");
+						console.log("textStatus: " + textStatus);
+						console.log("errorThrown: " + errorThrown);
+						console.log("status: " + response.status);
+						alert("Contract not saved.");
 
-				// 	}
-				// });
+					}
+				});
+                }
         });
         });
     </script>

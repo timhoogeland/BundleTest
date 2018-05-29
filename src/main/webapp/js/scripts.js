@@ -48,7 +48,7 @@ function validateLogin() {
 	$('#loginbutton').attr('loading', 'true');
 	var pass = document.getElementById('pass').value;
 	var username = document.getElementById('username').value;
-	
+
 	if (username == '') {
 		$('#loginbutton').attr('loading', 'false');
 		$('#loginbutton').text('Try again');
@@ -88,7 +88,7 @@ function validateLogin() {
 							+ logRequest.status + '. Try again later.');
 				}
 			}
-	
+
 		} catch (exception) {
 			alert("Request failed");
 		}
@@ -170,6 +170,8 @@ function getContracts() {
 	hr.send(null);
 }
 
+<<<<<<< HEAD
+=======
 function getUser() {
 	var hr = new XMLHttpRequest();
 	var id = undefined;
@@ -214,6 +216,7 @@ function checkValue(value){
 	
 	return value;
 }
+>>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -228,6 +231,132 @@ function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+<<<<<<< HEAD
+function loadLoanDetails() {
+	var hr = new XMLHttpRequest();
+
+	hr.open("GET", "/bundlePWABackend/restservices/loan/"
+			+ getParameterByName('id'), true);
+
+	hr.onreadystatechange = function() {
+		if (hr.readyState == 4 && hr.status == 200) {
+			var data = JSON.parse(hr.responseText);
+			$('#status').text(UCFirst(data[0].status));
+			$('#remaining').text("TODO");
+			$('#loantype').text(UCFirst(data[0].loantype));
+			$('#remainingbar').attr('value', 0);
+			$('#remainingbar').attr('max', data[0].amount);
+			$('#amount').text("$ " + data[0].amount);
+			$('#duration').text(data[0].duration);
+			$('#startdate').text(data[0].startdate);
+			$('#closingdate').text(data[0].closingdate);
+
+			var hr2 = new XMLHttpRequest();
+			hr2.open("GET", "/bundlePWABackend/restservices/contract/"
+					+ data[0].contractid, true);
+
+			hr2.onreadystatechange = function() {
+				if (hr2.readyState == 4 && hr2.status == 200) {
+					var data = JSON.parse(hr2.responseText);
+
+					var hr3 = new XMLHttpRequest();
+					hr3.open("GET", "/bundlePWABackend/restservices/user/"
+							+ data[0].useridfk, true);
+
+					hr3.onreadystatechange = function() {
+						if (hr3.readyState == 4 && hr3.status == 200) {
+							var data = JSON.parse(hr3.responseText);
+							$('#loanName').text(
+									'Loan - ' + UCFirst(data[0].name));
+							$('#name').text(UCFirst(data[0].name));
+							;
+							$('#dateofbirth').text(data[0].dateofbirth);
+							$('#phone').text(data[0].phonenumber);
+							$('#role').text(data[0].userType);
+							$('#userstatus').text(data[0].status);
+
+							var hr4 = new XMLHttpRequest();
+							hr4.open("GET",
+									"/bundlePWABackend/restservices/adress/"
+											+ data[0].adresIDFK, true);
+
+							hr4.onreadystatechange = function() {
+								if (hr4.readyState == 4 && hr4.status == 200) {
+									var data = JSON.parse(hr4.responseText);
+									$('#street').text(
+											data[0].street + " "
+													+ data[0].number);
+									$('#postal').text(data[0].postalcode);
+									$('#country').text(data[0].country);
+								} else if (hr4.readyState == 4) {
+									addNotification('Retrieving data failed with status '
+											+ hr4.status + '. Try again later.');
+								}
+							}
+							hr4.send(null);
+						} else if (hr3.readyState == 4) {
+							addNotification('Retrieving data failed with status '
+									+ hr3.status + '. Try again later.');
+						}
+					}
+					hr3.send(null);
+
+				} else if (hr2.readyState == 4) {
+					addNotification('Retrieving data failed with status ' + hr2.status
+							+ '. Try again later.');
+				}
+
+			}
+			hr2.send(null);
+
+		} else if (hr.readyState == 4) {
+			addNotification('Retrieving data failed with status ' + hr.status
+					+ '. Try again later.');
+		}
+	}
+	hr.send(null);
+}
+
+function getGroups{
+  var hr = new XMLHttpRequest();
+  hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+
+  hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+      var data = JSON.parse(hr.responseText);
+      var table = document.getElementById('groupsdiv');
+      data.forEach(function(object) {
+        var tr = document.createElement('div');
+        tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+            + object.loanId + '</td>'
+            + '<td id ="amount" data-label="Amount">'
+            + object.amount + '</td>'
+            + '<td id = "duration" data-label="Duration">'
+            + object.duration + " months" + '</td>'
+            + '<td id = "closingdate" data-label="End Date">'
+            + object.closingdate + '</td>'
+            + '<td id="status" data-label="Status">'
+            + object.status + '</td>'
+            + '<td id = "loantype" data-label="Loan Type">'
+            + object.loantype + '</td>'
+            + "<td class='tdHide'>  <button class='small' onclick='toViewLoan(" + object.loanId
+            + ");'>View</button> </td>"
+            + "<td class='tdHide'>  <button class='small' onclick='toEditLoan(" + object.loanId
+            + ");'>Edit</button> </td>";
+        table.innerHTML+= tr;
+      });
+    } else if (hr.readyState == 4) {
+      addNotification('Retrieving data failed with status ' + hr.status
+          + '. Try again later.');
+    }
+  }
+  hr.send(null);
+}
+
+}
+
+=======
+>>>>>>> cacb379b39eadd57b8236edde10bac275768367b
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
@@ -293,7 +422,7 @@ function addNotification(text, color) {
 	} else {
 		backgroundColor = "#fa5858";
 	}
-	
+
 	$('#notificationBlock').fadeIn().append(
 			'<div class="notification hide" style="background-color:'+backgroundColor+'"><p id="notificationText">' + text
 					+ '</div></div>');
