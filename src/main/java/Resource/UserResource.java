@@ -1,5 +1,7 @@
 package Resource;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import Objects.User;
+import Services.AddressService;
 import Services.ServiceProvider;
 import Services.UserService;
 
@@ -31,6 +34,8 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
+        //AddressService addressService = ServiceProvider.getAdressService();
+        AddressResource addressResource = new AddressResource();
         
         job.add("userid", user.getUserId());
         job.add("userType", user.getUserType());
@@ -39,6 +44,7 @@ public class UserResource {
         job.add("phonenumber", user.getPhonenumber());
         job.add("status", user.getStatus());
         job.add("addressIdFk", user.getAddressIdFk());
+        job.add("address", addressResource.getAdressByID(user.getAddressIdFk()));
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
         
@@ -101,8 +107,6 @@ public class UserResource {
                             @FormParam("lastname") String lastName,
                             @FormParam("phonenumber") int phonenumber,
                             @FormParam("password") String password,
-                            @FormParam("salt") String salt,
-                            @FormParam("status") String status,
     						@FormParam("addressidfk") int addressIdFk,
     						@FormParam("photo") String photo,
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
@@ -110,6 +114,21 @@ public class UserResource {
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
 		Random rand = new Random();
+		
+		GeneratePasswordAndSalt generator = new GeneratePasswordAndSalt();
+		String[] result = null;
+		try {
+			result = generator.generateStrongPasswordHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		
+		String status = "active";
+		String salt = result[1];
+		password = result[0];
+		
         User newUser = new User(rand.nextInt(1000), userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {

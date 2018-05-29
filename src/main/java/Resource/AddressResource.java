@@ -1,5 +1,7 @@
 package Resource;
 
+import java.util.Random;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -7,6 +9,7 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,21 +18,23 @@ import javax.ws.rs.core.Response;
 import Objects.Adress;
 import Objects.Contract;
 import Objects.User;
-import Services.AdressService;
+import Services.AddressService;
 import Services.ServiceProvider;
 
-@Path("/adress")
-public class AdressResource {
-    private AdressService service = ServiceProvider.getAdressService();
+@Path("/address")
+public class AddressResource {
+    private AddressService service = ServiceProvider.getAdressService();
 
 	    private JsonObjectBuilder buildJSON(Adress a) {
 	        JsonObjectBuilder job = Json.createObjectBuilder();
 
-	        job.add("adressid", a.getAdressID())
+	        job.add("adressid", a.getAdressId())
 	                .add("street", a.getStreet())
 	                .add("number", a.getNumber())
 	                .add("country", a.getCountry())
-	                .add("postalcode", a.getPostalCode());
+	                .add("postalcode", a.getPostalCode())
+	        		.add("description", a.getDescription())
+	        		.add("location", a.getLocation());
 
 	        return job;
 	    }
@@ -67,17 +72,39 @@ public class AdressResource {
 	                               @FormParam("street") String street,
 	                               @FormParam("number") int number,
 	                               @FormParam("country") String country,
-	                               @FormParam("postalcode") String postalcode)
-
-	    {
+	                               @FormParam("postalcode") String postalcode,
+	                               @FormParam("description") String description,
+	                               @FormParam("location") String location){
 	    	
-	        Adress newAdress = new Adress(0, street, number, country, postalcode);
-	        Adress returnAdress = service.addContract(newAdress);
+	    	Random rand = new Random();
+	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
+	        Adress returnAdress = service.addAddress(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {
 	            return Response.status(Response.Status.BAD_REQUEST).build();
 	        }
-	    }	    
+	    }	
+	    
+	    @PUT
+	    @Produces("application/json")
+	    @Path("/{id}")
+	    public Response changeAddress(	@PathParam("id") int addressId,
+	    		 						@FormParam("street") String street,
+	    		 						@FormParam("number") int number,
+	    		 						@FormParam("country") String country,
+	    		 						@FormParam("postalcode") String postalcode,
+	    		 						@FormParam("description") String description,
+	    		 						@FormParam("location") String location){
+	    	
+	    	Adress updatedAdress = new Adress(addressId, street, number, country, postalcode, description, location);
+	    	Adress returnAdress = service.updateAddress(updatedAdress);
+	        if (returnAdress != null) {
+	            String a = buildJSON(returnAdress).build().toString();
+	            return Response.ok(a).build();
+	        } else {
+	            return Response.status(Response.Status.BAD_REQUEST).build();
+	        }
+	    }
 }

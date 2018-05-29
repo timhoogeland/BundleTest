@@ -34,10 +34,13 @@
                         <label for="phone">Phone</label>
                         <input name="phone" type="tel" id="phone" placeholder="Enter your phone here">
                     </li>
+                    <li style="display: none;">
+                    </li>
                     </ul>
                     <br>
                     </form>
-                    <form id="adress" onsubmit="return false">
+                    <form id="address" onsubmit="return false">
+
                     <ul class="flex-outer">
                     
                     <li>
@@ -56,6 +59,11 @@
                         <label for="location">GPS Location</label>
                         <input name="location" id="location" placeholder="Searching for location.."></input>
                     </li>
+                     <li>
+                        <label for="description">Description</label>
+                        <input name="description" id="description" placeholder="Enter a description (not required)"></input>
+                    </li>
+
                     <li>
                         <label for="country">Country</label>
                         <select name="country" id="country">
@@ -378,14 +386,18 @@
          $(document).ready(function () {
             $("form").submit(function () {
 
-            	/* $.ajax({
-					url : "/bundlePWABackend/restservices/adress",
+            	$.ajax({
+					url : "/bundlePWABackend/restservices/address",
 					type : "post",
-					data : $("#adress").serialize(),
+					data : $("#address").serialize(),
 					
 					success : function(response) {
 						
-						alert("Adress added. {0}", response);
+                        var adressid = response["adressid"];
+						console.log(response["adressid"]);
+                        document.getElementById("addressidfk").value = adressid;
+						alert("Adress added");
+						sendUserData();
 						
 						
 					},
@@ -397,9 +409,10 @@
 						alert("Adress not added.");
 
 					}
-				}); */
+				});
             	
-                /* $.ajax({
+            	function sendUserData(){
+                    $.ajax({
 					url : "/bundlePWABackend/restservices/user",
 					type : "post",
 					data : $("#user").serialize(),
@@ -419,25 +432,27 @@
 
 					}
 				});
+                };
                 
-                $.ajax({
-					url : "/bundlePWABackend/restservices/loan",
-					type : "post",
-					data : $("#loan").serialize(),
+                
+                // $.ajax({
+				// 	url : "/bundlePWABackend/restservices/loan",
+				// 	type : "post",
+				// 	data : $("#loan").serialize(),
 					
-					success : function(data) {
+				// 	success : function(data) {
 						
-						alert("Loan added.");
-					},
-					error : function(response, textStatus, errorThrown) {
+				// 		alert("Loan added.");
+				// 	},
+				// 	error : function(response, textStatus, errorThrown) {
 
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-						alert("Loan not added.");
+				// 		console.log("textStatus: " + textStatus);
+				// 		console.log("errorThrown: " + errorThrown);
+				// 		console.log("status: " + response.status);
+				// 		alert("Loan not added.");
 
-					}
-				}); */
+				// 	}
+				// });
         });
         });
     </script>
