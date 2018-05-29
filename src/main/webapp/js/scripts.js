@@ -41,8 +41,7 @@ function eraseCookie(name) {
 function logOut() {
 	eraseCookie("username");
 	eraseCookie("password");
-	eraseCookie("loanofficerid");
-	eraseCookie("loanid");
+	eraseCookie("userid");
 }
 
 function validateLogin() {
@@ -74,7 +73,7 @@ function validateLogin() {
 						$('#loginbutton').text('Succes');
 						setCookie('username', username, 1);
 						setCookie('password', pass, 1);
-						setCookie('loanofficerid', response[0]['userid']);
+						setCookie('userid', response[0]['userid']);
 						addNotification("Login successful", "green");
 						window.location.replace("index.jsp");
 					} else {
@@ -173,7 +172,15 @@ function getContracts() {
 
 function getUser() {
 	var hr = new XMLHttpRequest();
-	hr.open("GET", "/bundlePWABackend/restservices/user/1", true);
+	var id = undefined;
+	
+	if(getParameterByName("id") === null) {
+		id = getCookie("userid");
+	} else {
+		id = getParameterByName("id")
+	}
+
+	hr.open("GET", "/bundlePWABackend/restservices/user/" + id, true);
 
 	hr.onreadystatechange = function() {
 		if (hr.readyState == 4 && hr.status == 200) {
@@ -182,17 +189,17 @@ function getUser() {
 			
 			$('.call1').attr("loading","false");
 			$('#picture').attr("src", userData[0].photo);
-			$('#username').text(userData[0].username);
-			$('#name').text(userData[0].firstName + " " + userData[0].lastName);
-			$('#phone').text(userData[0].phonenumber);
-			$('#birthdate').text(userData[0].dateofbirth);
-			$('#role').text(userData[0].userType);
-			$('#status').text(userData[0].status);
-			$('#street').text(addressData[0].street + " " + addressData[0].number);
-			$('#postal').text(addressData[0].postalcode);
-			$('#country').text(addressData[0].country);
-			$('#description').text(addressData[0].description);
-			$('#coordinates').text(addressData[0].location);
+			$('#username').text(checkValue(userData[0].username));
+			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
+			$('#phone').text(checkValue(userData[0].phonenumber));
+			$('#birthdate').text(checkValue(userData[0].dateofbirth));
+			$('#role').text(checkValue(userData[0].userType));
+			$('#status').text(checkValue(userData[0].status));
+			$('#street').text(checkValue(addressData[0].street + " " + addressData[0].number));
+			$('#postal').text(checkValue(addressData[0].postalcode));
+			$('#country').text(checkValue(addressData[0].country));
+			$('#description').text(checkValue(addressData[0].description));
+			$('#coordinates').text(checkValue(addressData[0].location));
 		} else if (hr.readyState == 4) {
 			addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
 		}
@@ -201,7 +208,7 @@ function getUser() {
 }
 
 function checkValue(value){
-	if (value === "" || value === undefined || value == null) {
+	if (value === "" || value === undefined || value == null || !value || value === " ") {
 		return "Not supplied";
 	} 
 	
