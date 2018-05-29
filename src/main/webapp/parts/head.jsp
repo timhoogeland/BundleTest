@@ -22,6 +22,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 
     <!-- Javascript files -->
-    <script src="js/scripts.js"></script>
     <script src="js/jquery3.3.1.js"></script>
+    <script src="js/scripts.js"></script>
 </head>

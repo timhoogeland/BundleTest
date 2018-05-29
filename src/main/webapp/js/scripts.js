@@ -1,14 +1,13 @@
 // BEGIN: PWA initialisation
-if (navigator.serviceWorker.controller) {
-	console.log('[PWA Builder] active service worker found, no need to register')
+if ('serviceWorker' in navigator) {
+  console.log('CLIENT: service worker registration in progress.');
+  navigator.serviceWorker.register('sw.js').then(function() {
+    console.log('CLIENT: service worker registration complete.');
+  }, function() {
+    console.log('CLIENT: service worker registration failure.');
+  });
 } else {
-	navigator.serviceWorker.register('pwabuilder-sw.js', {
-		scope : './'
-	}).then(
-			function(reg) {
-				console.log('Service worker has been registered for scope:'
-						+ reg.scope);
-			});
+  console.log('CLIENT: service worker is not supported.');
 }
 // END: PWA initialisation
 
@@ -349,6 +348,14 @@ function removeNotification() {
 	}, 1100)
 }
 
+function toggleHide(id, bool) {
+	event.stopPropagation();
+	if (bool) {
+		$('#'+id).fadeOut('fast');
+	} else {
+		$('#'+id).fadeIn('fast');
+	}
+}
 
 function loadingText(points) {
 	if (points == '...') {
