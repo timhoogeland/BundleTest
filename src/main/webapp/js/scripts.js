@@ -170,14 +170,11 @@ function getContracts() {
 	hr.send(null);
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7f35f744af543fb46600a155ab3e31bcf33ff181
 function getUser() {
 	var hr = new XMLHttpRequest();
 	var id = undefined;
-	
+
 	if(getParameterByName("id") === null) {
 		id = getCookie("userid");
 	} else {
@@ -218,10 +215,6 @@ function checkValue(value){
 
 	return value;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f35f744af543fb46600a155ab3e31bcf33ff181
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -236,7 +229,7 @@ function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-<<<<<<< HEAD
+
 
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
@@ -323,10 +316,9 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
-function getGroups(){
-=======
+
 function getGroups() {
->>>>>>> 7f35f744af543fb46600a155ab3e31bcf33ff181
+
   var hr = new XMLHttpRequest();
   hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 
@@ -363,12 +355,11 @@ function getGroups() {
   	hr.send(null);
   }
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 7f35f744af543fb46600a155ab3e31bcf33ff181
+
+
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
