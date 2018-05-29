@@ -49,7 +49,7 @@ function validateLogin() {
 	$('#loginbutton').attr('loading', 'true');
 	var pass = document.getElementById('pass').value;
 	var username = document.getElementById('username').value;
-	
+
 	if (username == '') {
 		$('#loginbutton').attr('loading', 'false');
 		$('#loginbutton').text('Try again');
@@ -89,7 +89,7 @@ function validateLogin() {
 							+ logRequest.status + '. Try again later.');
 				}
 			}
-	
+
 		} catch (exception) {
 			alert("Request failed");
 		}
@@ -170,6 +170,7 @@ function getContracts() {
 	}
 	hr.send(null);
 }
+
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -269,6 +270,44 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
+function getGroups{
+  var hr = new XMLHttpRequest();
+  hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+
+  hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+      var data = JSON.parse(hr.responseText);
+      var table = document.getElementById('groupsdiv');
+      data.forEach(function(object) {
+        var tr = document.createElement('div');
+        tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+            + object.loanId + '</td>'
+            + '<td id ="amount" data-label="Amount">'
+            + object.amount + '</td>'
+            + '<td id = "duration" data-label="Duration">'
+            + object.duration + " months" + '</td>'
+            + '<td id = "closingdate" data-label="End Date">'
+            + object.closingdate + '</td>'
+            + '<td id="status" data-label="Status">'
+            + object.status + '</td>'
+            + '<td id = "loantype" data-label="Loan Type">'
+            + object.loantype + '</td>'
+            + "<td class='tdHide'>  <button class='small' onclick='toViewLoan(" + object.loanId
+            + ");'>View</button> </td>"
+            + "<td class='tdHide'>  <button class='small' onclick='toEditLoan(" + object.loanId
+            + ");'>Edit</button> </td>";
+        table.innerHTML+= tr;
+      });
+    } else if (hr.readyState == 4) {
+      addNotification('Retrieving data failed with status ' + hr.status
+          + '. Try again later.');
+    }
+  }
+  hr.send(null);
+}
+
+}
+
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
@@ -334,7 +373,7 @@ function addNotification(text, color) {
 	} else {
 		backgroundColor = "#fa5858";
 	}
-	
+
 	$('#notificationBlock').fadeIn().append(
 			'<div class="notification hide" style="background-color:'+backgroundColor+'"><p id="notificationText">' + text
 					+ '</div></div>');
