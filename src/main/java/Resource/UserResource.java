@@ -35,7 +35,7 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
-        JsonArrayBuilder jab = Json.createArrayBuilder();
+        JsonArrayBuilder secondJab = Json.createArrayBuilder();
         //AddressService addressService = ServiceProvider.getAdressService();
         AddressResource addressResource = new AddressResource();
         
@@ -57,9 +57,9 @@ public class UserResource {
         	secondJob.add("groupid", u.getGroupId());
         	secondJob.add("loanid", u.getLoanId());
         	
-        	jab.add(secondJob);
+        	secondJab.add(secondJob);
         }
-        job.add("loanInformation", jab);
+        job.add("loanInformation", secondJab);
         
         return job;
     }
