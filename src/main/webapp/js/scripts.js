@@ -41,15 +41,14 @@ function eraseCookie(name) {
 function logOut() {
 	eraseCookie("username");
 	eraseCookie("password");
-	eraseCookie("loanofficerid");
-	eraseCookie("loanid");
+	eraseCookie("userid");
 }
 
 function validateLogin() {
 	$('#loginbutton').attr('loading', 'true');
 	var pass = document.getElementById('pass').value;
 	var username = document.getElementById('username').value;
-	
+
 	if (username == '') {
 		$('#loginbutton').attr('loading', 'false');
 		$('#loginbutton').text('Try again');
@@ -74,7 +73,7 @@ function validateLogin() {
 						$('#loginbutton').text('Succes');
 						setCookie('username', username, 1);
 						setCookie('password', pass, 1);
-						setCookie('loanofficerid', response[0]['userid']);
+						setCookie('userid', response[0]['userid']);
 						addNotification("Login successful", "green");
 						window.location.replace("index.jsp");
 					} else {
@@ -89,7 +88,7 @@ function validateLogin() {
 							+ logRequest.status + '. Try again later.');
 				}
 			}
-	
+
 		} catch (exception) {
 			alert("Request failed");
 		}
@@ -171,6 +170,52 @@ function getContracts() {
 	hr.send(null);
 }
 
+
+function getUser() {
+	var hr = new XMLHttpRequest();
+	var id = undefined;
+
+	if(getParameterByName("id") === null) {
+		id = getCookie("userid");
+	} else {
+		id = getParameterByName("id")
+	}
+
+	hr.open("GET", "/bundlePWABackend/restservices/user/" + id, true);
+
+	hr.onreadystatechange = function() {
+		if (hr.readyState == 4 && hr.status == 200) {
+			var userData = JSON.parse(hr.responseText);
+			var addressData = JSON.parse(userData[0].address);
+
+			$('.call1').attr("loading","false");
+			$('#picture').attr("src", userData[0].photo);
+			$('#username').text(checkValue(userData[0].username));
+			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
+			$('#phone').text(checkValue(userData[0].phonenumber));
+			$('#birthdate').text(checkValue(userData[0].dateofbirth));
+			$('#role').text(checkValue(userData[0].userType));
+			$('#status').text(checkValue(userData[0].status));
+			$('#street').text(checkValue(addressData[0].street + " " + addressData[0].number));
+			$('#postal').text(checkValue(addressData[0].postalcode));
+			$('#country').text(checkValue(addressData[0].country));
+			$('#description').text(checkValue(addressData[0].description));
+			$('#coordinates').text(checkValue(addressData[0].location));
+		} else if (hr.readyState == 4) {
+			addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
+		}
+	}
+	hr.send(null);
+}
+
+function checkValue(value){
+	if (value === "" || value === undefined || value == null || !value || value === " ") {
+		return "Not supplied";
+	}
+
+	return value;
+}
+
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
 }
@@ -183,6 +228,8 @@ function toViewLoan(loanId) {
 function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
 
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
@@ -269,6 +316,50 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
+
+function getGroups() {
+
+  var hr = new XMLHttpRequest();
+  hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+
+  hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+      var data = JSON.parse(hr.responseText);
+      var table = document.getElementById('groupsdiv');
+      data.forEach(function(object) {
+        var tr = document.createElement('div');
+
+    table.innerHTML=  [  '<div class="group"><div> <label for="picture"> <b>',
+        "TEST object.name",
+        '</b></label>',
+        '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+         ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        ' <div> <label for="picture"> <b>',
+             "TEST object.name",
+             '</b></label>',
+             '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+              ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        '</div>'
+      ].join('\n')
+
+        console.log("heeft iets gedaan")
+      });
+
+
+
+    } else if (hr.readyState == 4) {
+      addNotification('Retrieving data failed with status ' + hr.status
+          + '. Try again later.');
+    }}
+
+  	hr.send(null);
+  }
+
+
+
+
+
+
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
@@ -334,7 +425,7 @@ function addNotification(text, color) {
 	} else {
 		backgroundColor = "#fa5858";
 	}
-	
+
 	$('#notificationBlock').fadeIn().append(
 			'<div class="notification hide" style="background-color:'+backgroundColor+'"><p id="notificationText">' + text
 					+ '</div></div>');
