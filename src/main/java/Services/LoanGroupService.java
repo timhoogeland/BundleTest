@@ -5,13 +5,22 @@ import java.util.List;
 import DAOS.LoanGroupDAO;
 import Objects.Group;
 import Objects.LoanGroup;
+import Objects.LoanGroupInformation;
 
 
 
 public class LoanGroupService {
-LoanGroupDAO loanGroup = new LoanGroupDAO();
+LoanGroupDAO loanGroupDAO = new LoanGroupDAO();
 	
-	public List<LoanGroup> getAllGroups(int loanofficerId) {
-		return loanGroup.getAllGroups(loanofficerId);
+	public List<LoanGroupInformation> getAllLoanGroupsByLoanOfficer(int loanofficerId) {
+		return loanGroupDAO.getAllLoanGroupsByLoanOfficer(loanofficerId);
+	}
+
+	public List<LoanGroup> getAllLoanGroups() {
+		return loanGroupDAO.getAllLoanGroups();
+	}
+
+	public List<LoanGroup> getLoanGroupById(int groupId) {
+		return loanGroupDAO.getLoanGroupById(groupId);
 	}
 }

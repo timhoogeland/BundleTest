@@ -1,7 +1,5 @@
 package Resource;
 
-import java.util.Random;
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -16,8 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import Objects.Adress;
-import Objects.Contract;
-import Objects.User;
 import Services.AddressService;
 import Services.ServiceProvider;
 
@@ -76,9 +72,8 @@ public class AddressResource {
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
 	    	
-	    	Random rand = new Random();
-	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
-	        Adress returnAdress = service.addAddress(newAdress);
+	        Adress newAdress = new Adress(0, street, number, country, postalcode, description, location);
+	        Adress returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();

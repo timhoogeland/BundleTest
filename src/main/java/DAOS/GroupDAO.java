@@ -1,6 +1,7 @@
 package DAOS;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,37 +11,65 @@ import java.util.List;
 import Objects.Group;
 
 public class GroupDAO extends baseDAO{
+	ResultSet dbResultSet = null;
 	
-	public List<Group> getGroup(String query){
+	public List<Group> getGroup(ResultSet dbResultSet){
 		List<Group> resultslist = new ArrayList<Group>();
-		
-		try(Connection con = super.getConnection()){
-			Statement stmt = con.createStatement();
-			ResultSet dbResultSet = stmt.executeQuery(query);
+		try {
 			while (dbResultSet.next()) {
 				int userId = dbResultSet.getInt("userid");
 				int loanId = dbResultSet.getInt("loanid");
-				Group group= new Group(userId, loanId);
+				String firstname = dbResultSet.getString("firstname");
+				String lastname = dbResultSet.getString("lastname");
+				Group group= new Group(userId, loanId, firstname, lastname, 0, 0);
 				resultslist.add(group);
-			}
-			stmt.getConnection().close();
-			
-		}catch(SQLException sqle){
-			sqle.printStackTrace();
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return resultslist;
 	}
 	
-	public List<Group> getGroupById(int groupId){
-		return getGroup("select u.userid, l.loanid " + 
-						"from public." + '"' + "loan" + '"' + " l, " + 
-						"public." + '"' + "contract" + '"' + " c, " +
-						"public."  + '"' + "User" + '"' + " u, " + 
-						"public."  + '"' + "grouploan" + '"' + " g " + 
-						"where g.loanidfk = l.loanid " +
-						"and l.contractidfk = c.contractid " + 
-						"and c.useridfk = u.userid " + 
-						"and g.groupidfk = " + groupId + ";");
+	public List<Group> getAllGroups(){
+		String query = "Select * from public.group;";
+		List<Group> resultslist = new ArrayList<Group>();
+		
+		try (Connection con = super.getConnection()) {
+			Statement stmt = con.createStatement();
+			dbResultSet = stmt.executeQuery(query);
+			
+			while (dbResultSet.next()) {
+				int groupId = dbResultSet.getInt("id");
+				int loanOfficerId = dbResultSet.getInt("loanofficeridfk");
+				Group group= new Group(0, 0, "", "", loanOfficerId, groupId);
+				resultslist.add(group);
+			}
+			
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return resultslist;
 	}
+	
+	public List<Group> getGroupById(int groupId){
+		String query = 	"select u.firstname, u.lastname, u.userid, l.loanid " + 
+						"from public.loan l, public.user u, public.grouploan g " + 
+						"where g.loanidfk = l.loanid and l.useridfk = u.userid and g.groupidfk = ?;";
+		
+		try(Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, groupId);
+			
+			dbResultSet = pstmt.executeQuery();
+			
+		
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return getGroup(dbResultSet);
+	}
+	
 }

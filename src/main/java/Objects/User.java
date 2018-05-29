@@ -4,34 +4,25 @@ import java.sql.Date;
 
 public class User {
 	private int userId;
-	
 	private String userType;
-	
 	private String firstName;
-	
-	private String lastName;
-	
+	private String lastname;
 	private int phonenumber;
-	
 	private String password;
-	
 	private String salt;
-	
 	private String status;
-	
 	private int addressIdFk;
-
 	private Date dateOfBirth;
-	
 	private String photo;
+	private String username;
 	
 	public User(int userID, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
-			int adresIDFK, String photo, Date dateOfBirth) {
+			int adresIDFK, String photo, Date dateOfBirth, String userName) {
 
 		this.userId = userID;
 		this.userType = userType;
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.lastname = lastName;
 		this.phonenumber = phonenumber;
 		this.password = password;
 		this.salt = salt;
@@ -39,6 +30,7 @@ public class User {
 		this.addressIdFk = adresIDFK;
 		this.setPhoto(photo);
 		this.dateOfBirth = dateOfBirth;
+		this.setUserName(userName);
 	}
 
 	public int getUserId() {
@@ -137,11 +129,19 @@ public class User {
 		}
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUserName(String username) {
+		this.username = username;
 	}
 }
