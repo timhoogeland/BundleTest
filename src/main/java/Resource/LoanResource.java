@@ -86,7 +86,7 @@ public class LoanResource {
 		LoanService service = LoanServiceProvider.getLoanService();
 		
 		String status = "Pending";
-		
+				
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse("00-00-0000");
 		java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());

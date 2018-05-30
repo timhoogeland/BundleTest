@@ -119,21 +119,22 @@ public class UserDAO extends baseDAO {
     }
 
     public User save(User user) {
-        String query = "INSERT INTO " + tablename + "(usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk, username) VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
+        String query = "INSERT INTO " + tablename + "(userid, usertype, firstname, lastname, phonenumber, password, salt, status, dateofbirth, photo, addressidfk, username) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING userid";
         try (Connection con = super.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(query);
             
-            pstmt.setString(1, user.getUserType());
-            pstmt.setString(2, user.getFirstName());
-            pstmt.setString(3, user.getLastname());
-            pstmt.setInt(4, user.getPhonenumber());
-            pstmt.setString(5, user.getPassword());
-            pstmt.setString(6, user.getSalt());
-            pstmt.setString(7, user.getStatus());
-            pstmt.setDate(8, user.getDateOfBirth());
-            pstmt.setString(9, user.getPhoto());
-            pstmt.setInt(10, user.getAddressIdFk());
-            pstmt.setString(11, user.getUsername());
+            pstmt.setInt(1, user.getUserId());
+            pstmt.setString(2, user.getUserType());
+            pstmt.setString(3, user.getFirstName());
+            pstmt.setString(4, user.getLastname());
+            pstmt.setInt(5, user.getPhonenumber());
+            pstmt.setString(6, user.getPassword());
+            pstmt.setString(7, user.getSalt());
+            pstmt.setString(8, user.getStatus());
+            pstmt.setDate(9, user.getDateOfBirth());
+            pstmt.setString(10, user.getPhoto());
+            pstmt.setInt(11, user.getAddressIdFk());
+            pstmt.setString(12, user.getUsername());
 
             ResultSet dbResultSet = pstmt.executeQuery();
             if(dbResultSet.next()) {
