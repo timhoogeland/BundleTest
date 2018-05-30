@@ -16,7 +16,7 @@
         
         <div class="block">
         
-        	<div class="loaderBlock">
+        	<div id="mainLoader" class="loaderBlock">
         		<div class="loader"></div>
         	</div>
         	
@@ -100,8 +100,12 @@
 					</label>
 					<h3 id="coordinates" class="call1" loading="true">Loading...</h3>
 				</div>
-				
+        		
 				<div id="group" class="hide">
+				
+				<div id="subLoader" class="subLoaderBlock">
+        			<div class="loaderSmall"></div>
+        		</div>
 				
 					<h2>Group</h2>
 					<br>
@@ -121,6 +125,14 @@
 							<button id="groupButton" class="buttonRound">&#8618;</button>
 						</label>
 						<h3 id="groupnumber" class="call2" loading="true">Loading...</h3>
+					</div>
+					
+					<div>
+						<label for="groupnumber"> 
+							<b>Loan number </b> 
+							<button id="loanButton" class="buttonRound">&#8618;</button>
+						</label>
+						<h3 id="loannumber" class="call2" loading="true">Loading...</h3>
 					</div>
 				</div>
 			</div>

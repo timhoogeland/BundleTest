@@ -185,7 +185,7 @@ function getUser() {
 
 	hr.onreadystatechange = function() {
 		if (hr.readyState == 4 && hr.status == 200) {
-			$('.loaderBlock').fadeOut('fast');
+			$('#mainLoader').fadeOut('fast');
 			var userData = JSON.parse(hr.responseText);
 			var addressData = JSON.parse(userData[0].address);
 
@@ -208,18 +208,20 @@ function getUser() {
 			} 
 			
 			if (userData[0].userType == "applicant") {
-				$('#contracts').addClass('hide');
+				$('#group').removeClass('hide');
 				var hr2 = new XMLHttpRequest();
 				hr2.open("GET", "/bundlePWABackend/restservices/user/" + userData[0].loanInformation[0].loanofficerid, true);
 				hr2.onreadystatechange = function() {
 					if (hr2.readyState == 4 && hr2.status == 200) {
+						$('#subLoader').fadeOut('fast');
 						var officerData = JSON.parse(hr2.responseText);
-						$('#group').removeClass('hide');
 						$('.call2').attr("loading","false");
 						$('#loanofficer').text(checkValue(officerData[0].firstName + " " + officerData[0].lastName));
 						$('#officerButton').attr("onclick", "window.location.href='account.jsp?id="+ userData[0].loanInformation[0].loanofficerid +"'");
 						$('#groupnumber').text(checkValue(userData[0].loanInformation[0].groupid));
 						$('#groupButton').attr("onclick", "window.location.href='group.jsp?id="+ userData[0].loanInformation[0].groupid +"'");
+						$('#loannumber').text(checkValue(userData[0].loanInformation[0].loanid));
+						$('#loanButton').attr("onclick", "window.location.href='loan.jsp?id="+ userData[0].loanInformation[0].loanid +"'");
 					} else if (hr2.readyState == 4) {
 						addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
 					}
