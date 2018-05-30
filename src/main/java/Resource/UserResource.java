@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import Objects.User;
+import PdfGenerator.RetrieveData;
 import Services.AddressService;
 import Services.ServiceProvider;
 import Services.UserService;
@@ -111,6 +112,7 @@ public class UserResource {
     						@FormParam("photo") String photo,
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
+    	RetrieveData data = new RetrieveData();
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
 		Random rand = new Random();
@@ -132,6 +134,7 @@ public class UserResource {
         User newUser = new User(rand.nextInt(1000), userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {
+        	data.setUserData(newUser);
         	String a = buildJSON(newUser).build().toString();
             return Response.ok(a).build();
         } else {

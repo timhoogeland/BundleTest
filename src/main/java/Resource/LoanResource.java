@@ -22,6 +22,8 @@ import javax.ws.rs.core.Response;
 
 import Objects.Loan;
 import Objects.User;
+import PdfGenerator.GeneratePage;
+import PdfGenerator.RetrieveData;
 import Services.LoanService;
 import Services.LoanServiceProvider;
 import Services.ServiceProvider;
@@ -54,6 +56,9 @@ public class LoanResource {
 	@GET
 	@Produces("application/json")
 	public String getAllLoans(){
+		GeneratePage pdf = new GeneratePage();
+    	pdf.main();
+
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		for(Loan l : service.getAllLoans()){
 			jab.add(buildJson(l));
@@ -85,7 +90,7 @@ public class LoanResource {
 							@FormParam("contractpdf") String contractPdf,
 							@FormParam("description") String description,
 							@FormParam("useridfk") String userIdFk) throws ParseException{
-		
+		RetrieveData data = new RetrieveData();
 		LoanService service = LoanServiceProvider.getLoanService();
 		
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
@@ -95,6 +100,7 @@ public class LoanResource {
 		Random rand = new Random();
 		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, contractPdf, description, Integer.parseInt(userIdFk));
 		if (service.newLoan(newLoan)){
+			data.setLoanData(newLoan);
 			return Response.ok().build();
 		}else{
 			return Response.status(Response.Status.FOUND).build();

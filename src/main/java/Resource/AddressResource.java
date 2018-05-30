@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import Objects.Adress;
 import Objects.Contract;
 import Objects.User;
+import PdfGenerator.RetrieveData;
 import Services.AddressService;
 import Services.ServiceProvider;
 
@@ -75,11 +76,12 @@ public class AddressResource {
 	                               @FormParam("postalcode") String postalcode,
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
-	    	
+	    	RetrieveData data = new RetrieveData();
 	    	Random rand = new Random();
 	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
 	        Adress returnAdress = service.addAddress(newAdress);
 	        if (returnAdress != null) {
+	        	data.setAdresData(newAdress);
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {
