@@ -76,10 +76,11 @@ public class AddressResource {
 	                               @FormParam("postalcode") String postalcode,
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
-	    	RetrieveData data = new RetrieveData();
-	    	Random rand = new Random();
-	        Adress newAdress = new Adress(rand.nextInt(1000), street, number, country, postalcode, description, location);
-	        Adress returnAdress = service.addAddress(newAdress);
+
+	    	RetrieveData data = new RetrieveData();	        
+	    	
+	        Adress newAdress = new Adress(0, street, number, country, postalcode, description, location);
+	        Adress returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
 	        	data.setAdresData(newAdress);
 	            String a = buildJSON(returnAdress).build().toString();

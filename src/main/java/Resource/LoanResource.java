@@ -83,22 +83,21 @@ public class LoanResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response newLoan(@FormParam("loantype") String loanType,
 							@FormParam("amount") String amount,
-							@FormParam("status") String status,
 							@FormParam("startdate") String startDate,
 							@FormParam("duration") String duration,
-							@FormParam("closingdate") String closingDate,
-							@FormParam("contractpdf") String contractPdf,
-							@FormParam("description") String description,
+							@FormParam("loandescription") String description,
 							@FormParam("useridfk") String userIdFk) throws ParseException{
 		RetrieveData data = new RetrieveData();
 		LoanService service = LoanServiceProvider.getLoanService();
 		
+		String status = "Pending";
+		
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingDate);
+		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse("00-00-0000");
 		java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
 		Random rand = new Random();
-		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, contractPdf, description, Integer.parseInt(userIdFk));
+		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
 		if (service.newLoan(newLoan)){
 			data.setLoanData(newLoan);
 			return Response.ok().build();

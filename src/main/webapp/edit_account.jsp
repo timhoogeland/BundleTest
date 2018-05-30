@@ -9,15 +9,16 @@
 
     <main>
         <div class="welcomeBlock">
-            <h1>New Contract</h1>
-        </div>
-        
-        <div class="buttonBlock">
+            <h1>Edit Account</h1>
         </div>
         
         <div class="block">
             <form id="user" onsubmit="return false">
                 <ul class="flex-outer">
+                	<li>
+                        <label for="username">Username</label>
+                        <input name="username" type="text" id="username" placeholder="Enter your username here">
+                    </li>
                     <li>
                         <label for="first-name">First Name</label>
                         <input name="firstname" type="text" id="first-name" placeholder="Enter your first name here">
@@ -33,10 +34,6 @@
                     <li>
                         <label for="phone">Phone</label>
                         <input name="phonenumber" type="tel" id="phone" placeholder="Enter your phone here">
-                    </li>
-                    <li>
-                        <label for="password">Password</label>
-                        <input name="password" type="password" id="password" placeholder="Enter your password here">
                     </li>
                     </ul>
                     <br>
@@ -319,162 +316,17 @@
                             <option value="ZW">Zimbabwe</option>
                         </select>
                     </li>
-                    </ul>
-                    <br>
-                    </form>
-                    <form id="loan" onsubmit="return false">
-                    <ul class="flex-outer">
-                    <li>
-                        <label for="loan-type">Loan type</label>
-                        <select name="loantype" id="loan-type">
-                            <option value="ST">Short-term</option>
-                            <option value="MT">Mid-term</option>
-                            <option value="LT">Long-term</option>
-                        </select>
-                    </li>
-                    <li>
-                        <label for="amount">Amount</label>
-                        <input name="amount" id="amount" placeholder="Enter the loan-amount here"></input>
-                    </li>
-                    <li>
-                        <label for="startdate">Start date</label>
-                        <input name="startdate" type="date" id="start-date">
-                    </li>
-                    <li>
-                        <label for="duration">Duration</label>
-                        <input name="duration" type="number" id="duration" min="1" max="36" placeholder="Enter the loan-duration here"></input>
-                    </li>
-                    <li>
-                        <label for="loandescription">Loan description</label>
-                        <input name="loandescription" id="loandescription" placeholder="Enter the loan description here"></input>
-                    </li>
                     <li>
                         <button type="submit">Submit</button>
                     </li>
+                    </ul>
+                    <br>
+                    </form>
+                    
                 </ul>
             </form>
         </div>
     </main>
-	<script type="text/javascript">
-	var locationInput = document.getElementById("location");
-	function getLocation() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(showPosition, showError);
-	    } else {
-	        locationInput.value = "Geolocation is not supported by this browser.";
-	    }
-	}
-	function showPosition(position) {
-	    locationInput.value = position.coords.latitude+ 
-	    ", " + position.coords.longitude; 
-	}
-	
-	function showError(error) {
-	    switch(error.code) {
-	        case error.PERMISSION_DENIED:
-	        	locationInput.value = "User denied the request for Geolocation."
-	            break;
-	        case error.POSITION_UNAVAILABLE:
-	        	locationInput.value = "Location information is unavailable."
-	            break;
-	        case error.TIMEOUT:
-	        	locationInput.value = "The request to get user location timed out."
-	            break;
-	        case error.UNKNOWN_ERROR:
-	        	locationInput.value = "An unknown error occurred."
-	            break;
-	    }
-	}
-
-    getLocation();
-	</script>
-    <script type="text/javascript">
-         $(document).ready(function () {
-            $("form").submit(function () {
-                var addressid;
-                var userid;
-
-            	$.ajax({
-					url : "/bundlePWABackend/restservices/address",
-					type : "post",
-					data : $("#address").serialize(),
-					
-					success : function(response) {
-						
-						if(addressid == null){
-							addressid = response["adressid"];
-						}
-						
-						sendUserData();
-						
-						
-					},
-					error : function(response, textStatus, errorThrown) {
-
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-
-					}
-				});
-            	
-            	function sendUserData(){
-
-                    var formData = $("#user").serializeArray();
-                    formData.push({name: "usertype", value: "applicant"});
-                    formData.push({name: "addressidfk", value: addressid});
-
-                    $.ajax({
-					url : "/bundlePWABackend/restservices/user",
-					type : "post",
-					data : formData,
-					
-					success : function(response) {
-						
-						if(userid == null){
-							userid = response["userid"];
-						}
-						
-						sendLoanData();
-						
-						
-					},
-					error : function(response, textStatus, errorThrown) {
-
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-
-					}
-				});
-                };
-                
-                function sendLoanData(){
-                    var formData = $("#loan").serializeArray();
-                    formData.push({name: "useridfk", value: userid});
-                	
-                $.ajax({
-					url : "/bundlePWABackend/restservices/loan",
-					type : "post",
-					data : formData,
-					
-					success : function(response) {
-						
-						alert("Contract saved.");
-					},
-					error : function(response, textStatus, errorThrown) {
-
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-						alert("Contract not saved.");
-
-					}
-				});
-                }
-        });
-        });
-    </script>
 
     <jsp:include page="parts/footer.jsp" />
 

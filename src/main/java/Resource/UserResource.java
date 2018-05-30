@@ -25,6 +25,7 @@ import javax.ws.rs.core.SecurityContext;
 
 import Objects.User;
 import PdfGenerator.RetrieveData;
+import Objects.UserLoanInformation;
 import Services.AddressService;
 import Services.ServiceProvider;
 import Services.UserService;
@@ -35,19 +36,31 @@ public class UserResource {
 
     private JsonObjectBuilder buildJSON(User user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonArrayBuilder secondJab = Json.createArrayBuilder();
         //AddressService addressService = ServiceProvider.getAdressService();
         AddressResource addressResource = new AddressResource();
         
         job.add("userid", user.getUserId());
         job.add("userType", user.getUserType());
         job.add("firstName", user.getFirstName());
-        job.add("lastName", user.getLastName());
+        job.add("lastName", user.getLastname());
         job.add("phonenumber", user.getPhonenumber());
         job.add("status", user.getStatus());
         job.add("addressIdFk", user.getAddressIdFk());
         job.add("address", addressResource.getAdressByID(user.getAddressIdFk()));
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
+        job.add("username", user.getUsername());
+        
+        for (UserLoanInformation u : service.getUserLoanInformation(user.getUserId())) {
+        	JsonObjectBuilder secondJob = Json.createObjectBuilder();
+        	secondJob.add("loanofficerid", u.getLoanOfficerId());
+        	secondJob.add("groupid", u.getGroupId());
+        	secondJob.add("loanid", u.getLoanId());
+        	
+        	secondJab.add(secondJob);
+        }
+        job.add("loanInformation", secondJab);
         
         return job;
     }
@@ -104,8 +117,8 @@ public class UserResource {
     @POST
     @Produces("application/json")
     public Response addUser(@FormParam("usertype") String userType,
-    						@FormParam("firstname") String firstName,
-                            @FormParam("lastname") String lastName,
+    						@FormParam("firstname") String firstname,
+                            @FormParam("lastname") String lastname,
                             @FormParam("phonenumber") int phonenumber,
                             @FormParam("password") String password,
     						@FormParam("addressidfk") int addressIdFk,
@@ -115,7 +128,6 @@ public class UserResource {
     	RetrieveData data = new RetrieveData();
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
-		Random rand = new Random();
 		
 		GeneratePasswordAndSalt generator = new GeneratePasswordAndSalt();
 		String[] result = null;
@@ -131,7 +143,9 @@ public class UserResource {
 		String salt = result[1];
 		password = result[0];
 		
-        User newUser = new User(rand.nextInt(1000), userType, firstName, lastName, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth);
+		String username = firstname + " " + lastname;
+		
+        User newUser = new User(0, userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {
         	data.setUserData(newUser);
@@ -142,44 +156,42 @@ public class UserResource {
         }
     }
 
-//    @PUT
-//    @Path("/{id}")
-////    @RolesAllowed({"beheerder","admin","user"})
-//    public Response updateAccount(@FormParam("userid") int id,
-//						            @FormParam("usertype") String userType,
-//						            @FormParam("name") String name,
-//						            @FormParam("phonenumber") int phonenumber,
-//						            @FormParam("password") String password,
-//						            @FormParam("salt") String salt,
-//						            @FormParam("status") String status,
-//									@FormParam("adresidfk") int adresidfk,
-//									@FormParam("airtimeidfk") int airtimeidfk){
-//
-//        User user = service.getUserByID(id);
-//        if (user != null) {
-//        	user.setName(name);
-//            user.setPassword(password);
-//            user.setPhonenumber(phonenumber);
-//            user.setSalt(salt);
-//            user.setStatus(status);
-//            user.setAdresIDFK(adresidfk);
-//            user.setAirtimeIDFK(airtimeidfk);
-//            
-//            User updatedUser = service.update(user);
-//
-//            return Response.ok(buildJSON(updatedUser)).build();
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//    }
+    @PUT
+    @Path("/{id}")
+//    @RolesAllowed({"beheerder","admin","user"})
+    	public Response updateAccount(	@PathParam("id") int userId,
+    									@FormParam("usertype") String userType,
+    									@FormParam("firstname") String firstname,
+    									@FormParam("lastname") String lastname,
+    									@FormParam("phonenumber") int phonenumber,
+    									@FormParam("password") String password,
+    									@FormParam("status") String status,
+    									@FormParam("addressidfk") int addressIdFk,
+    									@FormParam("photo") String photo,
+    									@FormParam("dateofbirth") String dateOfBirth,
+    									@FormParam("username") String username) throws ParseException
+    	{
+    	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+    	java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
+
+        
+        User user = new User(userId, userType, firstname, lastname, phonenumber, "", "", status, addressIdFk, photo, sqlDateOfBirth, username);
+            
+        User updatedUser = service.update(user);
+        if (updatedUser != null){
+        	String a = buildJSON(updatedUser).build().toString();
+            return Response.ok(a).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 
     @DELETE
     @Path("/{id}")
 //    @RolesAllowed({"beheerder","admin"})
-    public Response deleteAccount (@PathParam("id") int id) {
-        User user = service.getUserByID(id);
-        if (user != null) {
-            if (service.delete(user)) {
+    public Response deleteUser (@PathParam("id") int userId) {
+        if (service.delete(userId)) {
+            if (service.delete(userId)) {
                 return Response.ok().build();
             } else {
                 return Response.status(Response.Status.CONFLICT).build();
