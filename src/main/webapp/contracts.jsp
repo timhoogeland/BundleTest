@@ -16,7 +16,7 @@
 
 	<div class="block">
 	
-		<div class="loaderBlock">
+		<div id="mainLoader" class="loaderBlock">
         		<div class="loader"></div>
         </div>
         	

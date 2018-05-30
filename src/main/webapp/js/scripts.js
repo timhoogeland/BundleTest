@@ -140,8 +140,8 @@ function getContracts() {
 
 	hr.onreadystatechange = function() {
 		if (hr.readyState == 4 && hr.status == 200) {
-			$('.loaderBlock').fadeOut('fast');
 			var data = JSON.parse(hr.responseText);
+			$('#mainLoader').fadeOut('fast');
 			var table = document.getElementById('contractstable');
 			data.forEach(function(object) {
 				var tr = document.createElement('tr');
@@ -170,6 +170,7 @@ function getContracts() {
 	}
 	hr.send(null);
 }
+
 
 function getUser() {
 	var hr = new XMLHttpRequest();
@@ -240,11 +241,11 @@ function loadImage(image, id, button) {
 	$(button).addClass('hide');
 }
 
-function checkValue(value, error = 'Not Supplied'){
+function checkValue(value, error = "Not supplied"){
 	if (value === "" || value === undefined || value == null || !value || value === " ") {
 		return error;
 	}
-	
+
 	return value;
 }
 
@@ -260,6 +261,8 @@ function toViewLoan(loanId) {
 function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
 
 function loadLoanDetails() {
 	var hr = new XMLHttpRequest();
@@ -346,33 +349,49 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
-function getGroups(){
+
+function getGroups() {
 
   var hr = new XMLHttpRequest();
-  hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+  hr.open("GET", "/bundlePWABackend/restservices/loangroup/loanofficer/" + 2, true);
 
   hr.onreadystatechange = function() {
     if (hr.readyState == 4 && hr.status == 200) {
+    	$('#mainLoader').fadeOut('fast');
       var data = JSON.parse(hr.responseText);
       var table = document.getElementById('groupsdiv');
-      data.forEach(function(object) {
-        var tr = document.createElement('div');
+      var datalength = data.length;
 
-    table.innerHTML=  [  '<div class="group"><div> <label for="picture"> <b>',
-        "TEST object.name",
-        '</b></label>',
-        '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
-         ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
-        ' <div> <label for="picture"> <b>',
-             "TEST object.name",
-             '</b></label>',
-             '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
-              ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
-        '</div>'
-      ].join('\n')
+      console.log(data[0].groupinformation[1]);
+      for(var i = 0; i<datalength;i++){
+        var innerlength = data[i].groupinformation.length;
+        var groupdiv = ' <div class="group"><h2> Group Name</h2>';
+        for(var y=0; y<innerlength; y++){
 
-        console.log("heeft iets gedaan")
-      });
+          console.log(data[i].groupinformation[y]);
+
+          groupdiv+=  [  '<div> <label for="picture"> <b>',
+            data[i].groupinformation[y].firstname,
+              '</b></label>',
+              '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+               ' <progress value=' +data[i].groupinformation[y].paidamount+' max='+data[i].groupinformation[y].amount+'></progress></div>'
+            ].join('\n')
+          //    forEach
+          if(y==(innerlength-1)){
+            table.innerHTML+= (groupdiv+  '</div>');
+          }
+        }
+      }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -383,6 +402,11 @@ function getGroups(){
 
   	hr.send(null);
   }
+
+
+
+
+
 
 function getParameterByName(name, url) {
 	if (!url)
