@@ -72,7 +72,7 @@ public class AddressResource {
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
 	    	
-	        Adress newAdress = new Adress(0, street, number, country, postalcode, description, location);
+	        Adress newAdress = new Adress(street, number, country, postalcode, description, location);
 	        Adress returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
