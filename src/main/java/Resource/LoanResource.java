@@ -89,7 +89,7 @@ public class LoanResource {
 		LoanService service = ServiceProvider.getLoanService();
 		
 		String status = "Pending";
-		
+				
 		java.util.Date utilStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse("00-00-0000");
 		java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
@@ -116,6 +116,7 @@ public class LoanResource {
 
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingdate);
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
+		
 		int paid = Integer.parseInt(paidamount);
 		int dur = Integer.parseInt(duration);
     	
@@ -134,5 +135,5 @@ public class LoanResource {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    }
+	}
 }

@@ -9,11 +9,31 @@ public class ServiceProvider {
 	private static LoanGroupService loanGroupService= new LoanGroupService();  
 	private static LoanService loanService= new LoanService();
     
-    public static UserService getUserService() { return userService; }
-    public static ContractService getContractService() { return contractService; }
-    public static AddressService getAdressService() { return adressService; }
-    public static GroupService getGroupService() {return groupService; }
-    public static LoginService getLoginService() {return loginService; }
-	public static LoanGroupService getLoanGroupService() {return loanGroupService; }
-	public static LoanService getLoanService() {return loanService; }
+    public static UserService getUserService() { 
+    	return userService; 
+    	}
+    
+    public static ContractService getContractService() { 
+    	return contractService; 
+    	}
+    
+    public static AddressService getAdressService() { 
+    	return adressService; 
+    	}
+    
+    public static GroupService getGroupService() {
+    	return groupService;
+    	}
+    
+    public static LoginService getLoginService() {
+    	return loginService; 
+    	}
+    
+	public static LoanGroupService getLoanGroupService() {
+		return loanGroupService; 
+		}
+	
+	public static LoanService getLoanService() {
+		return loanService;
+		}
 }
