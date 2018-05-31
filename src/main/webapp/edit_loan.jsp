@@ -70,9 +70,12 @@
                 success : function(response) {
 
                         console.log(response);
-                        $("#paidamount").val(response["amount"]-response["paidamount"]);
+                        $("#loan-status").val(response["status"]);
+                        $("#loan-type").val(response["loantype"]);
+                        $("#paidamount").val(response["paidamount"]);
                         $("#duration").val(response["duration"]);
-                        $
+                        $("#closing-date").val(response["closingdate"]);
+                        $("#description").val(response["description"]);
 
 
                 },
@@ -94,7 +97,7 @@
 
 					success : function(response) {
 
-						alert("Loan updated succesfully.")
+						alert("Loan updated succesfully.");
 
 					},
 					error : function(response, textStatus, errorThrown) {
