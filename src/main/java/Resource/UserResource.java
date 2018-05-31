@@ -141,8 +141,8 @@ public class UserResource {
 		password = result[0];
 		
 		String username = firstname + " " + lastname;
-		
-        User newUser = new User(0, userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
+
+        User newUser = new User(userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {
         	String a = buildJSON(newUser).build().toString();
