@@ -3,76 +3,23 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<!-- <body onload=getGroups();>  -->
-<body>
+<body onload=getGroups();>
 
-    <jsp:include page="parts/navigation.jsp" />
+	<jsp:include page="parts/navigation.jsp" />
 
 	<main>
 	<div class="welcomeBlock">
 		<h1>Groups</h1>
-		<button class="buttonRound" onclick="toggleHide('helpPopup', false)">?</button>
+		<button class="buttonRound">?</button>
+		<button class="buttonRound" onclick="toggleHide('helpPopup', false)">+</button>
 	</div>
 
 	<div class="block">
-		<!-- <div id="mainLoader" class="loaderBlock">
-				<div class="loader"></div>
-			</div>
-			 -->
+		<div id="mainLoader" class="loaderBlock">
+			<div class="loader"></div>
+		</div>
 
 		<div id="groupsdiv" class="block">
-			<div class="blockHalf">
-				<h2  class="groupTitle">Group 1</h2>
-						<div class="groupTotal">
-						<label for="picture"> <b> Group Total </b></label>
-						<progress value="25" max="200"></progress>
-					</div>
-				<div class="blockGroup">
-					<div>
-						<label for="picture"> <b> Jan </b></label>
-						<progress value="51" max="200"></progress>
-					</div>
-					<div>
-						<label for="picture"> <b> Michiel </b></label>
-						<progress value="0" max="150"></progress>
-					</div>
-				</div>
-				<button class="groupButton" >View</button>
-			</div>
-			<div class="blockHalf">
-				<h2 class="groupTitle" >Group 1</h2>
-				<div class="groupTotal">
-					<label for="picture"> <b> Group Total </b></label>
-					<progress value="25" max="200"></progress>
-				</div>
-				<div class="blockGroup">
-					<div>
-						<label for="picture"> <b> Jan </b></label>
-						<progress value="51" max="200"></progress>
-					</div>
-					<div>
-						<label for="picture"> <b> Michiel </b></label>
-						<progress value="0" max="150"></progress>
-					</div>
-										<div>
-						<label for="picture"> <b> Jan </b></label>
-						<progress value="51" max="200"></progress>
-					</div>
-					<div>
-						<label for="picture"> <b> Michiel </b></label>
-						<progress value="0" max="150"></progress>
-					</div>
-					<div>
-						<label for="picture"> <b> Jan </b></label>
-						<progress value="51" max="200"></progress>
-					</div>
-					<div>
-						<label for="picture"> <b> Michiel </b></label>
-						<progress value="0" max="150"></progress>
-					</div>
-				</div>
-				<button  class="groupButton">View</button>
-			</div>
 		</div>
 	</div>
 	</main>
@@ -95,52 +42,58 @@
 				non, iaculis viverra.</p>
 		</div>
 	</div>
-  </main>
+	</main>
 
-  <jsp:include page="parts/footer.jsp" />
-  
-  <script> function getGroups() {
+	<jsp:include page="parts/footer.jsp" />
 
-  var hr = new XMLHttpRequest();
-  var loanofficerid = getCookie("userid");
-  hr.open("GET", "/bundlePWABackend/restservices/loangroup/loanofficer/" + loanofficerid, true);
+	<script>
+		function getGroups() {
 
-  hr.onreadystatechange = function() {
-    if (hr.readyState == 4 && hr.status == 200) {
-    	$('#mainLoader').fadeOut('fast');
-      var data = JSON.parse(hr.responseText);
-      var table = document.getElementById('groupsdiv');
-      var datalength = data.length;
+			var hr = new XMLHttpRequest();
+			var loanofficerid = getCookie("userid");
+			hr.open("GET",
+					"/bundlePWABackend/restservices/loangroup/loanofficer/"
+							+ loanofficerid, true);
 
-      console.log(data[0].groupinformation[1]);
-      for(var i = 0; i<datalength;i++){
-        var groupid = data[i].groupid;
-        var innerlength = data[i].groupinformation.length;
-        var groupdiv = ' <div class="group"><h2> Group ' +groupid.toString()+'</h2>';
-        for(var y=0; y<innerlength; y++){
+			hr.onreadystatechange = function() {
+				if (hr.readyState == 4 && hr.status == 200) {
+					$('#mainLoader').fadeOut('fast');
+					var data = JSON.parse(hr.responseText);
+					var table = document.getElementById('groupsdiv');
+					var datalength = data.length;
 
-          console.log(data[i].groupinformation[y]);
+					for (var i = 0; i < datalength; i++) {
+						var groupid = data[i].groupid;
+						var totalAmount = 0;
+						var totalPaid = 0;
+						var innerlength = data[i].groupinformation.length;
+						var groupdiv = ' <div class="blockHalf group"><h2  class="groupTitle"> Group '
+								+ groupid.toString() + '</h2><div class="groupTotal"><label for="picture"> <b> Group Total </b></label><progress id="totall'+groupid+'"></progress></div><div class="blockGroup">';
+						for (var y = 0; y < innerlength; y++) {
+							totalAmount += data[i].groupinformation[y].amount;
+							totalPaid += data[i].groupinformation[y].paidamount;
+							
+							groupdiv += [
+									'<div> <label for="name"> <b>',
+									data[i].groupinformation[y].firstname + " " + data[i].groupinformation[y].lastname,
+									'</b><button class="buttonRound" onclick=window.location.href="loan.jsp?id='+ data[i].groupinformation[y].userid +'" >&#8618;</button></label>',
+									' <progress value=' +data[i].groupinformation[y].paidamount+' max='+data[i].groupinformation[y].amount+'></progress></div>' ]
+									.join('\n');
+						}
+						table.innerHTML += (groupdiv + '</div><button class="groupButton" onclick=window.location.href="group.jsp?id='+ groupid +'">View</button></div>');
+						$("#totall"+ groupid).attr("max", totalAmount);
+						$("#totall"+ groupid).attr("value", totalPaid);
+					}
 
-          groupdiv+=  [  '<div> <label for="picture"> <b>',
-            data[i].groupinformation[y].firstname,
-              '</b></label>',
-              '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
-               ' <progress value=' +data[i].groupinformation[y].paidamount+' max='+data[i].groupinformation[y].amount+'></progress></div>'
-            ].join('\n')
-          //    forEach
-          if(y==(innerlength-1)){
-            table.innerHTML+= (groupdiv+  '<button>View</button></div>');
-          }
-        }
-      }
+				} else if (hr.readyState == 4) {
+					addNotification('Retrieving data failed with status '
+							+ hr.status + '. Try again later.');
+				}
+			}
 
-    } else if (hr.readyState == 4) {
-      addNotification('Retrieving data failed with status ' + hr.status
-          + '. Try again later.');
-    }}
-
-  	hr.send(null);
-  }</script>
+			hr.send(null);
+		}
+	</script>
 
 </body>
 </html>
