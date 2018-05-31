@@ -202,12 +202,12 @@ function getUser() {
 			$('#country').text(checkValue(addressData[0].country));
 			$('#description').text(checkValue(addressData[0].description));
 			$('#coordinates').text(checkValue(addressData[0].location));
-			
+
 			if(checkValue(userData[0].photo, 'no') !== 'no') {
 				$('#pfbutton').removeClass('hide');
 				$('#pfbutton').attr('onclick', "loadImage('"+userData[0].photo+"', '.pf', '#pfbutton');");
-			} 
-			
+			}
+
 			if (userData[0].userType == "applicant") {
 				$('#group').removeClass('hide');
 				var hr2 = new XMLHttpRequest();
@@ -353,7 +353,8 @@ function loadLoanDetails() {
 function getGroups() {
 
   var hr = new XMLHttpRequest();
-  hr.open("GET", "/bundlePWABackend/restservices/loangroup/loanofficer/" + 2, true);
+  var loanofficerid = getCookie("userid");
+  hr.open("GET", "/bundlePWABackend/restservices/loangroup/loanofficer/" + loanofficerid, true);
 
   hr.onreadystatechange = function() {
     if (hr.readyState == 4 && hr.status == 200) {
@@ -364,8 +365,9 @@ function getGroups() {
 
       console.log(data[0].groupinformation[1]);
       for(var i = 0; i<datalength;i++){
+        var groupid = data[i].groupid;
         var innerlength = data[i].groupinformation.length;
-        var groupdiv = ' <div class="group"><h2> Group Name</h2>';
+        var groupdiv = ' <div class="group"><h2> Group ' +groupid.toString()+'</h2>';
         for(var y=0; y<innerlength; y++){
 
           console.log(data[i].groupinformation[y]);
@@ -378,7 +380,7 @@ function getGroups() {
             ].join('\n')
           //    forEach
           if(y==(innerlength-1)){
-            table.innerHTML+= (groupdiv+  '</div>');
+            table.innerHTML+= (groupdiv+  '<button>View</button></div>');
           }
         }
       }
