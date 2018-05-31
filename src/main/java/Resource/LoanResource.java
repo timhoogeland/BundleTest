@@ -53,7 +53,7 @@ public class LoanResource {
 	}
 	
 	@GET
-	@RolesAllowed("admin")
+//	@RolesAllowed("admin")
 	@Produces("application/json")
 	public String getAllLoans(){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
@@ -68,10 +68,7 @@ public class LoanResource {
 	@Path("/{loanId}")
 	@Produces("application/json")
 	public String getLoan(@PathParam("loanId") int loanId){
-//		JsonArrayBuilder jab = Json.createArrayBuilder();
-//		for(Loan l :service.getLoanById(loanId)){
-//			jab.add(buildJson(l));
-//		}
+
 		JsonObjectBuilder job = null;
 
 		for(Loan l :service.getLoanById(loanId)){
