@@ -1,5 +1,6 @@
 package Resource;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -21,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import Objects.Adress;
 import Objects.Loan;
 import Objects.User;
 import Services.LoanService;
@@ -94,30 +96,43 @@ public class LoanResource {
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
 		Random rand = new Random();
 		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
-		if (service.newLoan(newLoan)){
+		Loan returnLoan = service.newLoan(newLoan);
+		if (returnLoan != null) {
+            String a = buildJson(returnLoan).build().toString();
 			return Response.ok().build();
 		}else{
 			return Response.status(Response.Status.FOUND).build();
 		}
 	}
 	
-	@PUT
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response updateLoan( @FormParam("loanid") String loanId,
-								@FormParam("status") String status,
-								@FormParam("duration") String duration,
-								@FormParam("closingdate") String closingDate,
-								@FormParam("paidamount") String paidAmount,
-								@FormParam("contractpdf") String contractPdf,
-								@FormParam("description") String description) throws ParseException{
+    @PUT
+    @Path("/{id}")
+    public Response updateLoan(@PathParam("id") int id,
+                                @FormParam("loan-status") String status,
+                                @FormParam("loan-type") String type,
+                                @FormParam("paidamount") String paidamount,
+                                @FormParam("duration") String duration,
+                                @FormParam("closing-date") String closingdate) throws ParseException{
 
-		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingDate);
+		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingdate);
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
-		Loan loan = new Loan(Integer.parseInt(loanId), null, 0, status, null, Integer.parseInt(duration), sqlClosingDate, Integer.parseInt(paidAmount), contractPdf, description, 0);
-		if (service.updateLoan(loan)){
-			return Response.ok().build();
-		}else{
-			return Response.status(Response.Status.FOUND).build();
-		}
-	}
+		int paid = Integer.parseInt(paidamount);
+		int dur = Integer.parseInt(duration);
+    	
+        Loan loan = service.findLoanById(id);
+        if (loan != null) {
+            loan.setStatus(status);
+            loan.setLoanType(type);
+            loan.setPaidAmount(paid);
+            loan.setDuration(dur);
+            loan.setClosingDate(sqlClosingDate);
+            
+
+            Loan updatedLoan = service.updateLoan(loan);
+
+            return Response.ok(buildJson(updatedLoan)).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }
