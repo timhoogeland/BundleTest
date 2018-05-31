@@ -2,18 +2,15 @@ package DAOS;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Objects.Adress;
 import Objects.Loan;
+
 public class loanDAO extends baseDAO {
-	
-	private String tablename = "public.loan";
 	
 	public List<Loan> selectLoan(String query){
 		List<Loan> resultslist = new ArrayList<Loan>();
@@ -45,71 +42,62 @@ public class loanDAO extends baseDAO {
 		return resultslist;
 	}
 	public List<Loan> getLoanById(int loanId){
-		return selectLoan("select * from "+tablename+" where loanid = " + loanId);
+		return selectLoan("select * from public." + '"' + "loan" + '"' + "where loanid = " + loanId);
 	}
-	
-    public Loan findById(int id) {
-        List<Loan> results = selectLoan("select * from "+tablename+" where loanid = " + id);
 
-        if (results.size() == 0) {
-            return null;
-        } else {
-            return results.get(0);
-        }
-    }
+	public boolean newLoan(Loan newLoan) {
+		boolean result = false;
+		String query = 	"INSERT INTO public.loan(" +
+						"loanid, loantype, amount, status, startdate, duration, closingdate, paidAmount, contractPdf, description, useridfk) " + 
+						"VALUES(" +
+						newLoan.getLoanId() + ", '" +
+						newLoan.getLoanType() + "', " +
+						newLoan.getAmount() + ", '" + 
+						newLoan.getStatus() + "', " +
+						"to_date('" + newLoan.getStartDate().toString() + "', 'YYYY-MM-DD'), " +
+						newLoan.getDuration() + ", " +
+						"to_date('" + newLoan.getClosingDate().toString() + "', 'YYYY-MM-DD'), " + 
+						newLoan.getPaidAmount() + ", '" + 
+						newLoan.getContractPdf() + "', '" +
+						newLoan.getDescription()  + "', " +
+						newLoan.getUserIdFk() + ");";
 
-	public Loan newLoan(Loan newLoan) {
-		String query = 	"INSERT INTO "+tablename+" (loantype, amount, status, startdate, duration, closingdate, paidAmount, contractPdf, description, useridfk) VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING loanid;";
-		try (Connection con = super.getConnection()){
-		PreparedStatement pstmt = con.prepareStatement(query);
-		
-			pstmt.setString(1, newLoan.getLoanType());
-	        pstmt.setInt(2, newLoan.getAmount());
-	        pstmt.setString(3, newLoan.getStatus());
-	        pstmt.setDate(4, newLoan.getStartDate());
-	        pstmt.setInt(5, newLoan.getDuration());
-	        pstmt.setDate(6, newLoan.getClosingDate());
-	        pstmt.setInt(7, newLoan.getPaidAmount());
-	        pstmt.setString(8, newLoan.getContractPdf());
-	        pstmt.setString(9, newLoan.getDescription());
-	        pstmt.setInt(10, newLoan.getUserIdFk());
-
-
-            ResultSet dbResultSet = pstmt.executeQuery();
-            if(dbResultSet.next()) {
-                return findById(dbResultSet.getInt("loanid"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return findById(newLoan.getLoanId());
-    }
-
+		try(Connection con = super.getConnection()){
+			Statement stmt = con.createStatement();
+			if (stmt.executeUpdate(query) == 1){
+				result = true;
+				stmt.getConnection().close();
+			}
+		}catch (SQLException e){
+			e.printStackTrace();					
+		}
+		return result;
+	}
 	
 	public List<Loan> getAllLoans() {
-		return selectLoan("select * from "+tablename+";");
+		return selectLoan("select * from public.loan;");
 	}
 	
-    public Loan updateLoan(Loan newLoan) {
-        String query = "UPDATE "+tablename+" SET loantype=?, status=?, duration=?, closingdate=?, paidamount=?"
-        		+ " WHERE loanid=?";
-
-        try (Connection con = super.getConnection()) {
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, newLoan.getLoanType());
-	        pstmt.setString(2, newLoan.getStatus());
-	        pstmt.setInt(3, newLoan.getDuration());
-	        pstmt.setDate(4, newLoan.getClosingDate());
-	        pstmt.setInt(5, newLoan.getPaidAmount());
-	        pstmt.setInt(6, newLoan.getLoanId());
-
-            int aff = pstmt.executeUpdate();
-            System.out.println("Row(s) affected: "+aff);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return findById(newLoan.getLoanId());
-    }
+	public boolean updateLoan(Loan loan){
+		boolean result = false;
+		String query = "UPDATE public.loan SET " +
+						"status = '" + loan.getStatus() + "', " +
+						"duration = " + loan.getDuration() + ", " +
+						"closingdate = to_date('" + loan.getClosingDate().toString() + "', 'YYYY-MM-DD'), " + 
+						"paidamount = " + loan.getPaidAmount() + ", " + 
+						"contractpdf = '" + loan.getContractPdf() + "', " +
+						"description = '" + loan.getDescription()  + "' " + 
+						"WHERE loanid = " + loan.getLoanId() + ";";
+		
+		try(Connection con = super.getConnection()){
+			Statement stmt = con.createStatement();
+			if (stmt.executeUpdate(query) == 1){
+				result = true;
+				stmt.getConnection().close();
+			}
+		}catch (SQLException e){
+			e.printStackTrace();					
+		}
+		return result;
+	}
 }
