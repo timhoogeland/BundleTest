@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
@@ -66,12 +67,18 @@ public class LoanResource {
 	@Path("/{loanId}")
 	@Produces("application/json")
 	public String getLoan(@PathParam("loanId") int loanId){
-		JsonArrayBuilder jab = Json.createArrayBuilder();
+//		JsonArrayBuilder jab = Json.createArrayBuilder();
+//		for(Loan l :service.getLoanById(loanId)){
+//			jab.add(buildJson(l));
+//		}
+		JsonObjectBuilder job = null;
+
 		for(Loan l :service.getLoanById(loanId)){
-			jab.add(buildJson(l));
+			job = buildJson(l);
 		}
-		JsonArray array = jab.build();
-		return array.toString();
+		
+		JsonObject object = job.build();
+		return object.toString();
 	}
 	
 	@POST
