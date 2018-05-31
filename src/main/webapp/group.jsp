@@ -15,18 +15,19 @@
 
     <div class="block">
 
-    
 
-    <div id="contracts"">
+
+    <div id="GroupTable"">
       <table id='contractstable' class='contracts_table'>
         <thead>
           <tr class="desktop">
-            <th>ID</th>
+            <th>Name</th>
             <th>Amount ($)</th>
-            <th>Duration</th>
-            <th>End Date</th>
+            <th>Progress</th>
+            <th>Time Remaining</th>
             <th>Status</th>
-            <th>Loan Type</th>
+            <th>View</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
