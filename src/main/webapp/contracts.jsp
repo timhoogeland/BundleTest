@@ -15,11 +15,11 @@
 	</div>
 
 	<div class="block">
-	
+
 		<div id="mainLoader" class="loaderBlock">
         		<div class="loader"></div>
         </div>
-        	
+
 		<div id="contracts"">
 			<table id='contractstable' class='contracts_table'>
 				<thead>
@@ -38,9 +38,45 @@
 		</div>
 	</div>
 	</main>
-	
+
 	<jsp:include page="parts/footer.jsp" />
-	
+	<script> function getContracts() {
+		var hr = new XMLHttpRequest();
+		hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+
+		hr.onreadystatechange = function() {
+			if (hr.readyState == 4 && hr.status == 200) {
+				var data = JSON.parse(hr.responseText);
+				$('#mainLoader').fadeOut('fast');
+				var table = document.getElementById('contractstable');
+				data.forEach(function(object) {
+					var tr = document.createElement('tr');
+					tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+							+ object.loanId + '</td>'
+							+ '<td id ="amount" data-label="Amount">'
+							+ object.amount + '</td>'
+							+ '<td id = "duration" data-label="Duration">'
+							+ object.duration + " months" + '</td>'
+							+ '<td id = "closingdate" data-label="End Date">'
+							+ object.closingdate + '</td>'
+							+ '<td id="status" data-label="Status">'
+							+ object.status + '</td>'
+							+ '<td id = "loantype" data-label="Loan Type">'
+							+ object.loantype + '</td>'
+							+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
+							+ object.loanId + ");'>View</button> " +
+									"<button class='small' onclick='toEditContract("
+							+ object.loanId + ");'>Edit</button> </td>";
+					table.appendChild(tr);
+				});
+			} else if (hr.readyState == 4) {
+				addNotification('Retrieving data failed with status ' + hr.status
+						+ '. Try again later.');
+			}
+		}
+		hr.send(null);
+	}</script>
+
 	<div id="helpPopup" class="popup" style="display: none;">
 		<div>
 			<h2>Contracts explained</h2>
