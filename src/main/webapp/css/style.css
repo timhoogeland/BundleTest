@@ -513,20 +513,44 @@ tr:hover {
 	padding: 15px 0px;
 	height: 150px;
 }
-.groupPicture{
+
+.groupPicture {
 	width: 40px;
 	padding: 0px 0px;
 	height: 40px;
 
 }
-progress::-webkit-progress-bar {
-	background-color: #12736d;
+
+.blockGroup {
+	height: 200px;
+    margin: 15px;
+	overflow: auto;
 }
 
-.group{
-	height: 400px;
-	width: 400px;
-	float: left;
+.groupTitle{
+	padding: 0px 0px 25px 0px;
+}
+
+.groupButton {
+	width: 100%;
+	margin: 25px 0px 0px 0px;
+}
+
+.blockGroup label, .groupTotal label {
+	padding: 10px 0px;
+}
+
+.groupTotal {
+	background-color: #f3f3eb;
+	padding: 5px 15px 15px 15px;
+	border: 0.5px solid #e6e6e6;
+}
+
+progress, progress::-moz-progress-bar, progress::-webkit-progress-value {
+	width: 100%;
+	background-color: #eee;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
 .pf {
