@@ -20,7 +20,7 @@
         		<div class="loader"></div>
         </div>
         	
-		<div id="contracts"">
+		<div id="contracts">
 			<table id='contractstable' class='contracts_table'>
 				<thead>
 					<tr class="desktop">

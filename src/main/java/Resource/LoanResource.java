@@ -53,7 +53,7 @@ public class LoanResource {
 	}
 	
 	@GET
-	@RolesAllowed("applicant")
+	@RolesAllowed("admin")
 	@Produces("application/json")
 	public String getAllLoans(){
 		JsonArrayBuilder jab = Json.createArrayBuilder();

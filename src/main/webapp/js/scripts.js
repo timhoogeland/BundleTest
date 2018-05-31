@@ -75,9 +75,10 @@ function validateLogin() {
 						setCookie('password', pass, 1);
 						console.log(response[0]['session'])
 						window.sessionStorage.setItem('sessionToken', response[0]['session']);
+						window.sessionStorage.setItem('userType', response[0]['usertype']);
 						setCookie('userid', response[0]['userid']);
 						addNotification("Login successful", "green");
-//						window.location.replace("index.jsp");
+						window.location.replace("index.jsp");
 					} else {
 						$('#loginbutton').attr('loading', 'false');
 						$('#loginbutton').text('Try again');
@@ -148,7 +149,8 @@ function getContracts(){
 			xhr.setRequestHeader("Authorization",  "Bearer " + sessionToken);
 		},
 		success: function(result) {
-			window.alert("opgehaald");
+			alert("Authorized, Contracts loaded!");
+			$('.loaderBlock').fadeOut('fast');
 			var data = result;
 			var table = document.getElementById('contractstable');
 			data.forEach(function(object) {
@@ -174,7 +176,7 @@ function getContracts(){
 
 		},
 		error: function(response, textStatus, errorThrown) {
-//			alert("product is niet toegevoegt!")
+			alert("Unauthorized, Contracts not loaded!")
 			console.log("textStatus: " + textStatus);
 			console.log("errorThrown: " + errorThrown);
 			console.log("status: " + response.status);
