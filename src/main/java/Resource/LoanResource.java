@@ -120,4 +120,8 @@ public class LoanResource {
 			return Response.status(Response.Status.FOUND).build();
 		}
 	}
+	
+	public JsonObjectBuilder getLoanJson(Loan loan){
+		return buildJson(loan);
+	}
 }
