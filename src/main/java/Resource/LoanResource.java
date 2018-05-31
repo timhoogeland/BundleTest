@@ -102,22 +102,21 @@ public class LoanResource {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response updateLoan( @FormParam("loanid") String loanId,
-								@FormParam("status") String status,
-								@FormParam("duration") String duration,
-								@FormParam("closingdate") String closingDate,
-								@FormParam("paidamount") String paidAmount,
-								@FormParam("contractpdf") String contractPdf,
-								@FormParam("description") String description) throws ParseException{
+    @Path("/{id}")
+    public Response updateLoan(@PathParam("id") int id,
+                                @FormParam("loan-status") String status,
+                                @FormParam("loan-type") String type,
+                                @FormParam("paidamount") String paidamount,
+                                @FormParam("duration") String duration,
+                                @FormParam("closing-date") String closingdate) throws ParseException{
 
-		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingDate);
+		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse(closingdate);
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
-		
-		int paid = Integer.parseInt(paidAmount);
+
+		int paid = Integer.parseInt(paidamount);
 		int dur = Integer.parseInt(duration);
     	
-        Loan loan = service.findLoanById(loanId);
+        Loan loan = service.findById(id);
         if (loan != null) {
             loan.setStatus(status);
             loan.setLoanType(type);
@@ -132,5 +131,5 @@ public class LoanResource {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-	}
+    }
 }

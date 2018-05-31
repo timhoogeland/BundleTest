@@ -40,14 +40,19 @@
 	</main>
 
 	<jsp:include page="parts/footer.jsp" />
-	<script> function getContracts() {
-		var hr = new XMLHttpRequest();
-		hr.open("GET", "/bundlePWABackend/restservices/loan", true);
-
-		hr.onreadystatechange = function() {
-			if (hr.readyState == 4 && hr.status == 200) {
-				var data = JSON.parse(hr.responseText);
+	<script> function getContracts(){
+		var sessionToken = window.sessionStorage.getItem("sessionToken");
+		
+		$.ajax({
+			url: "/bundlePWABackend/restservices/loan",
+			type: "get",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Authorization",  "Bearer " + sessionToken);
+			},
+			success: function(result) {
+				addNotification("Authorized, Contracts loaded!", "green");
 				$('#mainLoader').fadeOut('fast');
+				var data = result;
 				var table = document.getElementById('contractstable');
 				data.forEach(function(object) {
 					var tr = document.createElement('tr');
@@ -63,18 +68,20 @@
 							+ object.status + '</td>'
 							+ '<td id = "loantype" data-label="Loan Type">'
 							+ object.loantype + '</td>'
-							+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
-							+ object.loanId + ");'>View</button> " +
-									"<button class='small' onclick='toEditContract("
-							+ object.loanId + ");'>Edit</button> </td>";
+							+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan(" + object.loanId
+							+ ");'>View</button> </td>"
+							+ "<td class='tdHide'>  <button class='small' onclick='toEditLoan(" + object.loanId
+							+ ");'>Edit</button> </td>";
 					table.appendChild(tr);
 				});
-			} else if (hr.readyState == 4) {
-				addNotification('Retrieving data failed with status ' + hr.status
-						+ '. Try again later.');
+			},
+			error: function(response, textStatus, errorThrown) {
+					addNotification("Unauthorized, loan not loaded!")
+					console.log("textStatus: " + textStatus);
+					console.log("errorThrown: " + errorThrown);
+					console.log("status: " + response.status);
 			}
-		}
-		hr.send(null);
+		});
 	}</script>
 
 	<div id="helpPopup" class="popup" style="display: none;">
