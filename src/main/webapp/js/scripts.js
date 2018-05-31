@@ -41,15 +41,14 @@ function eraseCookie(name) {
 function logOut() {
 	eraseCookie("username");
 	eraseCookie("password");
-	eraseCookie("loanofficerid");
-	eraseCookie("loanid");
+	eraseCookie("userid");
 }
 
 function validateLogin() {
 	$('#loginbutton').attr('loading', 'true');
 	var pass = document.getElementById('pass').value;
 	var username = document.getElementById('username').value;
-	
+
 	if (username == '') {
 		$('#loginbutton').attr('loading', 'false');
 		$('#loginbutton').text('Try again');
@@ -74,9 +73,9 @@ function validateLogin() {
 						$('#loginbutton').text('Succes');
 						setCookie('username', username, 1);
 						setCookie('password', pass, 1);
-						setCookie('loanofficerid', response[0]['userid']);
 						console.log(response[0]['session'])
 						window.sessionStorage.setItem('sessionToken', response[0]['session']);
+						setCookie('userid', response[0]['userid']);
 						addNotification("Login successful", "green");
 //						window.location.replace("index.jsp");
 					} else {
@@ -91,7 +90,7 @@ function validateLogin() {
 							+ logRequest.status + '. Try again later.');
 				}
 			}
-	
+
 		} catch (exception) {
 			alert("Request failed");
 		}
@@ -137,6 +136,7 @@ function getLoans() {
 	}
 	hr.send(null);
 }
+
 
 function getContracts(){
 	var sessionToken = window.sessionStorage.getItem("sessionToken");
@@ -221,6 +221,80 @@ function getContracts(){
 //	}
 //	hr.send();
 //}
+function getUser() {
+	var hr = new XMLHttpRequest();
+	var id = undefined;
+
+	if(getParameterByName("id") === null) {
+		id = getCookie("userid");
+	} else {
+		id = getParameterByName("id")
+	}
+
+	hr.open("GET", "/bundlePWABackend/restservices/user/" + id, true);
+
+	hr.onreadystatechange = function() {
+		if (hr.readyState == 4 && hr.status == 200) {
+			$('.loaderBlock').fadeOut('fast');
+			var userData = JSON.parse(hr.responseText);
+			var addressData = JSON.parse(userData[0].address);
+
+			$('.call1').attr("loading","false");
+			$('#username').text(checkValue(userData[0].username));
+			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
+			$('#phone').text(checkValue(userData[0].phonenumber));
+			$('#birthdate').text(checkValue(userData[0].dateofbirth));
+			$('#role').text(UCFirst(checkValue(userData[0].userType)));
+			$('#status').text(UCFirst(checkValue(userData[0].status)));
+			$('#street').text(UCFirst(checkValue(addressData[0].street + " " + addressData[0].number)));
+			$('#postal').text(checkValue(addressData[0].postalcode));
+			$('#country').text(checkValue(addressData[0].country));
+			$('#description').text(checkValue(addressData[0].description));
+			$('#coordinates').text(checkValue(addressData[0].location));
+			
+			if(checkValue(userData[0].photo, 'no') !== 'no') {
+				$('#pfbutton').removeClass('hide');
+				$('#pfbutton').attr('onclick', "loadImage('"+userData[0].photo+"', '.pf', '#pfbutton');");
+			} 
+			
+			if (userData[0].userType == "applicant") {
+				$('#contracts').addClass('hide');
+				var hr2 = new XMLHttpRequest();
+				hr2.open("GET", "/bundlePWABackend/restservices/user/" + userData[0].loanInformation[0].loanofficerid, true);
+				hr2.onreadystatechange = function() {
+					if (hr2.readyState == 4 && hr2.status == 200) {
+						var officerData = JSON.parse(hr2.responseText);
+						$('#group').removeClass('hide');
+						$('.call2').attr("loading","false");
+						$('#loanofficer').text(checkValue(officerData[0].firstName + " " + officerData[0].lastName));
+						$('#officerButton').attr("onclick", "window.location.href='account.jsp?id="+ userData[0].loanInformation[0].loanofficerid +"'");
+						$('#groupnumber').text(checkValue(userData[0].loanInformation[0].groupid));
+						$('#groupButton').attr("onclick", "window.location.href='group.jsp?id="+ userData[0].loanInformation[0].groupid +"'");
+					} else if (hr2.readyState == 4) {
+						addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
+					}
+				}
+				hr2.send(null);
+			}
+		} else if (hr.readyState == 4) {
+			addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
+		}
+	}
+	hr.send(null);
+}
+
+function loadImage(image, id, button) {
+	$(id).css('background-image', 'url(' + image + ')');
+	$(button).addClass('hide');
+}
+
+function checkValue(value, error = 'Not Supplied'){
+	if (value === "" || value === undefined || value == null || !value || value === " ") {
+		return error;
+	}
+	
+	return value;
+}
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);
@@ -320,6 +394,44 @@ function loadLoanDetails() {
 	hr.send(null);
 }
 
+function getGroups(){
+
+  var hr = new XMLHttpRequest();
+  hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+
+  hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+      var data = JSON.parse(hr.responseText);
+      var table = document.getElementById('groupsdiv');
+      data.forEach(function(object) {
+        var tr = document.createElement('div');
+
+    table.innerHTML=  [  '<div class="group"><div> <label for="picture"> <b>',
+        "TEST object.name",
+        '</b></label>',
+        '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+         ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        ' <div> <label for="picture"> <b>',
+             "TEST object.name",
+             '</b></label>',
+             '<br> <img id="picture" class="groupPicture" alt="User Picture" src="img/nopf.png" "="">',
+              ' <progress value="' +"TEST object.loan"+'" max="'+"TEST object.loan"+'"></progress></div>',
+        '</div>'
+      ].join('\n')
+
+        console.log("heeft iets gedaan")
+      });
+
+
+
+    } else if (hr.readyState == 4) {
+      addNotification('Retrieving data failed with status ' + hr.status
+          + '. Try again later.');
+    }}
+
+  	hr.send(null);
+  }
+
 function getParameterByName(name, url) {
 	if (!url)
 		url = window.location.href;
@@ -385,7 +497,7 @@ function addNotification(text, color) {
 	} else {
 		backgroundColor = "#fa5858";
 	}
-	
+
 	$('#notificationBlock').fadeIn().append(
 			'<div class="notification hide" style="background-color:'+backgroundColor+'"><p id="notificationText">' + text
 					+ '</div></div>');

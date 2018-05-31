@@ -1,25 +1,23 @@
 package Objects;
 
 public class LoanGroup {
-private int id;
-private int loanofficerId;
-public LoanGroup(int id, int localofficerId) {
-	super();
-	this.id = id;
-	this.loanofficerId = localofficerId;
-}
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
-public int getloanofficerId() {
-	return loanofficerId;
-}
-public void setloanofficerId(int loanofficerId) {
-	this.loanofficerId = loanofficerId;
-}
+	private int groupId;
+	private int loanId;
 
-
+	public LoanGroup(int id, int loanId) {
+		this.groupId = id;
+		this.setLoanId(loanId);
+	}
+	public int getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(int id) {
+		this.groupId = id;
+	}
+	public int getLoanId() {
+		return loanId;
+	}
+	public void setLoanId(int loanId) {
+		this.loanId = loanId;
+	}
 }

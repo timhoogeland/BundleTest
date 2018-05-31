@@ -81,7 +81,8 @@ public class ContractResource {
 	                             @FormParam("status") String status,
 	                             @FormParam("description") String desc,
 	                             @FormParam("contractpdf") String pdf,
-	                             @FormParam("userid") int userId)
+	                             @FormParam("userid") int userId
+	                             )
 	    {
 	    	ContractService service = ContractServiceProvider.getContractService();
 	    	
