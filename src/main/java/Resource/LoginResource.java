@@ -23,7 +23,6 @@ import javax.ws.rs.core.Response;
 import DAOS.LoginDAO;
 import Objects.Login;
 import Services.LoginService;
-import Services.LoginServiceProvider;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;

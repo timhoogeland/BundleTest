@@ -14,12 +14,12 @@ import Objects.Group;
 import Objects.LoanGroup;
 import Objects.LoanGroupInformation;
 import Services.LoanGroupService;
-import Services.LoanGroupServiceProvider;
+import Services.ServiceProvider;
 
 
 @Path("/loangroup")
 public class LoanGroupResource {
-	private LoanGroupService service = LoanGroupServiceProvider.getLoanGroupService();
+	private LoanGroupService service = ServiceProvider.getLoanGroupService();
 	
 	private JsonObjectBuilder buildJSON(LoanGroup l){
 		JsonObjectBuilder job = Json.createObjectBuilder();
