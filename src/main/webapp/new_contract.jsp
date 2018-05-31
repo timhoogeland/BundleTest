@@ -462,8 +462,7 @@
 
 						}
 					});
-				}
-				;
+				};
 
 				function sendLoanData() {
 					var formData = $("#loan").serializeArray();
