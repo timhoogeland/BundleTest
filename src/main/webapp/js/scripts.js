@@ -75,8 +75,10 @@ function validateLogin() {
 						setCookie('username', username, 1);
 						setCookie('password', pass, 1);
 						setCookie('loanofficerid', response[0]['userid']);
+						console.log(response[0]['session'])
+						window.sessionStorage.setItem('sessionToken', response[0]['session']);
 						addNotification("Login successful", "green");
-						window.location.replace("index.jsp");
+//						window.location.replace("index.jsp");
 					} else {
 						$('#loginbutton').attr('loading', 'false');
 						$('#loginbutton').text('Try again');
@@ -135,13 +137,19 @@ function getLoans() {
 	}
 	hr.send(null);
 }
-function getContracts() {
-	var hr = new XMLHttpRequest();
-	hr.open("GET", "/bundlePWABackend/restservices/loan", true);
 
-	hr.onreadystatechange = function() {
-		if (hr.readyState == 4 && hr.status == 200) {
-			var data = JSON.parse(hr.responseText);
+function getContracts(){
+	var sessionToken = window.sessionStorage.getItem("sessionToken");
+	
+	$.ajax({
+		url: "/bundlePWABackend/restservices/loan",
+		type: "get",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader("Authorization",  "Bearer " + sessionToken);
+		},
+		success: function(result) {
+			window.alert("opgehaald");
+			var data = result;
 			var table = document.getElementById('contractstable');
 			data.forEach(function(object) {
 				var tr = document.createElement('tr');
@@ -162,14 +170,57 @@ function getContracts() {
 								"<button class='small' onclick='toEditContract("
 						+ object.loanId + ");'>Edit</button> </td>";
 				table.appendChild(tr);
-			});
-		} else if (hr.readyState == 4) {
-			addNotification('Retrieving data failed with status ' + hr.status
-					+ '. Try again later.');
+				});
+
+		},
+		error: function(response, textStatus, errorThrown) {
+//			alert("product is niet toegevoegt!")
+			console.log("textStatus: " + textStatus);
+			console.log("errorThrown: " + errorThrown);
+			console.log("status: " + response.status);
 		}
-	}
-	hr.send(null);
+	});
 }
+
+
+//function getContracts() {
+//	var hr = new XMLHttpRequest();
+//	var sessionToken = window.sessionStorage.getItem("sessionToken");
+//	hr.open("GET", "/bundlePWABackend/restservices/loan", true);
+//	console.log(sessionToken);
+//	hr.setRequestHeader('Authorization', 'Bearer ' + sessionToken);
+//	
+//	hr.onreadystatechange = function() {
+//		if (hr.readyState == 4 && hr.status == 200) {
+//			var data = JSON.parse(hr.responseText);
+//			var table = document.getElementById('contractstable');
+//			data.forEach(function(object) {
+//				var tr = document.createElement('tr');
+//				tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+//						+ object.loanId + '</td>'
+//						+ '<td id ="amount" data-label="Amount">'
+//						+ object.amount + '</td>'
+//						+ '<td id = "duration" data-label="Duration">'
+//						+ object.duration + " months" + '</td>'
+//						+ '<td id = "closingdate" data-label="End Date">'
+//						+ object.closingdate + '</td>'
+//						+ '<td id="status" data-label="Status">'
+//						+ object.status + '</td>'
+//						+ '<td id = "loantype" data-label="Loan Type">'
+//						+ object.loantype + '</td>'
+//						+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
+//						+ object.loanId + ");'>View</button> " +
+//								"<button class='small' onclick='toEditContract("
+//						+ object.loanId + ");'>Edit</button> </td>";
+//				table.appendChild(tr);
+//			});
+//		} else if (hr.readyState == 4) {
+//			addNotification('Retrieving data failed with status ' + hr.status
+//					+ '. Try again later.');
+//		}
+//	}
+//	hr.send();
+//}
 
 function toEditLoan(loanid) {
 	window.location.replace("edit_loan.jsp?id=" + loanid);

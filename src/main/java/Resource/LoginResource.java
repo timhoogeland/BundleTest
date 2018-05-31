@@ -50,6 +50,7 @@ public class LoginResource {
 		} else {
 			job.add("userid", userdata.get("userid"));
 			job.add("usertype", userdata.get("usertype"));
+			job.add("session", userdata.get("session"));
 		}
 		
 		jab.add(job);

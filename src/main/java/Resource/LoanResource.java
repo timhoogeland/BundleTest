@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -52,6 +53,7 @@ public class LoanResource {
 	}
 	
 	@GET
+	@RolesAllowed("applicant")
 	@Produces("application/json")
 	public String getAllLoans(){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
