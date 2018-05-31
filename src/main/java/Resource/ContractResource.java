@@ -16,7 +16,7 @@ import Objects.Contract;
 import Objects.User;
 import Services.ServiceProvider;
 import Services.ContractService;
-import Services.ContractServiceProvider;
+
 
 @Path("/contract")
 public class ContractResource {
@@ -84,7 +84,7 @@ public class ContractResource {
 	                             @FormParam("userid") int userId
 	                             )
 	    {
-	    	ContractService service = ContractServiceProvider.getContractService();
+	    	ContractService service = ServiceProvider.getContractService();
 	    	
 	        Contract newContract = new Contract(contractId, status, desc, pdf, userId);
 	        if (service.newContract(newContract)){

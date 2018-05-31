@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -23,12 +24,11 @@ import javax.ws.rs.core.Response;
 import Objects.Loan;
 import Objects.User;
 import Services.LoanService;
-import Services.LoanServiceProvider;
 import Services.ServiceProvider;
 
 @Path("/loan")
 public class LoanResource {
-	private LoanService service = LoanServiceProvider.getLoanService();
+	private LoanService service = ServiceProvider.getLoanService();
 	
 	private JsonObjectBuilder buildJson(Loan loan) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
@@ -52,6 +52,7 @@ public class LoanResource {
 	}
 	
 	@GET
+	@RolesAllowed("admin")
 	@Produces("application/json")
 	public String getAllLoans(){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
@@ -83,7 +84,7 @@ public class LoanResource {
 							@FormParam("loandescription") String description,
 							@FormParam("useridfk") String userIdFk) throws ParseException{
 		
-		LoanService service = LoanServiceProvider.getLoanService();
+		LoanService service = ServiceProvider.getLoanService();
 		
 		String status = "Pending";
 				
@@ -118,5 +119,9 @@ public class LoanResource {
 		}else{
 			return Response.status(Response.Status.FOUND).build();
 		}
+	}
+	
+	public JsonObjectBuilder getLoanJson(Loan loan){
+		return buildJson(loan);
 	}
 }

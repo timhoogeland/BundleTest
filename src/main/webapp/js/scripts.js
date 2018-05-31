@@ -73,6 +73,9 @@ function validateLogin() {
 						$('#loginbutton').text('Succes');
 						setCookie('username', username, 1);
 						setCookie('password', pass, 1);
+						console.log(response[0]['session'])
+						window.sessionStorage.setItem('sessionToken', response[0]['session']);
+						window.sessionStorage.setItem('userType', response[0]['usertype']);
 						setCookie('userid', response[0]['userid']);
 						addNotification("Login successful", "green");
 						window.location.replace("index.jsp");
@@ -98,10 +101,6 @@ function validateLogin() {
 function checkCookie() {
 	console.log(getCookie('loanofficerid'));
 }
-
-
-
-
 
 function loadImage(image, id, button) {
 	$(id).css('background-image', 'url(' + image + ')');

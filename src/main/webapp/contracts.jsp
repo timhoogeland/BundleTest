@@ -17,10 +17,10 @@
 	<div class="block">
 
 		<div id="mainLoader" class="loaderBlock">
-        		<div class="loader"></div>
-        </div>
-
-		<div id="contracts"">
+        <div class="loader"></div>
+    </div>
+    
+		<div id="contracts">
 			<table id='contractstable' class='contracts_table'>
 				<thead>
 					<tr class="desktop">
