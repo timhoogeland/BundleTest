@@ -79,7 +79,7 @@ function getGroup() {
       var duration = data[i].loaninformation[0].duration;
       var status =data[i].loaninformation[0].status;
       var loanid =data[i].loaninformation[0].loanId;
-      createCode(name,amount,paidamount,duration,status,loanid);
+      createCode(id,name,amount,paidamount,duration,status,loanid);
 
       }
   }
@@ -107,7 +107,7 @@ $.ajax({
                     console.log(response[0]);
                     var data2= response;
                     var name = data2[0].firstName+" "+data2[0].lastName;
-
+                    console.log(id+name);
 
                   var table = document.getElementById('GroupTable');
                   var tr = document.createElement('tr');
