@@ -1,26 +1,30 @@
 package PdfGenerator;
 
+import Objects.Adress;
+import Objects.Loan;
+import Objects.User;
+
 public class RetrieveData {
-	private Object user;
-	private Object adress;
-	private Object loan;
-	public void setUserData(Object userData){
+	private User user;
+	private Adress adress;
+	private Loan loan;
+	public void setUserData(User userData){
 		user = userData;
 		System.out.println(userData.toString());
 	}
-	public Object getUserData(){
+	public User getUserData(){
 		return user;
 	}
-	public void setAdresData(Object adressData){
+	public void setAdresData(Adress adressData){
 		adress = adressData;
 	}
-	public Object getAdressData(){
+	public Adress getAdressData(){
 		return adress;
 	}
-	public void setLoanData(Object loanData){
+	public void setLoanData(Loan loanData){
 		loan = loanData;
 	}
-	public Object getLoanData(){
+	public Loan getLoanData(){
 		return loan;
 	}
 }

@@ -123,9 +123,12 @@ public class UserResource {
                             @FormParam("password") String password,
     						@FormParam("addressidfk") int addressIdFk,
     						@FormParam("photo") String photo,
+
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
     	RetrieveData data = new RetrieveData();
+    					
+
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
 		
@@ -144,8 +147,8 @@ public class UserResource {
 		password = result[0];
 		
 		String username = firstname + " " + lastname;
-		
-        User newUser = new User(0, userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
+
+        User newUser = new User(userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
         User returnUser = service.newUser(newUser);
         if (returnUser != null) {
         	data.setUserData(newUser);

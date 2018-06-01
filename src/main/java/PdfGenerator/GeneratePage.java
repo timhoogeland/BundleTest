@@ -21,15 +21,18 @@ public class GeneratePage {
 		
 		try{
 			
-			PdfWriter.getInstance(document, new FileOutputStream("c:/temp/contractBundle.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("C:/Users/Douwe/Downloads"));
 			 
 			document.open();
 			
 			addTitlePage(document);
 			//Chunk chunkAdres = new Chunk("adresinfo", font);
-			//Chunk chunkUser = new Chunk("userinfo", font); 
+			//Chunk chunkUser = new Chunk("userinfo", font);
 			//Chunk chunkLoan = new Chunk("loaninfo", font);
-			document.add(new Paragraph(data.getAdressData().toString()));
+			
+			//document.add(new Paragraph(data.getAdressData().getCountry()));
+			//document.add(new Paragraph(data.getAdressData().getDescription()));
+			//document.add(new Paragraph(data.getAdressData().getLocation()));
 			document.add(Chunk.NEWLINE);
 			document.add(new Paragraph("userinfo"));
 			document.add(Chunk.NEWLINE);
