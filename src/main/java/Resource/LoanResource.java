@@ -58,9 +58,7 @@ public class LoanResource {
 //	@RolesAllowed("admin")
 	@Produces("application/json")
 	public String getAllLoans(){
-		GeneratePage pdf = new GeneratePage();
-    	pdf.main();
-
+		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		for(Loan l : service.getAllLoans()){
 			jab.add(buildJson(l));
@@ -109,6 +107,8 @@ public class LoanResource {
 		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
 		if (service.newLoan(newLoan)){
 			data.setLoanData(newLoan);
+			GeneratePage pdf = new GeneratePage();
+	    	pdf.main();
 			return Response.ok().build();
 		}else{
 			return Response.status(Response.Status.FOUND).build();
@@ -146,4 +146,9 @@ public class LoanResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+	public JsonObjectBuilder getLoanJson(Loan loan){
+		return buildJson(loan);
+	}
 }
+	
+
