@@ -3,7 +3,7 @@
 
 <jsp:include page="parts/head.jsp" />
 
-<body>
+<body onload="getGroup();">
 
     <jsp:include page="parts/navigation.jsp" />
 
@@ -17,7 +17,7 @@
 
 
 
-    <div id="GroupTable"">
+    <div id="GroupTable">
       <table id='contractstable' class='contracts_table'>
         <thead>
           <tr class="desktop">
@@ -26,8 +26,8 @@
             <th>Progress</th>
             <th>Time Remaining</th>
             <th>Status</th>
-            <th>View</th>
-            <th>Edit</th>
+
+
           </tr>
         </thead>
         <tbody>
@@ -55,54 +55,93 @@
 
   <jsp:include page="parts/footer.jsp" />
 <script>
-  function getGroup() {
-    var hr = new XMLHttpRequest();
-    hr.open("GET", "/bundlePWABackend/restservices/loangroup/"+1, true);
+function getGroup() {
+  var hr = new XMLHttpRequest();
+  hr.open("GET", "/bundlePWABackend/restservices/loangroup/"+1, true);
 
-    hr.onreadystatechange = function() {
-      if (hr.readyState == 4 && hr.status == 200) {
-        var data = JSON.parse(hr.responseText);
+  hr.onreadystatechange = function() {
+    if (hr.readyState == 4 && hr.status == 200) {
+      var data = JSON.parse(hr.responseText);
 
-        var datalength = data.length;
-        $('#mainLoader').fadeOut('fast');
-        var table = document.getElementById('GroupTable');
-        data.forEach(function(object) {
+      var datalength = data.length;
+      $('#mainLoader').fadeOut('fast');
 
-          var hr2 = new XMLHttpRequest();
-          hr2.open("GET", "/bundlePWABackend/restservices/user/"+1, true);
+      console.log(data);
+      for(var i = 0; i<datalength;i++){
+      console.log(data[i].loaninformation);
+      var id =data[i].loaninformation[0].useridfk.toString();
+      console.log(id);
 
-          hr2.onreadystatechange = function() {
-             if (hr.readyState == 4 && hr.status == 200) {
-                var data2 = JSON.parse(hr2.responseText);
-          var tr = document.createElement('tr');
 
-          tr.innerHTML = '<td class="name" id="name" data-label="Name">'
-              + data2.firstName+data2.lastName + '</td>'
-              + '<td id ="amount" data-label="Amount">'
-              + object.amount + '</td>'
-              + '<td id = "duration" data-label="Time Remaining">'
-              + object.duration + " months" + '</td>'
-              +'<td id = "duration" data-label="Time Remaining">'
-              + '<progress value= '+object.paidamount.toString()+ ' max= '+object.amount.toString()+'></progress>'
-              + '<td id = "closingdate" data-label="End Date">'
-              + object.closingdate + '</td>'
-              + '<td id="status" data-label="Status">'
-              + object.status + '</td>'
-              + '<td id = "loantype" data-label="Loan Type">'
-              + object.loantype + '</td>'
-              + "<td class='tdHide'>  <button class='small' onclick='toViewContract("
-              + object.loanId + ");'>View</button> " +
-                  "<button class='small' onclick='toEditContract("
-              + object.loanId + ");'>Edit</button> </td>";
-          table.appendChild(tr);
-        }});
-      } else if (hr.readyState == 4) {
-        addNotification('Retrieving data failed with status ' + hr.status
-            + '. Try again later.');
+
+      var amount = data[i].loaninformation[0].amount;
+      var paidamount =data[i].loaninformation[0].paidamount;
+      var duration = data[i].loaninformation[0].duration;
+      var status =data[i].loaninformation[0].status;
+      var loanid =data[i].loaninformation[0].loanId;
+      createCode(name,amount,paidamount,duration,status,loanid);
+
       }
-    }
-    hr.send(null);
   }
+    else if (hr.readyState == 4) {
+      addNotification('Retrieving data failed with status ' + hr.status
+          + '. Try again later.');
+    }
+}
+  hr.send(null);
+
+}
+
+
+
+function createCode(id,name,amount,paidamount,duration,status,loanid){
+
+$.ajax({
+            url : "/bundlePWABackend/restservices/user/"+id
+          ,
+            type : "get",
+
+            success : function(response) {
+
+                    console.log(response+"binnenste loop");
+                    console.log(response[0]);
+                    var data2= response;
+                    var name = data2[0].firstName+" "+data2[0].lastName;
+
+
+                  var table = document.getElementById('GroupTable');
+                  var tr = document.createElement('tr');
+                  tr.innerHTML = '<td class="name" id="name" data-label="Name">'
+                  + name + '</td>'
+                  + '<td id ="amount" data-label="Amount">'
+                  + amount + '</td>'
+                  + '<td id ="progress" data-label="Progress">'
+                  +'<progress value=' +paidamount+' max= '+  amount+ '> </progress></td>'
+                  + '<td id = "duration" data-label="Time Remaining">'
+                  + duration + " months" + '</td>'
+                  + '<td id="status" data-label="Status">'
+                  + status + '</td>'
+                  + "<td class='tdHide'>  <button class='small' onclick='toViewContract("
+                  + loanid + ");'>View</button> " +
+                      "<button class='small' onclick='toEditContract("
+                  + loanid + ");'>Edit</button> </td>";
+              table.appendChild(tr);
+
+
+            },
+            error : function(response, textStatus, errorThrown) {
+                console.log("Failed.");
+                console.log("textStatus: " + textStatus);
+                console.log("errorThrown: " + errorThrown);
+                console.log("status: " + response.status);
+
+
+            }
+        });
+
+}
+
+
 </script>
 </body>
 </html>
