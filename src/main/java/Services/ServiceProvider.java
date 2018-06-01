@@ -8,8 +8,14 @@ public class ServiceProvider {
     private static LoginService loginService = new LoginService();
 	private static LoanGroupService loanGroupService= new LoanGroupService();  
 	private static LoanService loanService= new LoanService();
+	private static TransactionService transactionService = new TransactionService();
+	
     
-    public static UserService getUserService() { 
+    public static TransactionService getTransactionService() {
+		return transactionService;
+	}
+
+	public static UserService getUserService() { 
     	return userService; 
     	}
     
