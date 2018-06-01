@@ -117,7 +117,7 @@ public class AddressDAO extends baseDAO {
         boolean result = false;
 
         if (findById(addressId) != null) {
-            String query = "DELETE FROM " + tablename + " WHERE userid = ?";
+            String query = "DELETE FROM " + tablename + " WHERE addressid = ?";
 
             try (Connection con = getConnection()) {
                 PreparedStatement pstmt = con.prepareStatement(query);

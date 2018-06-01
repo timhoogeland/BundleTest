@@ -90,26 +90,26 @@ public class loanDAO extends baseDAO {
 		return selectLoan("select * from public.loan;");
 	}
 	
-	public Loan updateLoan(Loan newLoan) {
+	public Loan updateLoan(Loan changedLoan) {
         String query = "UPDATE "+tablename+" SET loantype=?, status=?, duration=?, closingdate=?, paidamount=?"
         		+ " WHERE loanid=?";
 
         try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, newLoan.getLoanType());
-	        pstmt.setString(2, newLoan.getStatus());
-	        pstmt.setInt(3, newLoan.getDuration());
-	        pstmt.setDate(4, newLoan.getClosingDate());
-	        pstmt.setInt(5, newLoan.getPaidAmount());
-	        pstmt.setInt(6, newLoan.getLoanId());
+            pstmt.setString(1, changedLoan.getLoanType());
+	        pstmt.setString(2, changedLoan.getStatus());
+	        pstmt.setInt(3, changedLoan.getDuration());
+	        pstmt.setDate(4, changedLoan.getClosingDate());
+	        pstmt.setInt(5, changedLoan.getPaidAmount());
+	        pstmt.setInt(6, changedLoan.getLoanId());
 
-            int aff = pstmt.executeUpdate();
-            System.out.println("Row(s) affected: "+aff);
+            pstmt.executeUpdate();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return findLoanById(newLoan.getLoanId());
+        return findLoanById(changedLoan.getLoanId());
     }
 	public Objects.Loan findLoanById(int loanId) {
 		// TODO Auto-generated method stub

@@ -4,6 +4,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -101,5 +102,17 @@ public class AddressResource {
 	        } else {
 	            return Response.status(Response.Status.BAD_REQUEST).build();
 	        }
+	    }
+	    
+	    @DELETE
+	    @Produces("application/json")
+	    @Path("/{id}")
+	    public Response deleteAddress(	@PathParam("id") int addressId){
+	    
+	    	if (service.deleteAdress(addressId)){
+	    		return Response.ok().build();
+	    	} else {
+	    		return Response.status(Response.Status.BAD_REQUEST).build();
+	    	}
 	    }
 }
