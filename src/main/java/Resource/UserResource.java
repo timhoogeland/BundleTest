@@ -26,6 +26,7 @@ import javax.ws.rs.core.SecurityContext;
 import Objects.User;
 import PdfGenerator.RetrieveData;
 import Objects.UserLoanInformation;
+import Objects.UserWithAddress;
 import Services.AddressService;
 import Services.ServiceProvider;
 import Services.UserService;
@@ -34,11 +35,18 @@ import Services.UserService;
 public class UserResource {
     private UserService service = ServiceProvider.getUserService();
 
-    private JsonObjectBuilder buildJSON(User user) {
+    private JsonObjectBuilder buildJSON(UserWithAddress user) {
         JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonObjectBuilder secondJob = Json.createObjectBuilder();
         JsonArrayBuilder secondJab = Json.createArrayBuilder();
-        //AddressService addressService = ServiceProvider.getAdressService();
-        AddressResource addressResource = new AddressResource();
+        secondJob.add("adressid", user.getAddressId())
+        	.add("street", user.getStreet())
+        	.add("number", user.getNumber())
+        	.add("country", user.getCountry())
+        	.add("postalcode", user.getPostalCode())
+        	.add("description", user.getDescription())
+        	.add("location", user.getLocation());
+        secondJab.add(secondJob);
         
         job.add("userid", user.getUserId());
         job.add("userType", user.getUserType());
@@ -46,20 +54,10 @@ public class UserResource {
         job.add("lastName", user.getLastname());
         job.add("phonenumber", user.getPhonenumber());
         job.add("status", user.getStatus());
-        job.add("addressIdFk", user.getAddressIdFk());
-        job.add("address", addressResource.getAdressByID(user.getAddressIdFk()));
+        job.add("addressInformation",secondJab);
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
         job.add("username", user.getUsername());
-        
-        for (UserLoanInformation u : service.getUserLoanInformation(user.getUserId())) {
-        	JsonObjectBuilder secondJob = Json.createObjectBuilder();
-        	secondJob.add("loanofficerid", u.getLoanOfficerId());
-        	secondJob.add("groupid", u.getGroupId());
-        	secondJob.add("loanid", u.getLoanId());
-        	
-        	secondJab.add(secondJob);
-        }
         job.add("loanInformation", secondJab);
         
         return job;
@@ -92,7 +90,7 @@ public class UserResource {
     public String getAccounts() {
         JsonArrayBuilder jab = Json.createArrayBuilder();
 
-        for (User u : service.getAllUsers()) {
+        for (UserWithAddress u : service.getAllUsers()) {
             jab.add(buildJSON(u));
         }
 
@@ -105,7 +103,7 @@ public class UserResource {
 //    @RolesAllowed({"beheerder","admin","user"})
     @Produces("application/json")
     public String getAccountByID(@PathParam("id") int id) {
-        User user = service.getUserByID(id);
+        UserWithAddress user = service.getUserByID(id);
         if(user != null) {
             JsonArrayBuilder jab = Json.createArrayBuilder();
             jab.add(buildJSON(user));
@@ -149,10 +147,10 @@ public class UserResource {
 		String username = firstname + " " + lastname;
 
         User newUser = new User(userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
-        User returnUser = service.newUser(newUser);
+        UserWithAddress returnUser = service.newUser(newUser);
         if (returnUser != null) {
         	data.setUserData(newUser);
-        	String a = buildJSON(newUser).build().toString();
+        	String a = buildJSON(returnUser).build().toString();
             return Response.ok(a).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -180,7 +178,7 @@ public class UserResource {
         
         User user = new User(userId, userType, firstname, lastname, phonenumber, "", "", status, addressIdFk, photo, sqlDateOfBirth, username);
             
-        User updatedUser = service.update(user);
+        UserWithAddress updatedUser = service.update(user);
         if (updatedUser != null){
         	String a = buildJSON(updatedUser).build().toString();
             return Response.ok(a).build();

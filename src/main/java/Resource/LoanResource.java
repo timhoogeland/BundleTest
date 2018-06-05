@@ -33,7 +33,7 @@ import Services.ServiceProvider;
 public class LoanResource {
 	private LoanService service = ServiceProvider.getLoanService();
 	
-	private JsonObjectBuilder buildJson(Loan loan) {
+	JsonObjectBuilder buildJson(Loan loan) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		job.add("loanId", loan.getLoanId());
@@ -92,7 +92,6 @@ public class LoanResource {
 							@FormParam("useridfk") String userIdFk) throws ParseException{
 
 		RetrieveData data = new RetrieveData();
-		//LoanService service = LoanServiceProvider.getLoanService();
 
 		LoanService service = ServiceProvider.getLoanService();
 
@@ -103,8 +102,7 @@ public class LoanResource {
 		java.util.Date utilClosingDate = new SimpleDateFormat("yyyy-MM-dd").parse("00-00-0000");
 		java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 		java.sql.Date sqlClosingDate = new java.sql.Date(utilClosingDate.getTime());
-		Random rand = new Random();
-		Loan newLoan = new Loan(rand.nextInt(1000), loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
+		Loan newLoan = new Loan(0, loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
 		if (service.newLoan(newLoan)){
 			data.setLoanData(newLoan);
 			GeneratePage pdf = new GeneratePage();

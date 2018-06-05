@@ -76,7 +76,7 @@ public class LoanGroupResource {
 			job.add("loanid", l.getLoanId());
 			
 			for (Loan i : loanService.getLoanById(l.getLoanId())){
-				secondJab.add(loanResource.getLoanJson(i));
+				secondJab.add(loanResource.buildJson(i));
 			}
 			
 			job.add("loaninformation", secondJab);			
