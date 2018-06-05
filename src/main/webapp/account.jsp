@@ -159,8 +159,8 @@
     			$('#mainLoader').fadeOut('fast');
     			var userData = JSON.parse(hr.responseText);
     			var addressData = userData[0].addressInformation[0];
+    			var loanData = userData[0].loaninformation[0];
 
-    			$('.call1').attr("loading","false");
     			$('#username').text(checkValue(userData[0].username));
     			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
     			$('#phone').text(checkValue(userData[0].phonenumber));
@@ -181,18 +181,18 @@
     			if (userData[0].userType == "applicant") {
     				$('#group').removeClass('hide');
     				var hr2 = new XMLHttpRequest();
-    				hr2.open("GET", "/bundlePWABackend/restservices/user/" + userData[0].loanInformation[0].loanofficerid, true);
+    				hr2.open("GET", "/bundlePWABackend/restservices/user/" + loanData.loanofficerid, true);
     				hr2.onreadystatechange = function() {
     					if (hr2.readyState == 4 && hr2.status == 200) {
     						$('#subLoader').fadeOut('fast');
     						var officerData = JSON.parse(hr2.responseText);
     						$('.call2').attr("loading","false");
     						$('#loanofficer').text(checkValue(officerData[0].firstName + " " + officerData[0].lastName));
-    						$('#officerButton').attr("onclick", "window.location.href='account.jsp?id="+ userData[0].loanInformation[0].loanofficerid +"'");
-    						$('#groupnumber').text(checkValue(userData[0].loanInformation[0].groupid));
-    						$('#groupButton').attr("onclick", "window.location.href='group.jsp?id="+ userData[0].loanInformation[0].groupid +"'");
-    						$('#loannumber').text(checkValue(userData[0].loanInformation[0].loanid));
-    						$('#loanButton').attr("onclick", "window.location.href='loan.jsp?id="+ userData[0].loanInformation[0].loanid +"'");
+    						$('#officerButton').attr("onclick", "window.location.href='account.jsp?id="+ loanData.loanofficerid +"'");
+    						$('#groupnumber').text(checkValue(loanData.groupid));
+    						$('#groupButton').attr("onclick", "window.location.href='group.jsp?id="+ loanData.groupid +"'");
+    						$('#loannumber').text(checkValue(loanData.loanid));
+    						$('#loanButton').attr("onclick", "window.location.href='loan.jsp?id="+ loanData.loanid +"'");
     					} else if (hr2.readyState == 4) {
     						addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
     					}
