@@ -20,11 +20,15 @@ public class UserService {
 	    	return userDAO.findById(id); 
 	    	}
 	    
+	    public UserWithAddress getUserByID2(int id) { 
+	    	return userDAO.findById(id); 
+	    	}
+	    
 	    public int getIdByEmail(String name) { 
 	    	return userDAO.findIdByName(name); 
 	    	}
 
-	    public UserWithAddress update (User user) { 
+	    public UserWithAddress update (UserWithAddress user) { 
 	    	return userDAO.update(user); 
 	    	}
 

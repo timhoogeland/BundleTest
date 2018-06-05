@@ -165,7 +165,6 @@ public class UserResource {
     									@FormParam("firstname") String firstname,
     									@FormParam("lastname") String lastname,
     									@FormParam("phonenumber") int phonenumber,
-    									@FormParam("password") String password,
     									@FormParam("status") String status,
     									@FormParam("addressidfk") int addressIdFk,
     									@FormParam("photo") String photo,
@@ -174,15 +173,25 @@ public class UserResource {
     	{
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
     	java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
-
-        
-        User user = new User(userId, userType, firstname, lastname, phonenumber, "", "", status, addressIdFk, photo, sqlDateOfBirth, username);
-            
-        UserWithAddress updatedUser = service.update(user);
-        if (updatedUser != null){
+    	
+    	UserWithAddress user = service.getUserByID(userId);
+    	
+    	if (user != null) {
+    		user.setUserType(userType);
+    		user.setFirsName(firstname);
+    		user.setLastname(lastname);
+    		user.setPhonenumber(phonenumber);
+    		user.setStatus(status);
+    		user.setAddressId(addressIdFk);
+    		user.setDateOfBirth(sqlDateOfBirth);
+    		user.setUserName(username);
+            UserWithAddress updatedUser = service.update(user);
         	String a = buildJSON(updatedUser).build().toString();
             return Response.ok(a).build();
-        } else {
+
+    	}
+            
+         else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
