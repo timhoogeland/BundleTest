@@ -122,9 +122,7 @@
 									+ '<td id="status" data-label="Status">'
 									+ status
 									+ '</td>'
-									+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan("
-									+ loanid
-									+ ");'>View</button> "
+									+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan("+ loanid + ");'>View</button> "
 									+ "<button class='small' onclick='toEditLoan("
 									+ loanid + ");'>Edit</button> </td>";
 							table.appendChild(tr);
