@@ -150,7 +150,11 @@ function toEditContract(loanid) {
 function toViewContract() {
 	var loanid = document.getElementById('loanid');
 	window.location.replace("contract.jsp");
+}
 
+function toViewLoan() {
+	var loanid = document.getElementById('loanid');
+	window.location.replace("loan.jsp");
 }
 
 function toEdit() {

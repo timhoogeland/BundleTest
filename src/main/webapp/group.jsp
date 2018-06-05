@@ -16,6 +16,9 @@
 	</div>
 
 	<div class="block">
+       	<div id="mainLoader" class="loaderBlock">
+       		<div class="loader"></div>
+       	</div>
 		<div id="GroupTable">
 			<table id='contractstable' class='contracts_table'>
 				<tr class="desktop">
@@ -59,11 +62,8 @@
 			hr.onreadystatechange = function() {
 				if (hr.readyState == 4 && hr.status == 200) {
 					var data = JSON.parse(hr.responseText);
-
 					var datalength = data.length;
-					$('#mainLoader').fadeOut('fast');
 
-					console.log(data);
 					for (var i = 0; i < datalength; i++) {
 						console.log(data[i].loaninformation);
 						var id = data[i].loaninformation[0].useridfk.toString();
@@ -74,10 +74,10 @@
 						var duration = data[i].loaninformation[0].duration;
 						var status = data[i].loaninformation[0].status;
 						var loanid = data[i].loaninformation[0].loanId;
-						createCode(id, name, amount, paidamount, duration,
-								status, loanid);
+						done = createCode(id, name, amount, paidamount, duration, status, loanid);
 
 					}
+					$('#mainLoader').fadeOut('fast');
 				} else if (hr.readyState == 4) {
 					addNotification('Retrieving data failed with status '
 							+ hr.status + '. Try again later.');
@@ -122,13 +122,13 @@
 									+ '<td id="status" data-label="Status">'
 									+ status
 									+ '</td>'
-									+ "<td class='tdHide'>  <button class='small' onclick='toViewContract("
+									+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan("
 									+ loanid
 									+ ");'>View</button> "
 									+ "<button class='small' onclick='toEditContract("
 									+ loanid + ");'>Edit</button> </td>";
 							table.appendChild(tr);
-
+							return true;
 						},
 						error : function(response, textStatus, errorThrown) {
 							console.log("Failed.");
