@@ -622,6 +622,13 @@ progress::-moz-progress-bar {
     height: 40px;
     animation: spin 2s linear infinite;
 }
+#searchInput{
+	width: 30%;
+    margin-left: 35px;
+    color: black;
+    height: 25px;
+}
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -776,13 +783,13 @@ progress::-moz-progress-bar {
 	    width: calc(50% - 45px);
 	    padding: 10px;
 	}
-	
-		
+
+
 	.blockUnderHalf {
 		padding: 0px;
 	    width: inherit;
     	max-width: initial;
-	} 
+	}
 }
 
 /* Smaller than 900 px (phone) */
