@@ -56,23 +56,64 @@
         var table = document.getElementById('accountstable');
         data.forEach(function(object) {
           var tr = document.createElement('tr');
-          tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
-              + object.userid + '</td>'
-              + '<td id ="firstname" data-label="Amount">'
-              + object.firstName + '</td>'
-              + '<td id = "lastname" data-label="Duration">'
-              + object.lastName + '</td>'
-              + '<td id = "usertype" data-label="End Date">'
-              + object.userType + '</td>'
-              + '<td id="status" data-label="Status">'
-              + object.status + '</td>'
 
+              if (object.status =="active"){
+                tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+                    + object.userid + '</td>'
+                    + '<td id ="firstname" data-label="Amount">'
+                    + object.firstName + '</td>'
+                    + '<td id = "lastname" data-label="Duration">'
+                    + object.lastName + '</td>'
+                    + '<td id = "usertype" data-label="End Date">'
+                    + object.userType + '</td>'
+                    + '<td id="status" data-label="Status">'
+                    + object.status + '</td>'
+
+                + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
+                + "'>View</button> </td>"
+                + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
+                + "'>Deactivate</button> </td>";
+                table.appendChild(tr);
+
+              }
+              else  if (object.status =="inactive"){
+                tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+                    + object.userid + '</td>'
+                    + '<td id ="firstname" data-label="Amount">'
+                    + object.firstName + '</td>'
+                    + '<td id = "lastname" data-label="Duration">'
+                    + object.lastName + '</td>'
+                    + '<td id = "usertype" data-label="End Date">'
+                    + object.userType + '</td>'
+                    + '<td id="status" data-label="Status">'
+                    + object.status + '</td>'
 
               + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
               + "'>View</button> </td>"
               + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
-              + "'>Toggle</button> </td>"
-          table.appendChild(tr);
+              + "'>Activate</button> </td>";
+                table.appendChild(tr);
+            }
+            else{
+              tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
+                  + object.userid + '</td>'
+                  + '<td id ="firstname" data-label="Amount">'
+                  + object.firstName + '</td>'
+                  + '<td id = "lastname" data-label="Duration">'
+                  + object.lastName + '</td>'
+                  + '<td id = "usertype" data-label="End Date">'
+                  + object.userType + '</td>'
+                  + '<td id="status" data-label="Status">'
+                  + object.status + '</td>'
+              + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
+              + "'>View</button> </td>"
+              + "<td class='tdHide'>  <button class='small' disabled=true onclick=window.location.href='account.jsp?id=" + object.userid
+              + "'>Unavailable</button> </td>";
+                table.appendChild(tr);
+
+            }
+
+
         });
       },
       error: function(response, textStatus, errorThrown) {
