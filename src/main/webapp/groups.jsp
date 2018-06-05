@@ -76,7 +76,7 @@
 							groupdiv += [
 									'<div> <label for="name"> <b>',
 									data[i].groupinformation[y].firstname + " " + data[i].groupinformation[y].lastname,
-									'</b><button class="buttonRound" onclick=window.location.href="loan.jsp?id='+ data[i].groupinformation[y].userid +'" >&#8618;</button></label>',
+									'</b><button class="buttonRound" onclick=window.location.href="loan.jsp?id='+ data[i].groupinformation[y].loanid +'" >&#8618;</button></label>',
 									' <progress value=' +data[i].groupinformation[y].paidamount+' max='+data[i].groupinformation[y].amount+'></progress></div>' ]
 									.join('\n');
 						}
