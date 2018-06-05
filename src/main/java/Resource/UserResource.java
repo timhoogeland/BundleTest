@@ -39,6 +39,7 @@ public class UserResource {
         JsonObjectBuilder job = Json.createObjectBuilder();
         JsonObjectBuilder secondJob = Json.createObjectBuilder();
         JsonArrayBuilder secondJab = Json.createArrayBuilder();
+        
         secondJob.add("adressid", user.getAddressId())
         	.add("street", user.getStreet())
         	.add("number", user.getNumber())
@@ -58,7 +59,6 @@ public class UserResource {
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
         job.add("username", user.getUsername());
-        job.add("loanInformation", secondJab);
         
         return job;
     }
@@ -165,7 +165,6 @@ public class UserResource {
     									@FormParam("firstname") String firstname,
     									@FormParam("lastname") String lastname,
     									@FormParam("phonenumber") int phonenumber,
-    									@FormParam("password") String password,
     									@FormParam("status") String status,
     									@FormParam("addressidfk") int addressIdFk,
     									@FormParam("photo") String photo,

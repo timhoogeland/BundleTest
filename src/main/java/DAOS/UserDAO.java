@@ -140,22 +140,23 @@ public class UserDAO extends baseDAO {
     }
 
     public UserWithAddress update(User user) {
-        String query = "UPDATE " + tablename + " SET usertype = ?, firstname = ?, lastname = ? phonenumber = ?,"
+        String query = "UPDATE " + tablename + " SET usertype = ?, firstname = ?, lastname = ?, phonenumber = ?,"
         		+ " status = ?, dateofbirth = ?, photo = ?, addressidfk = ?, username = ?"
         		+ " WHERE userid = ?";
 
         try (Connection con = super.getConnection()) {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, user.getUserType());
-            pstmt.setString(3, user.getFirstName());
-            pstmt.setString(4, user.getLastname());
-            pstmt.setInt(5, user.getPhonenumber());
-            pstmt.setString(6, user.getStatus());
+            pstmt.setString(2, user.getFirstName());
+            pstmt.setString(3, user.getLastname());
+            pstmt.setInt(4, user.getPhonenumber());
+            pstmt.setString(5, user.getStatus());
+            pstmt.setDate(6, user.getDateOfBirth());
             pstmt.setString(7, user.getPhoto());
             pstmt.setInt(8, user.getAddressIdFk());
             pstmt.setString(9, user.getUsername());
             pstmt.setInt(10, user.getUserId());
-
+            
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
