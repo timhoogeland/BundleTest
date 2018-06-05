@@ -104,9 +104,24 @@ public class UserResource {
     @Produces("application/json")
     public String getAccountByID(@PathParam("id") int id) {
         UserWithAddress user = service.getUserByID(id);
+        
         if(user != null) {
+        	JsonObjectBuilder job = Json.createObjectBuilder();
             JsonArrayBuilder jab = Json.createArrayBuilder();
-            jab.add(buildJSON(user));
+            JsonArrayBuilder secondJab = Json.createArrayBuilder();
+            
+            job = buildJSON(user);
+            for (UserLoanInformation u : service.getUserLoanInformation(user.getUserId())) {
+             	JsonObjectBuilder secondJob = Json.createObjectBuilder();
+             	secondJob.add("loanofficerid", u.getLoanOfficerId());
+             	secondJob.add("groupid", u.getGroupId());
+             	secondJob.add("loanid", u.getLoanId());
+             	
+             	secondJab.add(secondJob);
+             }
+            job.add("loaninformation", secondJab);
+            
+            jab.add(job);
             return jab.build().toString();
         }
         return Response.status(Response.Status.NOT_FOUND).toString();
