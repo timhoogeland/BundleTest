@@ -395,7 +395,6 @@
 
                     success: function (response) {
 
-                        alert("User updated succesfully.");
                         updateAddressData();
 
                     },
@@ -418,7 +417,7 @@
 
                     success: function (response) {
 
-                        alert("Address updated succesfully.");
+                        alert("Account updated succesfully.");
 
                     },
                     error: function (response, textStatus, errorThrown) {
