@@ -22,8 +22,12 @@
 
 		<div id="account">
 			<table id='accountstable' class='contracts_table'>
+        <div id="seachbar">
+    <input id="searchInput" value="Type To Filter">
+           </div>
 				<thead>
 					<tr class="desktop">
+
 						<th>ID</th>
 						<th>First Name</th>
 						<th>Last Name</th>
@@ -32,7 +36,7 @@
 
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="fbody">
 				<tbody>
 			</table>
 		</div>
@@ -40,7 +44,10 @@
 	</main>
 
 	<jsp:include page="parts/footer.jsp" />
-  <script> function getAccounts(){
+  <script type="text/javascript">
+
+
+   function getAccounts(){
     var sessionToken = window.sessionStorage.getItem("sessionToken");
 
     $.ajax({
@@ -53,7 +60,7 @@
         addNotification("Authorized, Accounts loaded!", "green");
         $('#mainLoader').fadeOut('fast');
         var data = result;
-        var table = document.getElementById('accountstable');
+        var table = document.getElementById('fbody');
         data.forEach(function(object) {
           var tr = document.createElement('tr');
 
@@ -71,8 +78,8 @@
 
                 + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
                 + "'>View</button> </td>"
-                + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
-                + "'>Deactivate</button> </td>";
+                + "<td class='tdHide'>  <button class='small' onclick='changeStatus(" + object.userid+","+object.userType+","+object.firstName+","+object.lastName+","+object.phonenumber+",inactive,"+object.addressIdFk+",'"+object.photo.toString()+"',"+object.dateofbirth+","+object.username
+                + ");'>Deactivate</button> </td>"
                 table.appendChild(tr);
 
               }
@@ -90,8 +97,8 @@
 
               + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
               + "'>View</button> </td>"
-              + "<td class='tdHide'>  <button class='small' onclick=window.location.href='account.jsp?id=" + object.userid
-              + "'>Activate</button> </td>";
+              + "<td class='tdHide'>  <button class='small' onclick='changeStatus(" + object.userid+","+object.userType+","+object.firstName+","+object.lastName+","+object.phonenumber+",active,"+object.addressIdFk+",'"+object.photo.toString()+"',"+object.dateofbirth+","+object.username
+              + ");'>Activate</button> </td>"
                 table.appendChild(tr);
             }
             else{
@@ -123,7 +130,55 @@
           console.log("status: " + response.status);
       }
     });
-  }</script>
+  }
+
+
+
+$("#searchInput").keyup(function () {
+  console.log("ikdoeiets");
+    // Split the current value of the filter textbox
+    var data = this.value.split(" ");
+    // Get the table rows
+    var rows = $("#fbody").find("tr");
+    if (this.value == "") {
+        rows.show();
+        return;
+    }
+
+    // Hide all the rows initially
+    rows.hide();
+
+    // Filter the rows; check each term in data
+    rows.filter(function (i, v) {
+        for (var d = 0; d < data.length; ++d) {
+            if ($(this).is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    // Show the rows that match.
+    .show();
+}).focus(function () { // style the filter box
+    this.value = "";
+    $(this).css({
+        "color": "black"
+    });
+    $(this).unbind('focus');
+}).css({
+    "color": "#C0C0C0"
+});
+
+// make contains case insensitive globally
+// (if you prefer, create a new Contains or containsCI function)
+$.expr[":"].contains = $.expr.createPseudo(function(arg) {
+    return function( elem ) {
+        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
+});
+
+
+  </script>
 
   <div id="helpPopup" class="popup" style="display: none;">
     <div>

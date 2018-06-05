@@ -645,9 +645,22 @@ progress::-moz-progress-bar {
     z-index: 1;
 }
 
+.block2{
+    height: 182px;
+}
+
 .blockUnderHalf {
-	padding: 0px 180px;
-    width: calc(100% - 360px);
+	padding: 0px 0px 0px 180px;
+    width: calc(100% - 180px);
+    max-width: 67%;
+}
+
+.transactionTable {
+	margin: 0px 0px 75px 0px;
+}
+
+.transactionTable tr td {
+	padding: 15px 0px;
 }
 
 /* Bigger than 1150 px tablet*/
@@ -763,6 +776,13 @@ progress::-moz-progress-bar {
 	    width: calc(50% - 45px);
 	    padding: 10px;
 	}
+	
+		
+	.blockUnderHalf {
+		padding: 0px;
+	    width: inherit;
+    	max-width: initial;
+	} 
 }
 
 /* Smaller than 900 px (phone) */
