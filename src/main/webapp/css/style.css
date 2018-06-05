@@ -645,6 +645,11 @@ progress::-moz-progress-bar {
     z-index: 1;
 }
 
+.blockUnderHalf {
+	padding: 0px 180px;
+    width: calc(100% - 360px);
+}
+
 /* Bigger than 1150 px tablet*/
 @media (max-width: 1150px) {
 	header {
