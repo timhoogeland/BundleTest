@@ -123,7 +123,7 @@ $.ajax({
                   + status + '</td>'
                   + "<td class='tdHide'>  <button class='small' onclick='toViewContract("
                   + loanid + ");'>View</button> " +
-                      "<button class='small' onclick='toEditContract("
+                      "<button class='small' onclick='toEditLoan("
                   + loanid + ");'>Edit</button> </td>";
               table.appendChild(tr);
 
