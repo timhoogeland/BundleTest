@@ -139,7 +139,7 @@ public class UserDAO extends baseDAO {
         }
     }
 
-    public UserWithAddress update(UserWithAddress user) {
+    public UserWithAddress update(User user) {
         String query = "UPDATE " + tablename + " SET usertype = ?, firstname = ?, lastname = ?, phonenumber = ?,"
         		+ " status = ?, dateofbirth = ?, photo = ?, addressidfk = ?, username = ?"
         		+ " WHERE userid = ?";
@@ -156,7 +156,7 @@ public class UserDAO extends baseDAO {
             pstmt.setInt(8, user.getAddressId());
             pstmt.setString(9, user.getUsername());
             pstmt.setInt(10, user.getUserId());
-
+            
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
