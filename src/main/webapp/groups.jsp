@@ -24,8 +24,6 @@
 	</div>
 	</main>
 
-	<jsp:include page="parts/footer.jsp" />
-
 	<div id="helpPopup" class="popup" style="display: none;">
 		<div>
 			<h2>Groups explained</h2>
@@ -83,6 +81,10 @@
 						table.innerHTML += (groupdiv + '</div><button class="groupButton" onclick=window.location.href="group.jsp?id='+ groupid +'">View</button></div>');
 						$("#totall"+ groupid).attr("max", totalAmount);
 						$("#totall"+ groupid).attr("value", totalPaid);
+					}
+					
+					if(datalength == 0){
+						addNotification("No groups found");
 					}
 
 				} else if (hr.readyState == 4) {

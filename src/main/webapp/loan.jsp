@@ -23,10 +23,6 @@
 			<h2>Personal information</h2>
 			<br>
 			
-			<div id="subLoader" class="subLoaderBlock block2">
-       			<div class="loaderSmall"></div>
-       		</div>
-	
 			<div>
 				<label for="name"> <b>Name</b>
 				<button id="accountButton" class="buttonRound">&#8618;</button>
@@ -141,7 +137,6 @@
 
     	hr.onreadystatechange = function() {
     		if (hr.readyState == 4 && hr.status == 200) {
-    			$('#thirdLoader').fadeOut('fast');
     			var object = JSON.parse(hr.responseText);
 				var table = document.getElementById('transactionTable');
 				var datalength = object.length;
@@ -156,6 +151,12 @@
 							+ object[i].receiver + " months" + '</td>'
 							+ '<td id = "timestamp" data-label="timestamp">'
 							+ object[i].timestamp + '</td>';
+					table.appendChild(tr);
+				}
+				
+				if(datalength == 0){
+					var tr = document.createElement('tr');
+					tr.innerHTML = '<td style="text-align: center;" colspan=100%>No transactions found</td>';
 					table.appendChild(tr);
 				}
     		} else if (hr.readyState == 4) {
@@ -173,7 +174,6 @@
 
     	hr.onreadystatechange = function() {
     		if (hr.readyState == 4 && hr.status == 200) {
-    			$('#mainLoader').fadeOut('fast');
     			var loanData = JSON.parse(hr.responseText);
 
     			$('#loanstatus').text(UCFirst(checkValue(loanData.status)));
@@ -187,6 +187,9 @@
     			$('#closingdate').text(checkValue(loanData.closingdate));
     			$('#description').text(UCFirst(checkValue(loanData.description)));
     			$('#contract').attr("onclick", 'window.location.href="' + loanData.contractpdf + '"');
+    			
+    			//$('#group').text(checkValue(id));
+    			//$('#groupButton').attr("onclick", 'window.location.href="group.jsp?id=' + id + '"');
     			
     			getUser(loanData.useridfk);
 
@@ -204,12 +207,10 @@
 
     	hr.onreadystatechange = function() {
     		if (hr.readyState == 4 && hr.status == 200) {
-    			//$('#subLoader').fadeOut('fast');
+    			$('#mainLoader').fadeOut('fast');
     			var userData = JSON.parse(hr.responseText);
 
     			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
-    			$('#group').text(checkValue(id));
-    			$('#groupButton').attr("onclick", 'window.location.href="group.jsp?id=' + id + '"');
     			$('#status').text(UCFirst(checkValue(userData[0].status)));	
 
     		} else if (hr.readyState == 4) {
