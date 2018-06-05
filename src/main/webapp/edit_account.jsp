@@ -16,11 +16,18 @@
             <form id="user" onsubmit="return false">
                 <ul class="flex-outer">
                     <li>
-                        <label for="usertype">Loan Status</label>
+                        <label for="usertype">User type</label>
                         <select name="usertype" id="usertype">
                             <option value="applicant">Loan Applicant</option>
                             <option value="officer">Loan Officer</option>
                             <option value="admin">Admin</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="status">Account status</label>
+                        <select name="status" id="status">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
                         </select>
                     </li>
                     <li>
@@ -337,6 +344,7 @@
     </main>
 
     <script type="text/javascript">
+        var addressidfk;
         //retrieve data to fill form
         $(document).ready(function () {
             $.ajax({
@@ -349,6 +357,8 @@
                     console.log(response);
                     $("#username").val(response["0"].username);
                     $("#first-name").val(response["0"].firstName);
+                    $("#usertype").val(response["0"].userType);
+                    $("#status").val(response["0"].status);
                     $("#last-name").val(response["0"].lastName);
                     $("#phone").val(response["0"].phonenumber);
                     $("#date-of-birth").val(response["0"].dateofbirth);
@@ -358,6 +368,8 @@
                     $("#location").val(response["0"].addressInformation["0"].location);
                     $("#description").val(response["0"].addressInformation["0"].description);
                     $("#country").val(response["0"].addressInformation["0"].country);
+                    addressidfk = (response["0"].addressInformation["0"].adressid);
+
                 },
                 error: function (response, textStatus, errorThrown) {
                     console.log("Failed.");
@@ -370,19 +382,25 @@
 
             //post data when form is submitted
             $("form").submit(function () {
+                var formData = $("#user").serializeArray();
+                formData.push({
+                    name : "addressidfk",
+                    value : addressidfk
+                });
+
                 $.ajax({
                     url: "/bundlePWABackend/restservices/user/" + getParameterByName('id'),
                     type: "put",
-                    data: $("form").serialize(),
+                    data: formData,
 
                     success: function (response) {
 
-                        alert("Loan updated succesfully.");
+                        alert("User updated succesfully.");
 
                     },
                     error: function (response, textStatus, errorThrown) {
 
-                        alert("Loan could not be updated.")
+                        alert("User could not be updated.")
 
                         console.log("textStatus: " + textStatus);
                         console.log("errorThrown: " + errorThrown);
