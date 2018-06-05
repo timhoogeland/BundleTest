@@ -158,7 +158,7 @@
     		if (hr.readyState == 4 && hr.status == 200) {
     			$('#mainLoader').fadeOut('fast');
     			var userData = JSON.parse(hr.responseText);
-    			var addressData = JSON.parse(userData[0].address);
+    			var addressData = userData[0].addressInformation[0];
 
     			$('.call1').attr("loading","false");
     			$('#username').text(checkValue(userData[0].username));
@@ -167,11 +167,11 @@
     			$('#birthdate').text(checkValue(userData[0].dateofbirth));
     			$('#role').text(UCFirst(checkValue(userData[0].userType)));
     			$('#status').text(UCFirst(checkValue(userData[0].status)));
-    			$('#street').text(UCFirst(checkValue(addressData[0].street + " " + addressData[0].number)));
-    			$('#postal').text(checkValue(addressData[0].postalcode));
-    			$('#country').text(checkValue(addressData[0].country));
-    			$('#description').text(checkValue(addressData[0].description));
-    			$('#coordinates').text(checkValue(addressData[0].location));
+    			$('#street').text(UCFirst(checkValue(addressData.street + " " + addressData.number)));
+    			$('#postal').text(checkValue(addressData.postalcode));
+    			$('#country').text(checkValue(addressData.country));
+    			$('#description').text(checkValue(addressData.description));
+    			$('#coordinates').text(checkValue(addressData.location));
 
     			if(checkValue(userData[0].photo, 'no') !== 'no') {
     				$('#pfbutton').removeClass('hide');

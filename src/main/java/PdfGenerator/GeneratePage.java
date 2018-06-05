@@ -21,7 +21,7 @@ public class GeneratePage {
 		
 		try{
 			
-			PdfWriter.getInstance(document, new FileOutputStream("C:/Users/Douwe/Downloads"));
+			PdfWriter.getInstance(document, new FileOutputStream("C:/temp/bundlecontract.pdf"));
 			 
 			document.open();
 			
@@ -34,10 +34,22 @@ public class GeneratePage {
 			//document.add(new Paragraph(data.getAdressData().getDescription()));
 			//document.add(new Paragraph(data.getAdressData().getLocation()));
 			document.add(Chunk.NEWLINE);
-			document.add(new Paragraph("userinfo"));
+			document.add(new Paragraph("Adres information"));
+			document.add(new Paragraph(data.getAdressData().getCountry()));
+			document.add(new Paragraph(data.getAdressData().getLocation()));
+			document.add(new Paragraph(data.getAdressData().getPostalCode()));
+			document.add(new Paragraph(data.getAdressData().getStreet()));
 			document.add(Chunk.NEWLINE);
-			document.add(new Paragraph("loaninfo"));
+			document.add(new Paragraph("Loan information"));
+			document.add(new Paragraph(data.getLoanData().getDescription()));
+			document.add(new Paragraph(data.getLoanData().getLoanType()));
+			document.add(new Paragraph(data.getLoanData().getAmount()));
 			document.add(Chunk.NEWLINE);
+			document.add(new Paragraph("User information:"));
+			document.add(new Paragraph(data.getUserData().getFirstName()));
+			document.add(new Paragraph(data.getUserData().getLastname()));
+			document.add(new Paragraph(data.getUserData().getStatus()));
+			document.add(new Paragraph(data.getUserData().getPhonenumber()));
 			//document.add(chunkUser);
 			//document.add(chunkLoan);
 			document.close();

@@ -153,7 +153,7 @@ public class UserDAO extends baseDAO {
             pstmt.setString(5, user.getStatus());
             pstmt.setDate(6, user.getDateOfBirth());
             pstmt.setString(7, user.getPhoto());
-            pstmt.setInt(8, user.getAddressIdFk());
+            pstmt.setInt(8, user.getAddressId());
             pstmt.setString(9, user.getUsername());
             pstmt.setInt(10, user.getUserId());
             

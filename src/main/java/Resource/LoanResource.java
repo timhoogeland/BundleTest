@@ -8,6 +8,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
@@ -54,12 +55,10 @@ public class LoanResource {
 	}
 	
 	@GET
-	@RolesAllowed("admin")
+//	@RolesAllowed("admin")
 	@Produces("application/json")
 	public String getAllLoans(){
-		GeneratePage pdf = new GeneratePage();
-    	pdf.main();
-
+		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		for(Loan l : service.getAllLoans()){
 			jab.add(buildJson(l));
@@ -72,12 +71,15 @@ public class LoanResource {
 	@Path("/{loanId}")
 	@Produces("application/json")
 	public String getLoan(@PathParam("loanId") int loanId){
-		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		JsonObjectBuilder job = null;
+
 		for(Loan l :service.getLoanById(loanId)){
-			jab.add(buildJson(l));
+			job = buildJson(l);
 		}
-		JsonArray array = jab.build();
-		return array.toString();
+		
+		JsonObject object = job.build();
+		return object.toString();
 	}
 	
 	@POST
@@ -103,6 +105,8 @@ public class LoanResource {
 		Loan newLoan = new Loan(0, loanType, Integer.parseInt(amount), status, sqlStartDate, Integer.parseInt(duration), sqlClosingDate, 0, "", description, Integer.parseInt(userIdFk));
 		if (service.newLoan(newLoan)){
 			data.setLoanData(newLoan);
+			GeneratePage pdf = new GeneratePage();
+	    	pdf.main();
 			return Response.ok().build();
 		}else{
 			return Response.status(Response.Status.FOUND).build();
@@ -126,6 +130,7 @@ public class LoanResource {
     	
         Loan loan = service.findById(id);
         if (loan != null) {
+        	loan.setLoanId(id);
             loan.setStatus(status);
             loan.setLoanType(type);
             loan.setPaidAmount(paid);
@@ -134,10 +139,15 @@ public class LoanResource {
             
 
             Loan updatedLoan = service.updateLoan(loan);
-
-            return Response.ok(buildJson(updatedLoan)).build();
+            String response = buildJson(updatedLoan).build().toString();
+            return Response.ok(response).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+	public JsonObjectBuilder getLoanJson(Loan loan){
+		return buildJson(loan);
+	}
 }
+	
+

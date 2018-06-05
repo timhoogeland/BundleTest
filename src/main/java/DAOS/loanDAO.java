@@ -108,10 +108,7 @@ public class loanDAO extends baseDAO {
             e.printStackTrace();
         }
 
-        return findLoanById(changedLoan.getLoanId());
+        return findByID(changedLoan.getLoanId());
     }
-	public Objects.Loan findLoanById(int loanId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

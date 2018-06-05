@@ -120,9 +120,9 @@ function toEditLoan(loanid) {
 }
 
 function toViewLoan(loanId) {
-
 	window.location.replace("loan.jsp?id=" + loanId);
 }
+
 
 function UCFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
@@ -150,7 +150,6 @@ function toEditContract(loanid) {
 function toViewContract() {
 	var loanid = document.getElementById('loanid');
 	window.location.replace("contract.jsp");
-
 }
 
 function toEdit() {
