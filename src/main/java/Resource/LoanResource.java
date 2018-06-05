@@ -132,6 +132,7 @@ public class LoanResource {
     	
         Loan loan = service.findById(id);
         if (loan != null) {
+        	loan.setLoanId(id);
             loan.setStatus(status);
             loan.setLoanType(type);
             loan.setPaidAmount(paid);
@@ -140,8 +141,8 @@ public class LoanResource {
             
 
             Loan updatedLoan = service.updateLoan(loan);
-
-            return Response.ok(buildJson(updatedLoan)).build();
+            String response = buildJson(updatedLoan).build().toString();
+            return Response.ok(response).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

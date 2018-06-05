@@ -91,7 +91,7 @@
             //post data when form is submitted
             $("form").submit(function() {
             $.ajax({
-					url : "/bundlePWABackend/restservices/loan" + getParameterByName('id'),
+					url : "/bundlePWABackend/restservices/loan/" + getParameterByName('id'),
 					type : "put",
 					data : $("form").serialize(),
 
