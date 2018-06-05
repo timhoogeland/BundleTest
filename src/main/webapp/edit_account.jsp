@@ -396,6 +396,7 @@
                     success: function (response) {
 
                         alert("User updated succesfully.");
+                        updateAddressData();
 
                     },
                     error: function (response, textStatus, errorThrown) {
@@ -408,6 +409,30 @@
 
                     }
                 });
+
+                function updateAddressData(){
+                    $.ajax({
+                    url: "/bundlePWABackend/restservices/address/" + addressidfk,
+                    type: "put",
+                    data: $("#address").serialize(),
+
+                    success: function (response) {
+
+                        alert("Address updated succesfully.");
+
+                    },
+                    error: function (response, textStatus, errorThrown) {
+
+                        alert("Address could not be updated.")
+
+                        console.log("textStatus: " + textStatus);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log("status: " + response.status);
+
+                    }
+                });
+                }
+
             });
         });
     </script>
