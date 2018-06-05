@@ -16,10 +16,10 @@ public class User {
 	private String photo;
 	private String username;
 	
-	public User(int userID, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
+	public User(int userId, String userType, String firstName, String lastName, int phonenumber, String password, String salt, String status,
 			int adresIDFK, String photo, Date dateOfBirth, String userName) {
 
-		this.userId = userID;
+		this.userId = userId;
 		this.userType = userType;
 		this.firstName = firstName;
 		this.lastname = lastName;
