@@ -10,8 +10,8 @@
 	<main>
 	<div class="welcomeBlock">
 		<h1>Groups</h1>
-		<button class="buttonRound">?</button>
-		<button class="buttonRound" onclick="toggleHide('helpPopup', false)">+</button>
+		<button class="buttonRound"  onclick="toggleHide('helpPopup', false)">?</button>
+		<button class="buttonRound">+</button>
 	</div>
 
 	<div class="block">
