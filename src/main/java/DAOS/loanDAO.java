@@ -60,9 +60,8 @@ public class loanDAO extends baseDAO {
 	public boolean newLoan(Loan newLoan) {
 		boolean result = false;
 		String query = 	"INSERT INTO public.loan(" +
-						"loanid, loantype, amount, status, startdate, duration, closingdate, paidAmount, contractPdf, description, useridfk) " + 
-						"VALUES(" +
-						newLoan.getLoanId() + ", '" +
+						"loantype, amount, status, startdate, duration, closingdate, paidAmount, contractPdf, description, useridfk) " + 
+						"VALUES('" +
 						newLoan.getLoanType() + "', " +
 						newLoan.getAmount() + ", '" + 
 						newLoan.getStatus() + "', " +
@@ -109,10 +108,7 @@ public class loanDAO extends baseDAO {
             e.printStackTrace();
         }
 
-        return findLoanById(changedLoan.getLoanId());
+        return findByID(changedLoan.getLoanId());
     }
-	public Objects.Loan findLoanById(int loanId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
