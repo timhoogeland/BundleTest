@@ -11,7 +11,14 @@ self.addEventListener("install", function(event) {
 	        	'login.jsp',
 	        	'account.jsp',
 	        	'contracts.jsp',
-	        	'allaccounts.jsp'
+	        	'allaccounts.jsp',
+	        	'new_contract.jsp',
+	        	'groups.jsp',
+	        	'edit_account.jsp',
+	        	'edit_loan.jsp',
+	        	'edit_contract.jsp',
+	        	'group.jsp'
+	        	
 	        ]);
 	      })
 	      .then(function() {
