@@ -11,7 +11,7 @@
         <div class="welcomeBlock">
             <h1>Account</h1>
             <button class="buttonRound" onclick="toggleHide('helpPopup', false)">?</button>
-			<button class="buttonRound" onclick="window.location.href='edit_account.jsp'">&#9998;</button>
+			<button class="buttonRound" id="edit">&#9998;</button>
         </div>
 
         <div class="block">
@@ -151,7 +151,9 @@
     	} else {
     		id = getParameterByName("id")
     	}
-
+    	
+    	$('#edit').attr('onclick', "window.location.href='edit_account.jsp?id=" + id + "'");
+    	
     	hr.open("GET", "/bundlePWABackend/restservices/user/" + id, true);
 
     	hr.onreadystatechange = function() {
