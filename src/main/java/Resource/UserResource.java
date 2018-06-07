@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -85,7 +86,7 @@ public class UserResource {
 //    }
 
     @GET
-//    @RolesAllowed({"beheerder","admin"})
+    @RolesAllowed({"beheerder","admin"})
     @Produces("application/json")
     public String getAccounts() {
         JsonArrayBuilder jab = Json.createArrayBuilder();
@@ -100,7 +101,7 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-//    @RolesAllowed({"beheerder","admin","user"})
+    @RolesAllowed({"admin","user"})
     @Produces("application/json")
     public String getAccountByID(@PathParam("id") int id) {
         UserWithAddress user = service.getUserByID(id);
@@ -140,6 +141,7 @@ public class UserResource {
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
     	RetrieveData data = new RetrieveData();
+    	
     					
 
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
