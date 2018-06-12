@@ -196,7 +196,7 @@
     						$('#loannumber').text(checkValue(loanData.loanid));
     						$('#loanButton').attr("onclick", "window.location.href='loan.jsp?id="+ loanData.loanid +"'");
     					} else if (hr2.readyState == 4) {
-    						addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
+    						addNotification('Retrieving data failed with status ' + hr2.status + '. Try again later.');
     					}
     				}
     				hr2.send(null);
