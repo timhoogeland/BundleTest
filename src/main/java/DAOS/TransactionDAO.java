@@ -38,20 +38,18 @@ public class TransactionDAO extends baseDAO{
 	}
 	
 	public List<Transaction> getAllTransactions(){
-		List<Transaction> resultlist = new ArrayList<Transaction>();
 		String query = "Select * from " + tablename;
 		
 		try (Connection con = super.getConnection()) {
 			Statement stmt = con.createStatement();
 			dbResultSet = stmt.executeQuery(query);
-			resultlist = selectTransaction(dbResultSet);
 			
 			con.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		
-		return resultlist;
+		return selectTransaction(dbResultSet);
 	}
 	
 	public List<Transaction> getTransactionById(int transactionId){

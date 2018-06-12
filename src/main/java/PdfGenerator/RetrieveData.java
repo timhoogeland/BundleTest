@@ -1,12 +1,12 @@
 package PdfGenerator;
 
-import Objects.Adress;
+import Objects.Address;
 import Objects.Loan;
 import Objects.User;
 
 public class RetrieveData {
 	private User user;
-	private Adress adress;
+	private Address adress;
 	private Loan loan;
 	public void setUserData(User userData){
 		user = userData;
@@ -15,10 +15,10 @@ public class RetrieveData {
 	public User getUserData(){
 		return user;
 	}
-	public void setAdresData(Adress adressData){
+	public void setAdresData(Address adressData){
 		adress = adressData;
 	}
-	public Adress getAdressData(){
+	public Address getAdressData(){
 		return adress;
 	}
 	public void setLoanData(Loan loanData){

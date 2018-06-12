@@ -13,7 +13,7 @@ public class LoanService {
 	}
 	
 	public Loan findById(int loanId) {
-		return Loan.findByID(loanId);
+		return Loan.findLoanById(loanId);
 	}
 	
 	public boolean newLoan(Loan newLoan){
