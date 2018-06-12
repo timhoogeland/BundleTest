@@ -52,7 +52,6 @@
 	</div>
 	</main>
 
-	<jsp:include page="parts/footer.jsp" />
 	<script>
 		function getGroup() {
 			var hr = new XMLHttpRequest();
@@ -114,7 +113,7 @@
 									+ amount
 									+ '</td>'
 									+ '<td id ="progress" data-label="Progress">'
-									+ '<progress value=' +paidamount+' max= '+  amount+ '> </progress></td>'
+									+ '<progress class="inlineProgress" value=' +paidamount+' max= '+  amount+ '> </progress></td>'
 									+ '<td id = "duration" data-label="Time Remaining">'
 									+ duration
 									+ " months"
@@ -122,8 +121,8 @@
 									+ '<td id="status" data-label="Status">'
 									+ status
 									+ '</td>'
-									+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan("+ loanid + ");'>View</button> "
-									+ "<button class='small' onclick='toEditLoan("
+									+ "<td class='tdHide'>  <button class='small' onclick='toViewLoan("+ loanid + ");'>View</button></td> "
+									+ "<td class='tdHide'>  <button class='small' onclick='toEditLoan("
 									+ loanid + ");'>Edit</button> </td>";
 							table.appendChild(tr);
 							return true;
