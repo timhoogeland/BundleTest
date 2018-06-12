@@ -10,6 +10,7 @@
 	</label>
 	<ul class="menu" id="menu">
 		<li><a href="index.jsp">Home</a></li>
+		<li><a href="dashboard.jsp">Dashboard</a></li>
 		<li><a href="groups.jsp">Groups</a></li>
 		<li><a href="contracts.jsp">Contracts</a></li>
 		<li><a href="allaccounts.jsp">All Accounts</a></li>
