@@ -523,13 +523,34 @@ tr:hover {
 	width: 40px;
 	padding: 0px 0px;
 	height: 40px;
-
 }
 
 .blockGroup {
 	height: 195px;
     margin: 15px;
 	overflow: auto;
+}
+
+.connection {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
+.connect {
+    z-index: 100;
+    width: 225px;
+    background-color: #000000b5;
+    margin: 0px auto 15px auto;
+    color: white;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.connect p {
+	padding: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .groupTitle{

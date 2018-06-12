@@ -54,6 +54,8 @@
 
 			})
 		})
+		
+		updateIndicator();
 	</script>
 </header>
 
