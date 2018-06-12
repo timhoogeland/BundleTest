@@ -10,15 +10,23 @@ self.addEventListener("install", function(event) {
 	        	'index.jsp',
 	        	'login.jsp',
 	        	'account.jsp',
+	        	'contract.jsp',
 	        	'contracts.jsp',
 	        	'allaccounts.jsp',
 	        	'new_contract.jsp',
+	        	'new_group.jsp',
+	        	'group.jsp',
 	        	'groups.jsp',
+	        	'loan.jsp',
 	        	'edit_account.jsp',
 	        	'edit_loan.jsp',
+<<<<<<< HEAD
 	        	'edit_contract.jsp',
 	        	'group.jsp'
 
+=======
+	        	'edit_contract.jsp'	        	
+>>>>>>> cf2c74988b32b0926f8851b5df04b8e203e6646a
 	        ]);
 	      })
 	      .then(function() {
