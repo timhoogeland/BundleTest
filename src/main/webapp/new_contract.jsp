@@ -325,34 +325,21 @@
 				<li><label for="loandescription">Loan description</label> <input
 					name="loandescription" id="loandescription"
 					placeholder="Enter the loan description here"></input></li>
-				<li>
-					<div class="wrapper">
-						<label for="signature-pad">Signature</label>
-						<canvas id="signature-pad" class="signature-pad" width=400
-							height=200 style="border: 1px solid black;"></canvas>
-						<button id="save">Save</button>
-						<button id="clear" style="display: inline; clear: both;">Clear</button>
-					</div>
-
 				<li><li class="wrapper"><label for="signature-pad">Signature <button type="button" id="clear" class="buttonRound">x</button></label>
 					<canvas id="signature-pad" class="signature-pad"
 						height=200 style="border: 1px solid black; width: 100%;"></canvas>
 				</li>
 				<li>
-					<button type="submit">Submit</button>
 					<button style="width: 100%;" id="submit" type="submit">Submit</button>
 				</li>
 			</ul>
 
 		</form>
 
-
 		</div>
 	</div>
 	</main>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
 	<script type="text/javascript">
@@ -368,13 +355,8 @@
 			penColor : 'rgb(0, 0, 0)'
 		});
 
-		var saveButton = document.getElementById('save');
 		var cancelButton = document.getElementById('clear');
 
-		saveButton.addEventListener('click', function(event) {
-			var data = signaturePad.toDataURL('image/png');
-			window.open(data);
-		});
 		
 		//saveButton.addEventListener('click', function(event) {
 		//	var data = signaturePad.toDataURL('image/png');
@@ -501,7 +483,6 @@
 
 						}
 					});
-				};
 				}
 				;
 
@@ -519,7 +500,6 @@
 
 						success : function(response) {
 
-							alert("Contract saved.");
 							addNotification('Contract created', "green", 6000);
 							sendPdfData();
 						},
@@ -529,7 +509,6 @@
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
-							alert("Contract not saved.");
 
 						}
 					});
