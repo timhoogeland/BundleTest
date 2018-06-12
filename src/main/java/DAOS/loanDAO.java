@@ -56,6 +56,11 @@ public class loanDAO extends baseDAO {
             return results.get(0);
         }
     }
+    
+    public List<Loan> getAllLoansFromLastWeek(){
+    	String query = "select * from " + tablename + " where startdate between NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7 AND NOW()::DATE-EXTRACT(DOW from NOW())::INTEGER";
+    	return selectLoan(query);
+    }
 
 	public boolean newLoan(Loan newLoan) {
 		boolean result = false;

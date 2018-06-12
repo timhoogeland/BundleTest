@@ -84,6 +84,18 @@ public class TransactionDAO extends baseDAO{
 		return selectTransaction(dbResultSet);
 	}
 	
+	public List<Transaction> getTransactionFromLastWeek(){
+		String query = "select * from " + tablename + " where timestamp between NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7 AND NOW()::DATE-EXTRACT(DOW from NOW())::INTEGER";
+		
+		try(Connection con = super.getConnection()) {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			dbResultSet = pstmt.executeQuery();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return selectTransaction(dbResultSet);
+	}
+	
 	public boolean addTransaction(Transaction transaction) {
 		String query = "Insert Into " + tablename + "(amount, sender, receiver, timestamp, loanidfk, airtimeidfk) Values(?,?,?,?,?,?)";
 		boolean result = false;

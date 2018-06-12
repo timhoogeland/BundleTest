@@ -139,7 +139,7 @@ public class UserDAO extends baseDAO {
         }
     }
 
-    public UserWithAddress update(User user) {
+    public UserWithAddress update(UserWithAddress user) {
         String query = "UPDATE " + tablename + " SET usertype = ?, firstname = ?, lastname = ?, phonenumber = ?,"
         		+ " status = ?, dateofbirth = ?, photo = ?, addressidfk = ?, username = ?"
         		+ " WHERE userid = ?";

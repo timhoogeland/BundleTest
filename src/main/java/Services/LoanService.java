@@ -27,4 +27,8 @@ public class LoanService {
 	public Loan updateLoan(Loan loan){
 		return Loan.updateLoan(loan);
 	}
+	
+	public List<Loan> getLoansFromLastWeek(){
+		return Loan.getAllLoansFromLastWeek();
+	}
 }
