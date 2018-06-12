@@ -102,7 +102,6 @@
 		}
 
 		$("#searchInput").keyup(function() {
-			console.log("ikdoeiets");
 			// Split the current value of the filter textbox
 			var data = this.value.split(" ");
 			// Get the table rows

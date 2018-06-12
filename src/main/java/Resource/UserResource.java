@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import Objects.User;
-import PdfGenerator.RetrieveData;
+import PdfGenerator.RetrieveUserData;
 import Objects.UserLoanInformation;
 import Objects.UserWithAddress;
 import Services.AddressService;
@@ -138,7 +138,7 @@ public class UserResource {
 
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
-    	RetrieveData data = new RetrieveData();
+    	RetrieveUserData data = new RetrieveUserData();
     					
 
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
@@ -163,6 +163,8 @@ public class UserResource {
         User newUser = new User(userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
         UserWithAddress returnUser = service.newUser(newUser);
         if (returnUser != null) {
+
+
         	data.setUserData(newUser);
         	String a = buildJSON(returnUser).build().toString();
             return Response.ok(a).build();

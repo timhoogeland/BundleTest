@@ -405,13 +405,13 @@
 			$("form").submit(function() {
 				var addressid;
 				var userid;
-
+				
 				$.ajax({
 					url : "/bundlePWABackend/restservices/address",
 					type : "post",
 					data : $("#address").serialize(),
 
-					success : function(response) {
+				success : function(response) {
 
 						if (addressid == null) {
 							addressid = response["adressid"];
@@ -428,7 +428,32 @@
 
 					}
 				});
+				function sendPdfData(){
+					var pdfData = $('#address, #user, #loan').serializeArray();
+					pdfData.push({
+						name : "useridfk",
+						value : userid
+					});
+					$.ajax({
+						url : "/bundlePWABackend/restservices/pdf",
+						type : "post",
+						data : pdfData,
 
+						success : function(response) {
+							
+							addNotification('Contract PDF saved', "green", 6000);
+							
+						},
+						error : function(response, textStatus, errorThrown) {
+
+							addNotification('Contract PDF not saved, contact admin', null, 6000);
+							console.log("textStatus: " + textStatus);
+							console.log("errorThrown: " + errorThrown);
+							console.log("status: " + response.status);
+
+						}
+					});
+				};
 				function sendUserData() {
 
 					var formData = $("#user").serializeArray();
@@ -457,7 +482,7 @@
 						},
 						error : function(response, textStatus, errorThrown) {
 
-							addNotification('Contract not saved, try again later');
+							addNotification('Contract not saved, try again later', null, 6000);
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
@@ -481,11 +506,12 @@
 
 						success : function(response) {
 
-							addNotification('Contract created', "green");
+							addNotification('Contract created', "green", 6000);
+							sendPdfData();
 						},
 						error : function(response, textStatus, errorThrown) {
 
-							addNotification('Contract not saved, try again later');
+							addNotification('Contract not saved, try again later', null, 6000);
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
@@ -493,6 +519,7 @@
 						}
 					});
 				}
+				
 			});
 		});
 	</script>
