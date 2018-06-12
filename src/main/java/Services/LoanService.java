@@ -2,6 +2,8 @@ package Services;
 
 import java.util.List;
 
+import javax.json.JsonArrayBuilder;
+
 import DAOS.loanDAO;
 import Objects.Loan;
 
@@ -30,5 +32,9 @@ public class LoanService {
 	
 	public List<Loan> getLoansFromLastWeek(){
 		return Loan.getAllLoansFromLastWeek();
+	}
+	
+	public JsonArrayBuilder getGrouplessLoans(){
+		return Loan.getGrouplessLoans();
 	}
 }

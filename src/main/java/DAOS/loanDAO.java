@@ -9,6 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
+
 import Objects.Loan;
 
 public class loanDAO extends baseDAO {
@@ -155,5 +159,32 @@ public class loanDAO extends baseDAO {
 
         return findLoanById(changedLoan.getLoanId());
     }
+	
+	public JsonArrayBuilder getGrouplessLoans(){
+		String query = "SELECT l.useridfk,	u.firstname || ' ' || u.lastname as name FROM public.user u, public.loan l LEFT JOIN grouploan gl on l.loanid = gl.loanidfk where gl.loanidfk is NULL;";
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		try (Connection con = super.getConnection()) {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			dbResultSet = pstmt.executeQuery();
+			
+			con.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		try {
+			while(dbResultSet.next()){
+				JsonObjectBuilder job = Json.createObjectBuilder();
+				job.add("userid", dbResultSet.getInt("useridfk"));
+				job.add("name", dbResultSet.getString("name"));
+				jab.add(job);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return jab;
+		
+	}
 	
 }

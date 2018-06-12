@@ -159,6 +159,14 @@ public class LoanResource {
 	public JsonObjectBuilder getLoanJson(Loan loan){
 		return buildJson(loan);
 	}
+	
+	@GET
+	@Path("/groupless")
+	@Produces("application/json")
+	public String getGrouplessLoans(){
+		JsonArrayBuilder jab = service.getGrouplessLoans();
+		return jab.build().toString();
+	}
 }
 	
 
