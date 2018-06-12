@@ -361,6 +361,10 @@ footer{
 	background: #33333328;
 }
 
+.formMargin {
+	margin: 30px 0px 100px 0px;
+}
+
 button {
 	background-color: #0f4c48;
 	border: none;
@@ -605,6 +609,16 @@ progress::-moz-progress-bar {
 	margin-right: 10px;
 }
 
+.filterList {
+	margin: 25px;
+	max-width: inherit;
+}
+
+.filterList input {
+    width: 100% !important;
+    margin: 0px !important;
+}
+
 
 .pf {
 	width: 130px;
@@ -814,6 +828,11 @@ progress::-moz-progress-bar {
 	.notification p{
 		padding: 5px 0px;
 	}
+	
+		
+	.filterList {
+		margin: 0px 0px 25px 0px;
+	}
 }
 
 /* Smaller than 900 px (phone) */
@@ -975,9 +994,7 @@ progress::-moz-progress-bar {
 	    margin: 0px auto 20px auto;
 	    border-radius: 5px;
 	    height: 220px;
-
 	}
-
 
 	.blockHalf h2 {
 		text-align: center;
