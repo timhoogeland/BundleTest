@@ -21,11 +21,15 @@
     </div>
     
 		<div id="contracts">
+			<ul class="flex-outer filterList">
+				<li><input type="text"
+					id="searchInput" placeholder="Type here to filter"></li>
+			</ul>
 			<table id='contractstable' class='contracts_table'>
 				<thead>
 					<tr class="desktop">
-						<th>ID</th>
-						<th>Amount ($)</th>
+						<th class="hide">ID</th>
+						<th>Amount</th>
 						<th>Duration</th>
 						<th>End Date</th>
 						<th>Status</th>
@@ -56,7 +60,7 @@
 					var tr = document.createElement('tr');
 					tr.innerHTML = '<td class="id" id="loanid" data-label="ID">'
 							+ object.loanId + '</td>'
-							+ '<td id ="amount" data-label="Amount">'
+							+ '<td class="hide" id ="amount" data-label="Amount">'
 							+ object.amount + '</td>'
 							+ '<td id = "duration" data-label="Duration">'
 							+ object.duration + " months" + '</td>'

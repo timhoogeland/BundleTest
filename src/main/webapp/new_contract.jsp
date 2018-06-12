@@ -9,11 +9,13 @@
 	<main>
 	<div class="welcomeBlock">
 		<h1>New Contract</h1>
+		<button class="buttonRound" onclick="toggleHide('helpPopup', false)">?</button>
 	</div>
 
 	<div class="buttonBlock"></div>
 
 	<div class="block">
+		<div class="formMargin">
 		<form id="user" onsubmit="return false">
 			<ul class="flex-outer">
 				<li><label for="first-name">First Name</label> <input
@@ -323,44 +325,43 @@
 				<li><label for="loandescription">Loan description</label> <input
 					name="loandescription" id="loandescription"
 					placeholder="Enter the loan description here"></input></li>
-				<li>
-					<div class="wrapper">
-						<label for="signature-pad">Signature</label>
-						<canvas id="signature-pad" class="signature-pad" width=400
-							height=200 style="border: 1px solid black;"></canvas>
-						<button id="save">Save</button>
-						<button id="clear" style="display: inline; clear: both;">Clear</button>
-					</div>
-
+				<li><li class="wrapper"><label for="signature-pad">Signature <button type="button" id="clear" class="buttonRound">x</button></label>
+					<canvas id="signature-pad" class="signature-pad"
+						height=200 style="border: 1px solid black; width: 100%;"></canvas>
 				</li>
 				<li>
-					<button type="submit">Submit</button>
+					<button style="width: 100%;" id="submit" type="submit">Submit</button>
 				</li>
 			</ul>
 
 		</form>
 
-
+		</div>
 	</div>
 	</main>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
 	<script type="text/javascript">
+	 $('#signature-pad').attr('width', $('#signature-pad').width());
+	
+		$(window).on('resize', function(){
+		      $('#signature-pad').attr('width', $('#signature-pad').width());
+		});
+	
 		var signaturePad = new SignaturePad(document
 				.getElementById('signature-pad'), {
 			backgroundColor : 'rgba(255, 255, 255, 0)',
 			penColor : 'rgb(0, 0, 0)'
 		});
 
-		var saveButton = document.getElementById('save');
 		var cancelButton = document.getElementById('clear');
 
-		saveButton.addEventListener('click', function(event) {
-			var data = signaturePad.toDataURL('image/png');
-			window.open(data);
-		});
+		
+		//saveButton.addEventListener('click', function(event) {
+		//	var data = signaturePad.toDataURL('image/png');
+		//	window.open(data);
+		//});
 
 		cancelButton.addEventListener('click', function(event) {
 			signaturePad.clear();
@@ -456,13 +457,15 @@
 						},
 						error : function(response, textStatus, errorThrown) {
 
+							addNotification('Contract not saved, try again later');
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
 
 						}
 					});
-				};
+				}
+				;
 
 				function sendLoanData() {
 					var formData = $("#loan").serializeArray();
@@ -478,14 +481,14 @@
 
 						success : function(response) {
 
-							alert("Contract saved.");
+							addNotification('Contract created', "green");
 						},
 						error : function(response, textStatus, errorThrown) {
 
+							addNotification('Contract not saved, try again later');
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
-							alert("Contract not saved.");
 
 						}
 					});
@@ -495,6 +498,14 @@
 	</script>
 
 	<jsp:include page="parts/footer.jsp" />
+	
+	<div id="helpPopup" class="popup" style="display: none;">
+		<div>
+			<h2>New Contract explained</h2>
+			<button class="buttonRound" onclick="toggleHide('helpPopup', true)">X</button>
+			<p>Add text here that explains where some of the fields are used for</p>
+		</div>
+	</div>
 
 </body>
 </html>
