@@ -19,10 +19,6 @@ public class UserService {
 	    public UserWithAddress getUserByID(int id) { 
 	    	return userDAO.findById(id); 
 	    	}
-	    
-	    public UserWithAddress getUserByID2(int id) { 
-	    	return userDAO.findById(id); 
-	    	}
 
 	    public UserWithAddress update (UserWithAddress user) { 
 	    	return userDAO.update(user); 

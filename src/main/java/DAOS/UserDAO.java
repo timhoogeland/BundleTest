@@ -105,14 +105,14 @@ public class UserDAO extends baseDAO {
     	 PreparedStatement pstmt = con.prepareStatement(query);
     	 
     	 pstmt.setInt(1, userId);
-    	 
+    	 con.close();
     	 dbResultSet = pstmt.executeQuery();
     	 
-    	 resultlist = selectUsersWithAddress(dbResultSet);
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
     	
+    	resultlist = selectUsersWithAddress(dbResultSet);
         if (resultlist.size() == 0) {
             return null;
         } else {
