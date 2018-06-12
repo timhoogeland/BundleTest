@@ -404,7 +404,7 @@
 			$("form").submit(function() {
 				var addressid;
 				var userid;
-				
+
 				$.ajax({
 					url : "/bundlePWABackend/restservices/address",
 					type : "post",
@@ -427,35 +427,14 @@
 
 					}
 				});
-				function sendPdfData(){
-					var pdfData = $('#address, #user, #loan').serializeArray();
-					pdfData.push({
-						name : "useridfk",
-						value : userid
-					});
-					$.ajax({
-						url : "/bundlePWABackend/restservices/pdf",
-						type : "post",
-						data : pdfData,
 
-						success : function(response) {
-							
-						},
-						error : function(response, textStatus, errorThrown) {
-
-							console.log("textStatus: " + textStatus);
-							console.log("errorThrown: " + errorThrown);
-							console.log("status: " + response.status);
-
-						}
-					});
-				};
 				function sendUserData() {
 
 					var formData = $("#user").serializeArray();
 					formData.push({
 						name : "usertype",
 						value : "applicant"
+
 					});
 					formData.push({
 						name : "addressidfk",
@@ -513,7 +492,29 @@
 						}
 					});
 				}
-				
+				function sendPdfData(){
+					var pdfData = $('#address, #user, #loan').serializeArray();
+					pdfData.push({
+						name : "useridfk",
+						value : userid
+					});
+					$.ajax({
+						url : "/bundlePWABackend/restservices/pdf",
+						type : "post",
+						data : pdfData,
+
+						success : function(response) {
+
+						},
+						error : function(response, textStatus, errorThrown) {
+
+							console.log("textStatus: " + textStatus);
+							console.log("errorThrown: " + errorThrown);
+							console.log("status: " + response.status);
+
+						}
+					});
+				};
 			});
 		});
 	</script>
