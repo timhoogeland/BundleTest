@@ -10,6 +10,8 @@
 	<main>
         <div class="welcomeBlock">
             <h1>Edit Loan</h1>
+            <h1 id="title"></h1>
+
         </div>
         
         <div class="buttonBlock">
@@ -36,7 +38,7 @@
                         </select>
                     </li>
                     <li>
-                        <label for="paidamount">Paid Amount</label>
+                        <label for="paidamount" id="paidamountlbl">Paid Amount</label>
                         <input name="paidamount" id="paidamount" placeholder="Enter the loan-amount here"></input>
                     </li>
                     <li>
@@ -70,6 +72,8 @@
                 success : function(response) {
 
                         console.log(response);
+                        $("#title").text(response["loanId"]);
+                        $("#paidamountlbl").text("Paid amount (" + response["amount"] + " total)");
                         $("#loan-status").val(response["status"]);
                         $("#loan-type").val(response["loantype"]);
                         $("#paidamount").val(response["paidamount"]);
@@ -91,7 +95,7 @@
             //post data when form is submitted
             $("form").submit(function() {
             $.ajax({
-					url : "/bundlePWABackend/restservices/loan" + getParameterByName('id'),
+					url : "/bundlePWABackend/restservices/loan/" + getParameterByName('id'),
 					type : "put",
 					data : $("form").serialize(),
 

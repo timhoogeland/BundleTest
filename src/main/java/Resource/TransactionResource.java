@@ -66,7 +66,7 @@ public class TransactionResource {
 	}
 	
 	@GET
-	@Path("loanid/{id}")
+	@Path("/loanid/{id}")
 	@Produces("application/json")
 	public String getTransactionByLoanId(@PathParam("id") int loanId) {
 		if (service.getTransactionByLoanId(loanId) != null){

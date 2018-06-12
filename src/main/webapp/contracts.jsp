@@ -32,8 +32,6 @@
 						<th>Loan Type</th>
 					</tr>
 				</thead>
-				<tbody>
-				<tbody>
 			</table>
 		</div>
 	</div>

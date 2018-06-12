@@ -10,8 +10,8 @@
 	<main>
 	<div class="welcomeBlock">
 		<h1>Groups</h1>
-		<button class="buttonRound">?</button>
-		<button class="buttonRound" onclick="toggleHide('helpPopup', false)">+</button>
+		<button class="buttonRound"  onclick="toggleHide('helpPopup', false)">?</button>
+		<button class="buttonRound">+</button>
 	</div>
 
 	<div class="block">
@@ -23,8 +23,6 @@
 		</div>
 	</div>
 	</main>
-
-	<jsp:include page="parts/footer.jsp" />
 
 	<div id="helpPopup" class="popup" style="display: none;">
 		<div>
@@ -76,13 +74,17 @@
 							groupdiv += [
 									'<div> <label for="name"> <b>',
 									data[i].groupinformation[y].firstname + " " + data[i].groupinformation[y].lastname,
-									'</b><button class="buttonRound" onclick=window.location.href="loan.jsp?id='+ data[i].groupinformation[y].userid +'" >&#8618;</button></label>',
+									'</b><button class="buttonRound" onclick=window.location.href="loan.jsp?id='+ data[i].groupinformation[y].loanid +'" >&#8618;</button></label>',
 									' <progress value=' +data[i].groupinformation[y].paidamount+' max='+data[i].groupinformation[y].amount+'></progress></div>' ]
 									.join('\n');
 						}
 						table.innerHTML += (groupdiv + '</div><button class="groupButton" onclick=window.location.href="group.jsp?id='+ groupid +'">View</button></div>');
 						$("#totall"+ groupid).attr("max", totalAmount);
 						$("#totall"+ groupid).attr("value", totalPaid);
+					}
+					
+					if(datalength == 0){
+						addNotification("No groups found");
 					}
 
 				} else if (hr.readyState == 4) {
