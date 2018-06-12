@@ -9,21 +9,6 @@ if ('serviceWorker' in navigator) {
 } else {
   console.log('CLIENT: service worker is not supported.');
 }
-
-function updateIndicator() {
-	console.log(navigator.onLine);
-	if(navigator.onLine) {
-		$(".connection").fadeOut('slow');	
-	} else {
-		$(".connection").fadeIn('slow');
-	}
-}
-
-// Update the online status icon based on connectivity
-window.addEventListener('online',  updateIndicator);
-window.addEventListener('offline', updateIndicator);
-updateIndicator();
-
 // END: PWA initialisation
 
 // Login

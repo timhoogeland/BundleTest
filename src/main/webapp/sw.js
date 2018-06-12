@@ -20,13 +20,9 @@ self.addEventListener("install", function(event) {
 	        	'loan.jsp',
 	        	'edit_account.jsp',
 	        	'edit_loan.jsp',
-<<<<<<< HEAD
 	        	'edit_contract.jsp',
+	        	'dashboard.jsp',
 	        	'group.jsp'
-
-=======
-	        	'edit_contract.jsp'	        	
->>>>>>> cf2c74988b32b0926f8851b5df04b8e203e6646a
 	        ]);
 	      })
 	      .then(function() {

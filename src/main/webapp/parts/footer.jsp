@@ -8,3 +8,20 @@
 		<p>You are offline</p>
 	</div>
 </div>
+
+<script>
+function updateIndicator() {
+	if(navigator.onLine) {
+		console.log("online");
+		$(".connection").fadeOut('slow');	
+	} else {
+		console.log("offline");
+		$(".connection").fadeIn('slow');
+	}
+}
+
+// Update the online status icon based on connectivity
+window.addEventListener('online',  updateIndicator);
+window.addEventListener('offline', updateIndicator);
+updateIndicator();
+</script>

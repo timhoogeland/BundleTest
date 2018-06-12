@@ -1,11 +1,12 @@
 <header id="nav">
 	<div class="logo">
-		<a href="index.jsp">
-			<img alt="Bundle Logo" src="img/logowhite.png">
+		<a href="index.jsp"> <img alt="Bundle Logo"
+			src="img/logowhite.png">
 		</a>
 	</div>
 
-	<input class="menu-btn" type="checkbox" id="menu-btn" /> <label class="menu-icon" for="menu-btn"> <span class="navicon"></span>
+	<input class="menu-btn" type="checkbox" id="menu-btn" /> <label
+		class="menu-icon" for="menu-btn"> <span class="navicon"></span>
 
 	</label>
 	<ul class="menu" id="menu">
@@ -19,7 +20,7 @@
 	</ul>
 
 	<footer>
-    	<p class="copyright">&#169; Bundle 2017-2018</p>
+		<p class="copyright">&#169; Bundle 2017-2018</p>
 	</footer>
 
 	<script>
@@ -55,8 +56,6 @@
 
 			})
 		})
-		
-		updateIndicator();
 	</script>
 </header>
 
