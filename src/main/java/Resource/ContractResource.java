@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 
 import Objects.Contract;
 import Objects.User;
-import PdfGenerator.GeneratePage;
+
 import Services.ServiceProvider;
 import Services.ContractService;
 

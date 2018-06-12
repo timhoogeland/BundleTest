@@ -344,11 +344,11 @@
 
 	<script type="text/javascript">
 	 $('#signature-pad').attr('width', $('#signature-pad').width());
-	
+
 		$(window).on('resize', function(){
 		      $('#signature-pad').attr('width', $('#signature-pad').width());
 		});
-	
+
 		var signaturePad = new SignaturePad(document
 				.getElementById('signature-pad'), {
 			backgroundColor : 'rgba(255, 255, 255, 0)',
@@ -357,7 +357,7 @@
 
 		var cancelButton = document.getElementById('clear');
 
-		
+
 		//saveButton.addEventListener('click', function(event) {
 		//	var data = signaturePad.toDataURL('image/png');
 		//	window.open(data);
@@ -411,30 +411,13 @@
 					type : "post",
 					data : $("#address").serialize(),
 
-				success : function(response) {
-
-						if (addressid == null) {
-							addressid = response["adressid"];
-						}
-
-						sendUserData();
-
-					},
-					error : function(response, textStatus, errorThrown) {
-
-						console.log("textStatus: " + textStatus);
-						console.log("errorThrown: " + errorThrown);
-						console.log("status: " + response.status);
-
-					}
-				});
-
-<<<<<<< HEAD
-=======
 						success : function(response) {
-							
+							addressid = response["adressid"];
+							console.log(addressid);
+							sendUserData();
+
 							addNotification('Contract PDF saved', "green", 6000);
-							
+
 						},
 						error : function(response, textStatus, errorThrown) {
 
@@ -445,8 +428,8 @@
 
 						}
 					});
-				};
->>>>>>> 15b6d6f938387f650a19765d410bb696ae2e8e84
+
+
 				function sendUserData() {
 
 					var formData = $("#user").serializeArray();
@@ -483,8 +466,7 @@
 
 						}
 					});
-				}
-				;
+				}	;
 
 				function sendLoanData() {
 					var formData = $("#loan").serializeArray();
@@ -541,7 +523,7 @@
 	</script>
 
 	<jsp:include page="parts/footer.jsp" />
-	
+
 	<div id="helpPopup" class="popup" style="display: none;">
 		<div>
 			<h2>New Contract explained</h2>
