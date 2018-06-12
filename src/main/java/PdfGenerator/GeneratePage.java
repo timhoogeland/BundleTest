@@ -44,6 +44,7 @@ public class GeneratePage {
 			
 			document.add(Chunk.NEWLINE);
 			document.add(new Paragraph("User information:",header));
+			document.add(new Paragraph("User identification number: " + userid));
 			document.add(new Paragraph("Firstname: " + object.getJsonString("firstname").toString()));
 			document.add(new Paragraph("Lastname: " + object.getJsonString("lastname").toString()));
 			document.add(new Paragraph("Phonenumber: " + object.getJsonString("phonenumber").toString()));
