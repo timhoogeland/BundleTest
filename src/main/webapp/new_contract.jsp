@@ -428,25 +428,7 @@
 
 					}
 				});
-
-<<<<<<< HEAD
-=======
-						success : function(response) {
-							
-							addNotification('Contract PDF saved', "green", 6000);
-							
-						},
-						error : function(response, textStatus, errorThrown) {
-
-							addNotification('Contract PDF not saved, contact admin', null, 6000);
-							console.log("textStatus: " + textStatus);
-							console.log("errorThrown: " + errorThrown);
-							console.log("status: " + response.status);
-
-						}
-					});
-				};
->>>>>>> 15b6d6f938387f650a19765d410bb696ae2e8e84
+						
 				function sendUserData() {
 
 					var formData = $("#user").serializeArray();
@@ -525,10 +507,13 @@
 						data : pdfData,
 
 						success : function(response) {
-
+							
+							addNotification('Contract PDF saved', "green", 6000);
+							
 						},
 						error : function(response, textStatus, errorThrown) {
 
+							addNotification('Contract PDF not saved, contact admin', null, 6000);
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);
