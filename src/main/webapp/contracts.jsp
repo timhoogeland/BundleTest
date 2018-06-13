@@ -19,7 +19,7 @@
 		<div id="mainLoader" class="loaderBlock">
         <div class="loader"></div>
     </div>
-    
+
 		<div id="contracts">
 			<ul class="flex-outer filterList">
 				<li><input type="text"
@@ -44,7 +44,7 @@
 	</main>
 
 	<jsp:include page="parts/footer.jsp" />
-	<script> 
+	<script>
 	$("#searchInput").keyup(function() {
 		// Split the current value of the filter textbox
 		var data = this.value.split(" ");
@@ -88,12 +88,12 @@
 							arg.toUpperCase()) >= 0;
 				};
 			});
-	
+
 	function getContracts(){
 		var sessionToken = window.sessionStorage.getItem("sessionToken");
-		
+
 		$.ajax({
-			url: "/bundlePWABackend/restservices/loan",
+			url: "/restservices/loan",
 			type: "get",
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader("Authorization",  "Bearer " + sessionToken);

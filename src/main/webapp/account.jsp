@@ -152,10 +152,10 @@
     	} else {
     		id = getParameterByName("id")
     	}
-    	
+
     	$('#edit').attr('onclick', "window.location.href='edit_account.jsp?id=" + id + "'");
-    	
-    	hr.open("GET", "/bundlePWABackend/restservices/user/" + id, true);
+
+    	hr.open("GET", "/restservices/user/" + id, true);
     	hr.setRequestHeader("Authorization",  "Bearer " + sessionToken);
 
     	hr.onreadystatechange = function() {
@@ -185,7 +185,7 @@
     			if (userData[0].userType == "applicant") {
     				$('#group').removeClass('hide');
     				var hr2 = new XMLHttpRequest();
-    				hr2.open("GET", "/bundlePWABackend/restservices/user/" + loanData.loanofficerid, true);
+    				hr2.open("GET", "/restservices/user/" + loanData.loanofficerid, true);
     				hr2.onreadystatechange = function() {
     					if (hr2.readyState == 4 && hr2.status == 200) {
     						$('#subLoader').fadeOut('fast');
@@ -204,7 +204,7 @@
     				hr2.send(null);
     			}
     		} else if (hr.readyState == 4) {
-    			if (hr.status == 403) {addNotification("Not Authorized")} 
+    			if (hr.status == 403) {addNotification("Not Authorized")}
     			else {
     			addNotification('Retrieving data failed with status ' + hr.status + '. Try again later.');
     				}

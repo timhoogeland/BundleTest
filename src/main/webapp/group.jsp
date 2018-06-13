@@ -61,7 +61,7 @@
 				addNotification("No group specified, try again from the groups page...");
 			} else {
 				id = getParameterByName("id");
-				hr.open("GET", "/bundlePWABackend/restservices/loangroup/" +id ,
+				hr.open("GET", "/restservices/loangroup/" +id ,
 						true);
 
 				hr.onreadystatechange = function() {
@@ -97,7 +97,7 @@
 
 				$
 						.ajax({
-							url : "/bundlePWABackend/restservices/user/" + id,
+							url : "/restservices/user/" + id,
 							type : "get",
 
 							success : function(response) {
