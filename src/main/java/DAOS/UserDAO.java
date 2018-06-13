@@ -105,8 +105,9 @@ public class UserDAO extends baseDAO {
     	 PreparedStatement pstmt = con.prepareStatement(query);
     	 
     	 pstmt.setInt(1, userId);
-    	 con.close();
     	 dbResultSet = pstmt.executeQuery();
+    	 con.close();
+
     	 
     	} catch (SQLException e) {
     		e.printStackTrace();
