@@ -415,20 +415,8 @@
 							addressid = response["adressid"];
 							console.log(addressid);
 							sendUserData();
-
-							addNotification('Contract PDF saved', "green", 6000);
-
-						},
-						error : function(response, textStatus, errorThrown) {
-
-							addNotification('Contract PDF not saved, contact admin', null, 6000);
-							console.log("textStatus: " + textStatus);
-							console.log("errorThrown: " + errorThrown);
-							console.log("status: " + response.status);
-
-						}
-					});
-
+					}
+				});
 
 				function sendUserData() {
 
@@ -507,10 +495,13 @@
 						data : pdfData,
 
 						success : function(response) {
-
+							
+							addNotification('Contract PDF saved', "green", 6000);
+							
 						},
 						error : function(response, textStatus, errorThrown) {
 
+							addNotification('Contract PDF not saved, contact admin', null, 6000);
 							console.log("textStatus: " + textStatus);
 							console.log("errorThrown: " + errorThrown);
 							console.log("status: " + response.status);

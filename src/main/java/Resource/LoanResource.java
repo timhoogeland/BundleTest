@@ -62,8 +62,19 @@ public class LoanResource {
 		for(Loan l : service.getAllLoans()){
 			jab.add(buildJson(l));
 		}
-		JsonArray array = jab.build();
-		return array.toString();
+		return jab.build().toString();
+	}
+	
+	@GET
+	@Path("/lastweek")
+	@Produces("application/json")
+	public String getLoansFromLastWeek(){
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for(Loan l : service.getLoansFromLastWeek()){
+			jab.add(buildJson(l));
+		}
+		return jab.build().toString();
 	}
 	
 	@GET
@@ -147,6 +158,14 @@ public class LoanResource {
     }
 	public JsonObjectBuilder getLoanJson(Loan loan){
 		return buildJson(loan);
+	}
+	
+	@GET
+	@Path("/groupless")
+	@Produces("application/json")
+	public String getGrouplessLoans(){
+		JsonArrayBuilder jab = service.getGrouplessLoans();
+		return jab.build().toString();
 	}
 }
 	
