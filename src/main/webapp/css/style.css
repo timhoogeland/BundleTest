@@ -555,6 +555,7 @@ tr:hover {
 .connection {
 	position: fixed;
 	bottom: 0px;
+	left: 225px;
 	width: 100%;
 }
 
@@ -731,6 +732,10 @@ progress::-moz-progress-bar {
 @media (max-width: 1150px) {
 	header {
 		width: 250px;
+	}
+	
+	.connection {
+		left: 125px;
 	}
 
 	#container {
@@ -1029,6 +1034,10 @@ progress::-moz-progress-bar {
 
 	.inlineProgress{
 		margin: 7px 0px 0px 0px;
+	}
+	
+	.connection {
+		left: 0px;
 	}
 
 }

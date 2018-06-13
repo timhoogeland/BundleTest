@@ -49,7 +49,7 @@
 
     </main>
     <script>
-
+        (function draw (){
         // set up the timeout variable
         var t;
         // setup the sizing function,
@@ -81,6 +81,7 @@
 
             }, 100); // the timeout should run after 100 milliseconds
         }
+        });
         $(window).on('resize', size);
         function redraw(animation) {
             var options = {};
@@ -89,6 +90,7 @@
             } else {
                 options.animation = true;
             }
+            draw();
             // ....
             // the rest of our chart drawing will happen here
             // ....
