@@ -13,7 +13,7 @@ import Objects.Group;
 public class GroupDAO extends baseDAO{
 	ResultSet dbResultSet = null;
 	
-	public List<Group> getGroup(ResultSet dbResultSet){
+	public List<Group> selectGroup(ResultSet dbResultSet){
 		List<Group> resultslist = new ArrayList<Group>();
 		try {
 			while (dbResultSet.next()) {
@@ -45,6 +45,7 @@ public class GroupDAO extends baseDAO{
 				Group group= new Group(0, 0, "", "", loanOfficerId, groupId);
 				resultslist.add(group);
 			}
+			con.close();
 			
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -64,12 +65,31 @@ public class GroupDAO extends baseDAO{
 			
 			dbResultSet = pstmt.executeQuery();
 			
+			con.close();
 		
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		
-		return getGroup(dbResultSet);
+		return selectGroup(dbResultSet);
+	}
+
+	public int newGroup(int loanOfficerId) {
+		String query = "INSERT INTO public.group(loanofficeridfk) VALUES(?) returning id";
+		int groupId = 0;
+		
+		try(Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loanOfficerId);
+			dbResultSet = pstmt.executeQuery();
+			con.close();
+			if(dbResultSet.next()) {
+				groupId = dbResultSet.getInt("id");
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return groupId;
 	}
 	
 }

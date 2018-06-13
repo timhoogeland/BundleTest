@@ -1,9 +1,12 @@
 package Resource;
 
+import java.util.Random;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,7 +16,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import Objects.Adress;
+import Objects.Address;
+import Objects.User;
+import PdfGenerator.RetrieveAddressData;
 import Services.AddressService;
 import Services.ServiceProvider;
 
@@ -21,7 +26,7 @@ import Services.ServiceProvider;
 public class AddressResource {
     private AddressService service = ServiceProvider.getAdressService();
 
-	    private JsonObjectBuilder buildJSON(Adress a) {
+	    private JsonObjectBuilder buildJSON(Address a) {
 	        JsonObjectBuilder job = Json.createObjectBuilder();
 
 	        job.add("adressid", a.getAdressId())
@@ -40,7 +45,7 @@ public class AddressResource {
 	    public String getAccounts() {
 	        JsonArrayBuilder jab = Json.createArrayBuilder();
 
-	        for (Adress a : service.getAllAdresses()) {
+	        for (Address a : service.getAllAdresses()) {
 	            jab.add(buildJSON(a));
 	        }
 
@@ -53,7 +58,7 @@ public class AddressResource {
 //	    @RolesAllowed({"beheerder","admin","user"})
 	    @Produces("application/json")
 	    public String getAdressByID(@PathParam("id") int id) {
-	        Adress c = service.getAdressByID(id);
+	        Address c = service.getAdressByID(id);
 	        if(c != null) {
 	            JsonArrayBuilder jab = Json.createArrayBuilder();
 	            jab.add(buildJSON(c));
@@ -71,10 +76,13 @@ public class AddressResource {
 	                               @FormParam("postalcode") String postalcode,
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
+
+	    	RetrieveAddressData data = new RetrieveAddressData();	        
 	    	
-	        Adress newAdress = new Adress(0, street, number, country, postalcode, description, location);
-	        Adress returnAdress = service.newAddress(newAdress);
+	        Address newAdress = new Address(street, number, country, postalcode, description, location);
+	        Address returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
+	        	data.setAdresData(newAdress);	        
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {
@@ -93,13 +101,25 @@ public class AddressResource {
 	    		 						@FormParam("description") String description,
 	    		 						@FormParam("location") String location){
 	    	
-	    	Adress updatedAdress = new Adress(addressId, street, number, country, postalcode, description, location);
-	    	Adress returnAdress = service.updateAddress(updatedAdress);
+	    	Address updatedAdress = new Address(addressId, street, number, country, postalcode, description, location);
+	    	Address returnAdress = service.updateAddress(updatedAdress);
 	        if (returnAdress != null) {
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {
 	            return Response.status(Response.Status.BAD_REQUEST).build();
 	        }
+	    }
+	    
+	    @DELETE
+	    @Produces("application/json")
+	    @Path("/{id}")
+	    public Response deleteAddress(	@PathParam("id") int addressId){
+	    
+	    	if (service.deleteAdress(addressId)){
+	    		return Response.ok().build();
+	    	} else {
+	    		return Response.status(Response.Status.BAD_REQUEST).build();
+	    	}
 	    }
 }

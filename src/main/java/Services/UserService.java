@@ -5,34 +5,31 @@ import java.util.List;
 import DAOS.UserDAO;
 import Objects.User;
 import Objects.UserLoanInformation;
+import Objects.UserWithAddress;
 
 public class UserService {
 	    private UserDAO userDAO = new UserDAO();
 
 	    public UserService() {}
 
-	    public List<User> getAllUsers() { 
-	    	return userDAO.findAll(); 
+	    public List<UserWithAddress> getAllUsers() { 
+	    	return userDAO.findAllUsers(); 
 	    	}
 
-	    public User getUserByID(int id) { 
+	    public UserWithAddress getUserByID(int id) { 
 	    	return userDAO.findById(id); 
 	    	}
-	    
-	    public int getIdByEmail(String name) { 
-	    	return userDAO.findIdByName(name); 
-	    	}
 
-	    public User update (User user) { 
+	    public UserWithAddress update (UserWithAddress user) { 
 	    	return userDAO.update(user); 
 	    	}
 
-	    public boolean delete (int userId) { 
-	    	return userDAO.delete(userId); 
+	    public boolean deleteUser (int userId) { 
+	    	return userDAO.deleteUser(userId); 
 	    	}
 
-	    public User newUser (User user) { 
-	    	return userDAO.save(user); 
+	    public UserWithAddress newUser (User user) { 
+	    	return userDAO.saveUser(user); 
 	    	}
 	    public List<UserLoanInformation> getUserLoanInformation(int userId){
 	    	return userDAO.getUserLoanInformation(userId);

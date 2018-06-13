@@ -215,6 +215,27 @@ header li a {
     padding: 0px 25px 0px 375px;
 }
 
+/* Charts styling begin */
+.container {
+    width: 200px;
+    margin: 0 auto;
+}
+.canvas-container {
+    min-height: 300px;
+    max-height: 600px;
+    position: relative;
+}
+.widget {
+    position: relative;
+    margin-bottom: 80px;
+    background: #efefef;
+    padding: 12px;
+    margin-bottom: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/* charts styling end */
 .block, .textBlock, .blockHalf {
 	position: relative;
 	float: left;
@@ -240,7 +261,8 @@ header li a {
 }
 
 #notificationBlock {
-	position: absolute;
+	position: fixed;
+	z-index: 100;
     width: 500px;
     top: 20px;
     right: 25px;
@@ -337,6 +359,10 @@ footer{
 	border: 0px solid #333333;
 	border-radius: 5px;
 	background: #33333328;
+}
+
+.formMargin {
+	margin: 30px 0px 100px 0px;
 }
 
 button {
@@ -513,21 +539,108 @@ tr:hover {
 	padding: 15px 0px;
 	height: 150px;
 }
-.groupPicture{
+
+.groupPicture {
 	width: 40px;
 	padding: 0px 0px;
 	height: 40px;
-
 }
+
+.blockGroup {
+	height: 195px;
+    margin: 15px;
+	overflow: auto;
+}
+
+.connection {
+	position: fixed;
+	bottom: 0px;
+	left: 225px;
+	width: 100%;
+}
+
+.connect {
+    z-index: 100;
+    width: 225px;
+    background-color: #000000b5;
+    margin: 0px auto 15px auto;
+    color: white;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.connect p {
+	padding: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.groupTitle{
+	padding: 0px 0px 25px 0px;
+}
+
+.groupButton {
+	min-width: 100%;
+	margin: 25px 0px 0px 0px;
+}
+
+.blockGroup label, .groupTotal label {
+	padding: 15px 0px 10px 0px;
+}
+
+.groupTotal {
+	background-color: #f7f7f7;
+	padding: 5px 15px 15px 15px;
+	border: 0.5px solid #e6e6e6;
+	border-radius: 5px;
+}
+
+.group {
+	padding: 10px 15px;
+    width: calc(33% - 50px);
+    margin: 15px 0px 0px 20px;
+    border: 0.5px solid #e6e6e6;
+    background-color: #fffbfb;
+}
+
+progress {
+	width: calc(100% - 10px);
+    color: #efb956;
+    background-color: #e8e7e7;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
 progress::-webkit-progress-bar {
-	background-color: #12736d;
+	width: calc(100% - 10px);
+	background-color: #e8e7e7;
+	border-radius: 5px;
+	margin-right: 10px;
 }
 
-.group{
-	height: 400px;
-	width: 400px;
-	float: left;
+progress::-webkit-progress-value {
+	background-color: #efb956;
+	border-radius: 5px;
 }
+
+progress::-moz-progress-bar {
+	width: calc(100% - 10px);
+	color: #efb956;
+	background-color: #e8e7e7;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+.filterList {
+	margin: 25px;
+	max-width: inherit;
+}
+
+.filterList input {
+    width: 100% !important;
+    margin: 0px !important;
+}
+
 
 .pf {
 	width: 130px;
@@ -556,6 +669,25 @@ progress::-webkit-progress-bar {
     animation: spin 2s linear infinite;
 }
 
+.loaderSmall {
+	border: 8px solid #e4e3e3;
+    border-top: 8px solid #12736d;
+    border-radius: 50%;
+    width: 40px;
+    position: absolute;
+    left: calc(15% - 20px);
+    top: calc(25% - 20px);
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+#searchInput{
+	width: 30%;
+    margin-left: 35px;
+    color: black;
+    height: 25px;
+}
+
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -567,13 +699,43 @@ progress::-webkit-progress-bar {
     height: 100%;
     min-height: 600px;
     background-color: rgb(253, 253, 253, 1);
+    z-index: 2;
+}
+
+.subLoaderBlock {
+	position: absolute;
+    width: 210px;
+    height: 300px;
+    background-color: rgb(253, 253, 253, 1);
     z-index: 1;
+}
+
+.block2{
+    height: 182px;
+}
+
+.blockUnderHalf {
+	padding: 0px 0px 0px 180px;
+    width: calc(100% - 180px);
+    max-width: 67%;
+}
+
+.transactionTable {
+	margin: 0px 0px 75px 0px;
+}
+
+.transactionTable tr td {
+	padding: 15px 0px;
 }
 
 /* Bigger than 1150 px tablet*/
 @media (max-width: 1150px) {
 	header {
 		width: 250px;
+	}
+	
+	.connection {
+		left: 125px;
 	}
 
 	#container {
@@ -636,14 +798,12 @@ progress::-webkit-progress-bar {
 
 	.tdHide  {
 		background-color: #ffffff;
-		width: 95%;
 	    padding: 5px;
 	    display: inline-block;
 	}
 
 	.small {
 		display: inline-block;
-    	width: 48%;
 	}
 
 	.desktop {
@@ -673,10 +833,40 @@ progress::-webkit-progress-bar {
 		width: 100%;
 		padding: 1em 0.65em;
 	}
-	
+
 	.blockHalf {
 	    width: calc(50% - 50px);
 	    padding: 15px 25px 0px 25px;
+	}
+
+	.group {
+	    width: calc(50% - 45px);
+	    padding: 10px;
+	}
+
+
+	.blockUnderHalf {
+		padding: 0px;
+	    width: inherit;
+    	max-width: initial;
+	}
+
+	.notification p{
+		padding: 5px 0px;
+	}
+	
+		
+	.filterList {
+		margin: 0px 0px 25px 0px;
+	}
+}
+
+/* Smaller than 900 px (phone) */
+@media (max-width: 900px){
+	.group {
+	    width: calc(100% - 30px);
+    	padding: 10px;
+    	margin: 15px 0px;
 	}
 }
 
@@ -688,13 +878,16 @@ progress::-webkit-progress-bar {
 	}
 
 	.logo img {
-		width: 100px;
-		padding: 25px 25px;
+	    width: 75px;
+    	padding: 15px 25px;
 	}
 
 	header {
-		position: relative;
-		width: 100%;
+	    position: fixed;
+	    width: 100%;
+	    box-shadow: 0px 4px 5px 0px rgba(0,0,0,.2);
+	    height: inherit;
+    	z-index: 3;
 	}
 
 	.welcomeBlock h1 {
@@ -718,7 +911,7 @@ progress::-webkit-progress-bar {
 	}
 
 	#container {
-		padding: 15px;
+	    padding: 75px 15px 15px 15px;
 	}
 
 	footer {
@@ -748,7 +941,7 @@ progress::-webkit-progress-bar {
 		display: initial;
 		cursor: pointer;
 	    float: right;
-	    padding: 24px 20px;
+        padding: 6px 20px;
 	    position: relative;
 	    user-select: none;
 	    color: #f4f4f4;
@@ -766,6 +959,7 @@ progress::-webkit-progress-bar {
 	#notificationBlock {
 	    width: 100%;
 	    right: 15px;
+	    top: 100px;
 	}
 
 	.notification {
@@ -803,7 +997,7 @@ progress::-webkit-progress-bar {
 	.popup div h2 {
 		width: calc(100% - 50px);
 	}
-	
+
 	.buttonImg {
 	    width: 78px;
 	    padding: 15px;
@@ -811,21 +1005,41 @@ progress::-webkit-progress-bar {
 	    top: 90px;
     	left: 40px;
 	}
-	
+
 	.loader {
 		top: calc(10% - 40px);
 	}
-	
+
+	.subLoaderBlock {
+	    width: 100%;
+    	height: 250px;
+	}
+
 	.pf {
 	    width: 220px;
 	    margin: 0px auto 20px auto;
 	    border-radius: 5px;
 	    height: 220px;
-	    
 	}
+
 	.blockHalf h2 {
 		text-align: center;
 	}
+
+	.group {
+	    width: calc(100% - 20px);
+    	padding: 10px;
+    	margin: 15px 0px;
+	}
+
+	.inlineProgress{
+		margin: 7px 0px 0px 0px;
+	}
+	
+	.connection {
+		left: 0px;
+	}
+
 }
 
 /* For landscape mode on phones */

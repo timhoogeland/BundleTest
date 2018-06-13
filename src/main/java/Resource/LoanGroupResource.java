@@ -4,22 +4,28 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import Objects.Group;
+import Objects.Loan;
 import Objects.LoanGroup;
 import Objects.LoanGroupInformation;
 import Services.LoanGroupService;
-import Services.LoanGroupServiceProvider;
+import Services.LoanService;
+import Services.ServiceProvider;
 
 
 @Path("/loangroup")
 public class LoanGroupResource {
-	private LoanGroupService service = LoanGroupServiceProvider.getLoanGroupService();
+	private LoanGroupService service = ServiceProvider.getLoanGroupService();
 	
 	private JsonObjectBuilder buildJSON(LoanGroup l){
 		JsonObjectBuilder job = Json.createObjectBuilder();
@@ -64,12 +70,36 @@ public class LoanGroupResource {
 	@Produces("application/json")
 	public String getLoanGroupByGroupId(@PathParam("groupId") int groupId){
 		JsonArrayBuilder jab = Json.createArrayBuilder();
+		JsonArrayBuilder secondJab = Json.createArrayBuilder();
+		LoanService loanService = ServiceProvider.getLoanService();
+		LoanResource loanResource = new LoanResource();
 		
 		for(LoanGroup l : service.getLoanGroupById(groupId)){
-			jab.add(buildJSON(l));
+			JsonObjectBuilder job = Json.createObjectBuilder();
 			
+			job.add("loanid", l.getLoanId());
+			
+			for (Loan i : loanService.getLoanById(l.getLoanId())){
+				secondJab.add(loanResource.buildJson(i));
+			}
+			
+			job.add("loaninformation", secondJab);			
+			
+			jab.add(job);
 		}
 		JsonArray array = jab.build();
 		return array.toString();
+	}
+	
+	@POST
+	@Path("/{groupId}/{loanId}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response addLoanToGroup(	@PathParam("groupId") int groupId,
+									@PathParam("loanId") int loanId){
+		if(service.addLoantoGroup(groupId, loanId)){
+			return Response.ok().build();
+		} else {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 	}
 }
