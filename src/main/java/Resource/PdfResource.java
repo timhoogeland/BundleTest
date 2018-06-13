@@ -45,7 +45,8 @@ public class PdfResource {
 		File file = File.createTempFile("contract_" + userIdFk, ".pdf");
 	
 		PdfReader reader = new PdfReader("test1.2.pdf");
-		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File(file.getName())));
+		
+		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File("\\target\\classes\\"+file.getName())));
 		AcroFields form = stamper.getAcroFields();
 		form.setField("firstname",firstname );
 		form.setField("lastname", lastname);
