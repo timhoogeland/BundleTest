@@ -1,4 +1,4 @@
-/*var version = 'v1';
+var version = 'v1';
 
 self.addEventListener("install", function(event) {
 	  console.log('WORKER: install event in progress.');
@@ -10,8 +10,21 @@ self.addEventListener("install", function(event) {
 	        	'index.jsp',
 	        	'login.jsp',
 	        	'account.jsp',
+	        	'contract.jsp',
 	        	'contracts.jsp',
-	        	'allaccounts.jsp'
+	        	'allaccounts.jsp',
+	        	'new_contract.jsp',
+	        	'new_group.jsp',
+	        	'group.jsp',
+	        	'groups.jsp',
+	        	'loan.jsp',
+	        	'edit_account.jsp',
+	        	'edit_loan.jsp',
+
+	        	'edit_contract.jsp',
+	        	'dashboard.jsp',
+	        	'group.jsp'
+
 	        ]);
 	      })
 	      .then(function() {
@@ -23,26 +36,26 @@ self.addEventListener("install", function(event) {
 self.addEventListener("fetch", function(event) {
 	  console.log('WORKER: fetch event in progress.');
 
-	   We should only cache GET requests, and deal with the rest of method in the
-	     client-side, by handling failed POST,PUT,PATCH,etc. requests.
-	  
+//	   We should only cache GET requests, and deal with the rest of method in the
+//	     client-side, by handling failed POST,PUT,PATCH,etc. requests.
+
 	  if (event.request.method !== 'GET') {
-	     If we don't block the event as shown below, then the request will go to
-	       the network as usual.
-	    
+//	     If we don't block the event as shown below, then the request will go to
+//	       the network as usual.
+
 	    console.log('WORKER: fetch event ignored.', event.request.method, event.request.url);
 	    return;
 	  }
-	   Similar to event.waitUntil in that it blocks the fetch event on a promise.
-	     Fulfillment result will be used as the response, and rejection will end in a
-	     HTTP response indicating failure.
-	  
+//	   Similar to event.waitUntil in that it blocks the fetch event on a promise.
+//	     Fulfillment result will be used as the response, and rejection will end in a
+//	     HTTP response indicating failure.
+
 	  event.respondWith(
 	    caches
-	       This method returns a promise that resolves to a cache entry matching
-	         the request. Once the promise is settled, we can then provide a response
-	         to the fetch request.
-	      
+//	       This method returns a promise that resolves to a cache entry matching
+//	         the request. Once the promise is settled, we can then provide a response
+//	         to the fetch request.
+
 	      .match(event.request)
 	      .then(function(cached) {
 	        var networked = fetch(event.request)
@@ -106,4 +119,3 @@ self.addEventListener("activate", function(event) {
 	      })
 	  );
 	});
-*/

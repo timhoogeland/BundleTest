@@ -188,9 +188,6 @@
     			$('#description').text(UCFirst(checkValue(loanData.description)));
     			$('#contract').attr("onclick", 'window.location.href="' + loanData.contractpdf + '"');
     			
-    			//$('#group').text(checkValue(id));
-    			//$('#groupButton').attr("onclick", 'window.location.href="group.jsp?id=' + id + '"');
-    			
     			getUser(loanData.useridfk);
 
     		} else if (hr.readyState == 4) {
@@ -209,8 +206,11 @@
     		if (hr.readyState == 4 && hr.status == 200) {
     			$('#mainLoader').fadeOut('fast');
     			var userData = JSON.parse(hr.responseText);
+    			var loanData = userData[0].loaninformation[0];
 
     			$('#name').text(checkValue(userData[0].firstName + " " + userData[0].lastName));
+    			$('#group').text(checkValue(loanData.groupid));
+    			$('#groupButton').attr("onclick", 'window.location.href="group.jsp?id=' + loanData.groupid + '"');
     			$('#status').text(UCFirst(checkValue(userData[0].status)));	
 
     		} else if (hr.readyState == 4) {

@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 
 import Objects.Address;
 import Objects.User;
-import PdfGenerator.RetrieveData;
+import PdfGenerator.RetrieveAddressData;
 import Services.AddressService;
 import Services.ServiceProvider;
 
@@ -77,12 +77,12 @@ public class AddressResource {
 	                               @FormParam("description") String description,
 	                               @FormParam("location") String location){
 
-	    	RetrieveData data = new RetrieveData();	        
+	    	RetrieveAddressData data = new RetrieveAddressData();	        
 	    	
 	        Address newAdress = new Address(street, number, country, postalcode, description, location);
 	        Address returnAdress = service.newAddress(newAdress);
 	        if (returnAdress != null) {
-	        	data.setAdresData(newAdress);
+	        	data.setAdresData(newAdress);	        
 	            String a = buildJSON(returnAdress).build().toString();
 	            return Response.ok(a).build();
 	        } else {

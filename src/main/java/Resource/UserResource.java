@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import Objects.User;
 import PdfGenerator.RetrieveData;
+import PdfGenerator.RetrieveUserData;
 import Objects.UserLoanInformation;
 import Objects.UserWithAddress;
 import Services.ServiceProvider;
@@ -33,7 +34,6 @@ public class UserResource {
         JsonObjectBuilder job = Json.createObjectBuilder();
         JsonObjectBuilder secondJob = Json.createObjectBuilder();
         JsonArrayBuilder secondJab = Json.createArrayBuilder();
-        
         secondJob.add("adressid", user.getAddressId())
         	.add("street", user.getStreet())
         	.add("number", user.getNumber())
@@ -53,6 +53,7 @@ public class UserResource {
         job.add("photo", user.getPhoto());
         job.add("dateofbirth", user.getDateOfBirth().toString());
         job.add("username", user.getUsername());
+        job.add("loanInformation", secondJab);
         
         return job;
     }
@@ -98,7 +99,6 @@ public class UserResource {
     @Produces("application/json")
     public String getAccountByID(@PathParam("id") int id) {
         UserWithAddress user = service.getUserByID(id);
-        
         if(user != null) {
         	JsonObjectBuilder job = Json.createObjectBuilder();
             JsonArrayBuilder jab = Json.createArrayBuilder();
@@ -133,9 +133,8 @@ public class UserResource {
 
     						@FormParam("dateofbirth") String dateOfBirth) throws ParseException
     {
+
     	RetrieveData data = new RetrieveData();
-    	
-    					
 
     	java.util.Date utilDateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
 		java.sql.Date sqlDateOfBirth = new java.sql.Date(utilDateOfBirth.getTime());
@@ -159,6 +158,8 @@ public class UserResource {
         User newUser = new User(userType, firstname, lastname, phonenumber, password, salt, status, addressIdFk, photo, sqlDateOfBirth, username);
         UserWithAddress returnUser = service.newUser(newUser);
         if (returnUser != null) {
+
+
         	data.setUserData(newUser);
         	String a = buildJSON(returnUser).build().toString();
             return Response.ok(a).build();
@@ -221,4 +222,3 @@ public class UserResource {
         }
     }
 }
-

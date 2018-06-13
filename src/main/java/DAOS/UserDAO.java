@@ -137,7 +137,7 @@ public class UserDAO extends baseDAO {
             pstmt.setInt(8, user.getAddressId());
             pstmt.setString(9, user.getUsername());
             pstmt.setInt(10, user.getUserId());
-            
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -400,11 +400,7 @@
                     },
                     error: function (response, textStatus, errorThrown) {
 
-                        alert("User could not be updated.")
-
-                        console.log("textStatus: " + textStatus);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log("status: " + response.status);
+                    	addNotification('User could not be updated');
 
                     }
                 });
@@ -417,16 +413,12 @@
 
                     success: function (response) {
 
-                        alert("Account updated succesfully.");
+                        addNotification('Account updated succesfully', 'green');
 
                     },
                     error: function (response, textStatus, errorThrown) {
 
-                        alert("Address could not be updated.")
-
-                        console.log("textStatus: " + textStatus);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log("status: " + response.status);
+                        addNotification('Address could not be updated');
 
                     }
                 });

@@ -215,6 +215,27 @@ header li a {
     padding: 0px 25px 0px 375px;
 }
 
+/* Charts styling begin */
+.container {
+    width: 200px;
+    margin: 0 auto;
+}
+.canvas-container {
+    min-height: 300px;
+    max-height: 600px;
+    position: relative;
+}
+.widget {
+    position: relative;
+    margin-bottom: 80px;
+    background: #efefef;
+    padding: 12px;
+    margin-bottom: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/* charts styling end */
 .block, .textBlock, .blockHalf {
 	position: relative;
 	float: left;
@@ -240,7 +261,8 @@ header li a {
 }
 
 #notificationBlock {
-	position: absolute;
+	position: fixed;
+	z-index: 100;
     width: 500px;
     top: 20px;
     right: 25px;
@@ -337,6 +359,10 @@ footer{
 	border: 0px solid #333333;
 	border-radius: 5px;
 	background: #33333328;
+}
+
+.formMargin {
+	margin: 30px 0px 100px 0px;
 }
 
 button {
@@ -518,13 +544,35 @@ tr:hover {
 	width: 40px;
 	padding: 0px 0px;
 	height: 40px;
-
 }
 
 .blockGroup {
 	height: 195px;
     margin: 15px;
 	overflow: auto;
+}
+
+.connection {
+	position: fixed;
+	bottom: 0px;
+	left: 225px;
+	width: 100%;
+}
+
+.connect {
+    z-index: 100;
+    width: 225px;
+    background-color: #000000b5;
+    margin: 0px auto 15px auto;
+    color: white;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.connect p {
+	padding: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .groupTitle{
@@ -581,6 +629,16 @@ progress::-moz-progress-bar {
 	background-color: #e8e7e7;
 	border-radius: 5px;
 	margin-right: 10px;
+}
+
+.filterList {
+	margin: 25px;
+	max-width: inherit;
+}
+
+.filterList input {
+    width: 100% !important;
+    margin: 0px !important;
 }
 
 
@@ -675,6 +733,10 @@ progress::-moz-progress-bar {
 	header {
 		width: 250px;
 	}
+	
+	.connection {
+		left: 125px;
+	}
 
 	#container {
 		padding: 0px 25px 0px 300px;
@@ -736,14 +798,12 @@ progress::-moz-progress-bar {
 
 	.tdHide  {
 		background-color: #ffffff;
-		width: 95%;
 	    padding: 5px;
 	    display: inline-block;
 	}
 
 	.small {
 		display: inline-block;
-    	width: 48%;
 	}
 
 	.desktop {
@@ -790,6 +850,15 @@ progress::-moz-progress-bar {
 	    width: inherit;
     	max-width: initial;
 	}
+
+	.notification p{
+		padding: 5px 0px;
+	}
+	
+		
+	.filterList {
+		margin: 0px 0px 25px 0px;
+	}
 }
 
 /* Smaller than 900 px (phone) */
@@ -816,8 +885,9 @@ progress::-moz-progress-bar {
 	header {
 	    position: fixed;
 	    width: 100%;
+	    box-shadow: 0px 4px 5px 0px rgba(0,0,0,.2);
 	    height: inherit;
-    	z-index: 1;
+    	z-index: 3;
 	}
 
 	.welcomeBlock h1 {
@@ -889,6 +959,7 @@ progress::-moz-progress-bar {
 	#notificationBlock {
 	    width: 100%;
 	    right: 15px;
+	    top: 100px;
 	}
 
 	.notification {
@@ -949,9 +1020,7 @@ progress::-moz-progress-bar {
 	    margin: 0px auto 20px auto;
 	    border-radius: 5px;
 	    height: 220px;
-
 	}
-
 
 	.blockHalf h2 {
 		text-align: center;
@@ -961,6 +1030,14 @@ progress::-moz-progress-bar {
 	    width: calc(100% - 20px);
     	padding: 10px;
     	margin: 15px 0px;
+	}
+
+	.inlineProgress{
+		margin: 7px 0px 0px 0px;
+	}
+	
+	.connection {
+		left: 0px;
 	}
 
 }
