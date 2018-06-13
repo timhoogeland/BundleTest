@@ -43,10 +43,11 @@ public class PdfResource {
 							 @FormParam("loandescription") String loanDescription,
 							 @FormParam("useridfk") String userIdFk) throws IOException, DocumentException{
 		
-	
+		String path =ClassLoader.getSystemResource("test1.2.pdf").getPath();
+		System.out.println(path);
 		PdfReader reader = new PdfReader("test1.2.pdf");
 		
-		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File("\\target\\classes\\"+"contract_" + userIdFk, ".pdf")));
+		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File(path+"contract_" + userIdFk, ".pdf")));
 		AcroFields form = stamper.getAcroFields();
 		form.setField("firstname",firstname );
 		form.setField("lastname", lastname);
