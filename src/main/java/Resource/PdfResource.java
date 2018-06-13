@@ -44,8 +44,8 @@ public class PdfResource {
 							 @FormParam("useridfk") String userIdFk) throws IOException, DocumentException{
 		File file = File.createTempFile("contract_" + userIdFk, ".pdf");
 	
-		PdfReader reader = new PdfReader("/target/test1.2.pdf");
-		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File("//target//"+file.getName())));
+		PdfReader reader = new PdfReader("test1.2.pdf");
+		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(new File(file.getName())));
 		AcroFields form = stamper.getAcroFields();
 		form.setField("firstname",firstname );
 		form.setField("lastname", lastname);
